@@ -25,11 +25,14 @@ uv run dataset/voting_record.py \
 **Expected output:**
 ```
 Fetching voting record for O000172...
+Filtering by Congress: 119
   Fetching House votes for Congress 119...
+    Fetched 250 votes so far...
     Fetched 432 votes so far...
   Limited to checking the 50 most recent roll call votes
 
   Checking 50 roll call votes for member O000172...
+    Processed 25/50 votes...
     Processed 50/50 votes...
 
 ============================================================
@@ -42,6 +45,8 @@ Voting Summary:
   Total Votes: 50
   Yea: 18 (36.0%)
   Nay: 20 (40.0%)
+  Aye: 2 (4.0%)
+  No: 8 (16.0%)
   Not Voting: 1 (2.0%)
 
 Detailed voting record saved to: data/votes_O000172.json

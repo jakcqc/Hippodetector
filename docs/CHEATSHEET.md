@@ -77,7 +77,8 @@ nay_votes = [v for v in data['votes'] if v['memberVote'] == 'Nay']
 
 **Missing API key:**
 ```bash
-echo "CONGRESS_API=your_key" >> .env
+cp .env.example .env
+# Then edit .env and add your API key
 ```
 
 **Member not found:**
@@ -96,17 +97,20 @@ echo "CONGRESS_API=your_key" >> .env
 ## Example Workflow
 
 ```bash
-# 1. Fetch votes
+# 1. Get member list (one-time setup)
+uv run dataset/fetch_congress_members.py
+
+# 2. Fetch votes
 uv run dataset/voting_record.py --bioguide-id O000172 --congress 119 --max-votes 50
 
-# 2. View summary
+# 3. View summary
 cat data/votes_O000172.json | jq '.voteSummary'
 
-# 3. Find specific votes
+# 4. Find specific votes
 cat data/votes_O000172.json | jq '.votes[] | select(.memberVote == "Nay")'
 
-# 4. Analyze in Python
-python -c "
+# 5. Analyze in Python
+python3 -c "
 import json
 with open('data/votes_O000172.json') as f:
     data = json.load(f)

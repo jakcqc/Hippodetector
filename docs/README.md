@@ -35,9 +35,13 @@ cp .env.example .env
 ### 2. Get Congress API Key
 
 1. Sign up at https://api.congress.gov/sign-up/
-2. Add your key to `.env`:
+2. Copy the example environment file:
+   ```bash
+   cp .env.example .env
    ```
-   CONGRESS_API=your_key_here
+3. Add your API key to `.env`:
+   ```bash
+   CONGRESS_API=your_api_key_here
    ```
 
 ### 3. Fetch Voting Records
@@ -113,11 +117,15 @@ The script creates a JSON file in `data/votes_<bioguide_id>.json` with:
 
 ```json
 {
+  "fetchedAtUtc": "2026-02-14T19:18:33.799864+00:00",
   "member": {
+    "bioguideId": "O000172",
     "name": "Alexandria Ocasio-Cortez",
     "party": "Democratic",
-    "state": "New York"
+    "state": "New York",
+    "chamber": "House of Representatives"
   },
+  "congress": 119,
   "voteSummary": {
     "Yea": 18,
     "Nay": 20,
@@ -128,25 +136,33 @@ The script creates a JSON file in `data/votes_<bioguide_id>.json` with:
 }
 ```
 
+**Note:** Data files (*.json, *.csv) in the `data/` directory are ignored by git and must be generated locally by running the scripts.
+
 ## Project Structure
 
 ```
 Hippodetector/
 ├── dataset/
-│   ├── dataGrabber.py          # Fetch Congress member list
-│   └── voting_record.py        # Fetch member voting records
+│   ├── fetch_congress_members.py          # Fetch Congress member list (prerequisite)
+│   └── voting_record.py        # Fetch member voting records (main script)
 ├── data/
-│   ├── congress_members.json   # List of all Congress members
-│   └── votes_*.json           # Voting records by member
+│   ├── .gitkeep               # Preserves directory in git
+│   ├── congress_members.json   # List of all Congress members (generated)
+│   └── votes_*.json           # Voting records by member (generated)
 ├── LLM/
 │   └── archia_*.py            # LLM integration
 ├── docs/
 │   ├── README.md              # This file
-│   └── voting_record_api.md   # Voting record API docs
+│   ├── voting_record_api.md   # Complete API reference
+│   ├── examples.md            # Practical examples
+│   └── CHEATSHEET.md          # Quick reference
 ├── .env.example               # Environment variables template
+├── .gitignore                 # Ignores data/*.json and data/*.csv
 ├── pyproject.toml            # Project dependencies
 └── README.md                 # Main project README
 ```
+
+**Note:** Files marked as "(generated)" are created by running the scripts and are not committed to git.
 
 ## Common Bioguide IDs
 
@@ -162,9 +178,19 @@ Here are some commonly searched politicians:
 
 ### Finding More IDs
 
-1. Check `data/congress_members.json`
-2. Visit https://bioguide.congress.gov/
-3. Search on https://www.congress.gov/members
+1. **Generate the member list**:
+   ```bash
+   uv run dataset/fetch_congress_members.py
+   ```
+
+2. **Search the list**:
+   ```bash
+   cat data/congress_members.json | grep -i "member_name" -A 3
+   ```
+
+3. **Online resources**:
+   - https://bioguide.congress.gov/
+   - https://www.congress.gov/members
 
 ## Next Steps
 

@@ -50,8 +50,12 @@ uv run dataset/voting_record.py --bioguide-id P000197 --congress 119 --max-votes
 
 4. **Get Congress API Key**:
    - Sign up at: https://api.congress.gov/sign-up/
-   - Add your key to `.env` file:
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env
      ```
+   - Add your API key to `.env` file:
+     ```bash
      CONGRESS_API=your_api_key_here
      ```
 
@@ -94,9 +98,13 @@ uv run dataset/voting_record.py --bioguide-id P000197 --congress 119
 
 You can find Bioguide IDs in several ways:
 
-1. **Use the member list**:
+1. **Use the member list** (recommended):
    ```bash
-   cat data/congress_members.json | grep -A 2 "Pelosi"
+   # First, fetch the member list if you don't have it
+   uv run dataset/fetch_congress_members.py
+
+   # Then search for a member
+   cat data/congress_members.json | grep -i "pelosi" -A 3
    ```
 
 2. **Search on Congress.gov**:
@@ -108,6 +116,8 @@ You can find Bioguide IDs in several ways:
    - Alexandria Ocasio-Cortez: `O000172`
    - Kevin McCarthy: `M001165`
    - Hakeem Jeffries: `J000294`
+
+**Note:** The `--name` search feature requires `data/congress_members.json` to exist. Run `fetch_congress_members.py` first if using name search.
 
 ## API Reference
 
@@ -304,6 +314,19 @@ uv run dataset/voting_record.py --bioguide-id P000197 --max-votes 50
 - Wait a few minutes before retrying
 - Reduce `--max-votes` value
 - The Congress.gov API allows 5,000 requests/hour
+
+### Data Files Not in Repository
+
+**Issue:** The `data/` directory seems empty after cloning.
+
+**Solution:** This is expected! Data files are ignored by git (see `.gitignore`). You need to generate them:
+```bash
+# Get the member list
+uv run dataset/fetch_congress_members.py
+
+# Fetch voting records
+uv run dataset/voting_record.py --bioguide-id <ID> --congress 119 --max-votes 50
+```
 
 ## Advanced Usage
 
