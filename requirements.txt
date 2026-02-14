@@ -1,2 +1,2 @@
-# This project currently uses only Python standard-library modules.
-# Keep this file for uv workflows (e.g., `uv pip sync requirements.txt`).
+openai>=1.0.0
+python-dotenv>=1.0.0
