@@ -2,19 +2,22 @@ import json
 import os
 import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from dotenv import load_dotenv
 import httpx
+from pydantic import ValidationError
+
+try:
+    from llm.archia_model_types import ArchiaModelChoice, ArchiaModelRef
+except ModuleNotFoundError:
+    from archia_model_types import ArchiaModelChoice, ArchiaModelRef
 
 
 DEFAULT_BASE_URL = "https://api.archia.app/v1"
 TARGET_PROVIDERS = ("openai", "anthropic", "google")
-DEFAULT_MODELS: Dict[str, str] = {
-    "openai": "gpt-5-mini",
-    "anthropic": "priv-claude-3-5-haiku-20241022",
-    "google": "gemini-2.5-flash",
-}
+DEFAULT_OPENAI_MODEL: ArchiaModelRef = "gpt-5-mini"
+DEFAULT_ANTHROPIC_MODEL: ArchiaModelRef = "priv-claude-3-5-haiku-20241022"
 
 
 def _read_env() -> None:
@@ -37,13 +40,22 @@ def _response_text(response: Any) -> str:
     return json.dumps(response, ensure_ascii=False)
 
 
-def _provider_models() -> Dict[str, str]:
+def _to_model_ref(value: str) -> Optional[ArchiaModelRef]:
+    try:
+        choice = ArchiaModelChoice(model=value)
+        return choice.model
+    except ValidationError:
+        return None
+
+
+def _provider_models() -> Dict[str, Optional[ArchiaModelRef]]:
+    openai_requested = os.getenv("ARCHIA_MODEL_OPENAI", DEFAULT_OPENAI_MODEL)
+    anthropic_requested = os.getenv("ARCHIA_MODEL_ANTHROPIC", DEFAULT_ANTHROPIC_MODEL)
+    google_requested = os.getenv("ARCHIA_MODEL_GOOGLE", "")
     return {
-        "openai": os.getenv("ARCHIA_MODEL_OPENAI", DEFAULT_MODELS["openai"]),
-        "anthropic": os.getenv(
-            "ARCHIA_MODEL_ANTHROPIC", DEFAULT_MODELS["anthropic"]
-        ),
-        "google": os.getenv("ARCHIA_MODEL_GOOGLE", DEFAULT_MODELS["google"]),
+        "openai": _to_model_ref(openai_requested),
+        "anthropic": _to_model_ref(anthropic_requested),
+        "google": _to_model_ref(google_requested) if google_requested else None,
     }
 
 
@@ -54,13 +66,17 @@ def _fetch_archia_models(client: httpx.Client, base_url: str) -> list[dict]:
     return payload.get("models", [])
 
 
-def _resolve_provider_models(client: httpx.Client, base_url: str) -> Dict[str, str]:
+def _resolve_provider_models(
+    client: httpx.Client, base_url: str
+) -> Dict[str, ArchiaModelRef]:
     catalog = _fetch_archia_models(client, base_url)
     preferred = _provider_models()
-    selected: Dict[str, str] = {}
+    selected: Dict[str, ArchiaModelRef] = {}
 
     for provider in TARGET_PROVIDERS:
         requested = preferred[provider]
+        if not requested:
+            continue
         exact = next(
             (
                 m
@@ -75,7 +91,10 @@ def _resolve_provider_models(client: httpx.Client, base_url: str) -> Dict[str, s
 
         fallback = next((m for m in catalog if m.get("provider") == provider), None)
         if fallback:
-            selected[provider] = str(fallback.get("system_name"))
+            system_name = str(fallback.get("system_name"))
+            fallback_model = _to_model_ref(system_name)
+            if fallback_model:
+                selected[provider] = fallback_model
 
     return selected
 
@@ -123,8 +142,10 @@ def main() -> None:
                 print()
                 continue
 
+            typed_model: ArchiaModelRef = model
+
             payload = {
-                "model": model,
+                "model": typed_model,
                 "input": f"Hello world from Archia using {provider}.",
             }
             response = client.post(f"{base_url}/responses", json=payload)
@@ -135,7 +156,7 @@ def main() -> None:
                 "utf-8", errors="replace"
             )
 
-            print(f"[{provider}] {model}")
+            print(f"[{provider}] {typed_model}")
             print(safe_text)
             print()
 
