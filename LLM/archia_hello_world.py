@@ -100,12 +100,51 @@ def _resolve_provider_models(
 
 
 def _print_archia_model_list(client: httpx.Client, base_url: str) -> None:
+    print("Fetching full model catalog...\n")
     catalog = _fetch_archia_models(client, base_url)
-    print("Archia model list (provider -> system_name):")
+
+    print("All models (provider -> system_name | type | capabilities):")
     for item in catalog:
         provider = item.get("provider", "unknown")
         system_name = item.get("system_name", "unknown")
-        print(f"- {provider} -> {system_name}")
+        model_type = item.get("type", "unknown")
+        capabilities = item.get("capabilities", [])
+        print(f"- {provider} -> {system_name} | type={model_type} | capabilities={capabilities}")
+    print()
+
+    # Try detecting embedding models from catalog
+    embedding_models = [
+        m for m in catalog
+        if (
+            str(m.get("type", "")).lower() == "embedding"
+            or "embedding" in str(m.get("capabilities", "")).lower()
+        )
+    ]
+
+    if embedding_models:
+        print("Embedding-capable models found in catalog:")
+        for m in embedding_models:
+            print(f"- {m.get('provider')} -> {m.get('system_name')}")
+    else:
+        print("No embedding models detected in base catalog.\n")
+
+    # Try explicit embedding query
+    print("Trying explicit embedding model query...\n")
+    try:
+        response = client.get(f"{base_url}/models?type=embedding")
+        response.raise_for_status()
+        payload = response.json()
+        models = payload.get("models", [])
+
+        if models:
+            print("Embedding models via ?type=embedding:")
+            for m in models:
+                print(f"- {m.get('provider')} -> {m.get('system_name')}")
+        else:
+            print("No models returned for ?type=embedding.")
+    except Exception as e:
+        print(f"Embedding query failed: {e}")
+
     print()
 
 
