@@ -33,3 +33,16 @@
 - [x] Extract unique bills from Burlison's votes (273 bills)
 - [x] Fetch bill details for Burlison's bills (comprehensive data)
 - [x] Generate complete Burlison profile JSON (data/members/B001316.json)
+
+### RAG System Setup
+- [ ] Create docker-compose.yml for Qdrant
+- [ ] Define Qdrant collection schemas (bills and press releases)
+- [ ] Test Qdrant connection and basic operations
+- [ ] Generate embeddings for Burlison's bills (273 bills with vote context)
+- [ ] Generate embeddings for Burlison's press releases (10 releases)
+- [ ] Load bill embeddings into Qdrant with metadata
+- [ ] Load press release embeddings into Qdrant with metadata
+- [ ] Implement semantic search function (query → retrieve relevant items)
+- [ ] Build LLM reasoning layer for contradiction detection
+- [ ] Test RAG pipeline with sample queries on Burlison data
+- [ ] Add natural language query interface to Streamlit UI
