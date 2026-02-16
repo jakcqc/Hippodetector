@@ -79,10 +79,10 @@ The UI will open at `http://localhost:8501` showing press releases by member.
 
 ```bash
 # Fetch voting records
-uv run dataset/voting_record.py --bioguide-id B001310 --congress 119 --max-votes 50
+uv run dataset/voting_record.py --bioguide-id B001316 --congress 119 --max-votes 50
 
 # Scrape press releases
-uv run dataset/pressReleaseScraper.py --bioguide-ids B001310
+uv run dataset/pressReleaseScraper.py --bioguide-ids B001316
 
 # Fetch bill details (coming soon)
 ```
@@ -241,7 +241,7 @@ Hippodetector/
 Here are some commonly searched politicians:
 
 ### Test Case
-- **Eric Burlison** (MO-7): `B001310` ← *Primary test case for RAG system*
+- **Eric Burlison** (MO-7): `B001316` ← *Primary test case for RAG system*
 
 ### House Members (Current)
 - Alexandria Ocasio-Cortez (NY-14): `O000172`

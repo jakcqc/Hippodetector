@@ -4,7 +4,8 @@
 
 ### RAG System
 - [ ] Build per-member database (votes + bills + press releases)
-- [ ] Generate embeddings and load into vector DB (Chroma/FAISS/Pinecone)
+- [ ] Set up Qdrant vector DB with Docker Compose
+- [ ] Generate embeddings and load into Qdrant
 - [ ] Build RAG pipeline with retrieval + LLM reasoning
 - [ ] Add natural language query interface to Streamlit
 
@@ -21,9 +22,9 @@
 - [x] Define per-member database schema and JSON structure
 
 ### Pipeline Development
-- [ ] Find Burlison's bioguide ID
+- [x] Find Burlison's bioguide ID
 - [ ] Build member profile aggregation script
-- [ ] Implement voting record fetcher for specific bioguide ID
+- [x] Implement voting record fetcher for specific bioguide ID
 - [ ] Implement bill details fetcher (takes list of bill IDs from votes)
 - [ ] Link existing press release data
 

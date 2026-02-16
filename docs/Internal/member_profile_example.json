@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "bioguideId": "B001310",
+    "bioguideId": "B001316",
     "name": "Eric Burlison",
     "firstName": "Eric",
     "lastName": "Burlison",
@@ -11,7 +11,7 @@
     "chamber": "House",
     "currentMember": true,
     "profileUrl": "https://burlison.house.gov",
-    "imageUrl": "https://burlison.house.gov/sites/evo-subsites/burlison.house.gov/files/evo-media-image/burlison_official.jpg"
+    "imageUrl": "https://www.congress.gov/img/member/b001316_200.jpg"
   },
 
   "dataCollection": {
@@ -19,7 +19,7 @@
     "votesCount": 342,
     "billsCount": 287,
     "pressReleasesCount": 156,
-    "votesSource": "https://clerk.house.gov/members/B001310",
+    "votesSource": "https://clerk.house.gov/members/B001316",
     "billsSource": "https://api.congress.gov/v3/bill",
     "pressReleasesSource": "https://burlison.house.gov/media/press-releases"
   },
