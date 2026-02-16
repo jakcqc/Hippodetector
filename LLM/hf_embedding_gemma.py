@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import gc
 import os
 from dataclasses import dataclass
 from typing import Sequence
@@ -7,7 +8,14 @@ from typing import Sequence
 import torch
 import torch.nn.functional as F
 from dotenv import load_dotenv
+from tqdm import tqdm
 from transformers import AutoModel, AutoTokenizer
+
+try:
+    from huggingface_hub import InferenceClient
+    HF_INFERENCE_AVAILABLE = True
+except ImportError:
+    HF_INFERENCE_AVAILABLE = False
 
 
 MODEL_NAME = "google/embeddinggemma-300m"
@@ -20,7 +28,7 @@ class NeighborResult:
 
 
 class EmbeddingGemmaClient:
-    """GPU-first embedding client for google/embeddinggemma-300m."""
+    """GPU-first embedding client with fallback: GPU → HF Inference API → CPU."""
 
     def __init__(
         self,
@@ -34,24 +42,80 @@ class EmbeddingGemmaClient:
         if not hf_token:
             raise RuntimeError(f"Missing {token_env} in environment or .env.")
 
-        if device is None:
-            device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.device = torch.device(device)
+        self.model_name = model_name
+        self.hf_token = hf_token
         self.normalize = normalize
+        self.mode = None  # Will be set to "cuda", "hf_api", or "cpu"
+        self.inference_client = None
 
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name,
-            token=hf_token,
-        )
-        self.model = AutoModel.from_pretrained(
-            model_name,
-            token=hf_token,
-        ).to(self.device)
-        self.model.eval()
+        # Determine execution mode with smart fallback
+        if device is None:
+            self.mode = self._select_best_mode()
+        else:
+            # User explicitly specified device
+            if device == "hf_api":
+                self.mode = "hf_api"
+            else:
+                self.mode = device
+
+        # Initialize based on mode
+        if self.mode == "hf_api":
+            print(f"🌐 Using Hugging Face Inference API for embeddings")
+            if not HF_INFERENCE_AVAILABLE:
+                raise RuntimeError("huggingface_hub not installed. Run: pip install huggingface_hub")
+            self.inference_client = InferenceClient(token=hf_token)
+            self.device = torch.device("cpu")  # For any local tensor ops
+            self.tokenizer = None
+            self.model = None
+        else:
+            # Local execution (cuda or cpu)
+            print(f"💻 Using local {self.mode.upper()} for embeddings")
+            self.device = torch.device(self.mode)
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name,
+                token=hf_token,
+            )
+            self.model = AutoModel.from_pretrained(
+                model_name,
+                token=hf_token,
+            ).to(self.device)
+            self.model.eval()
+
+    def _select_best_mode(self) -> str:
+        """Smart fallback: GPU (if compatible) → HF API → CPU."""
+
+        # Try GPU first
+        if torch.cuda.is_available():
+            try:
+                capability = torch.cuda.get_device_capability(0)
+                # Require compute capability >= 7.0 (sm_70)
+                if capability[0] >= 7:
+                    return "cuda"
+                else:
+                    print(f"⚠️  GPU detected (sm_{capability[0]}{capability[1]}) incompatible with PyTorch build (requires sm_70+)")
+            except Exception as e:
+                print(f"⚠️  Could not check GPU capability: {e}")
+
+        # Try HF Inference API as second fallback
+        if HF_INFERENCE_AVAILABLE:
+            try:
+                # Quick test to see if API is accessible
+                test_client = InferenceClient(token=self.hf_token)
+                # Don't actually call API here, just check client can be created
+                print("✓ Falling back to Hugging Face Inference API (faster than CPU)")
+                return "hf_api"
+            except Exception as e:
+                print(f"⚠️  HF Inference API not available: {e}")
+
+        # Final fallback to CPU
+        print("⚠️  Falling back to CPU (this will be slower)")
+        return "cpu"
 
     @property
     def embedding_dim(self) -> int:
         # Full model embedding size, no truncation.
+        if self.mode == "hf_api":
+            return 768  # embeddinggemma-300m dimension
         return int(self.model.config.hidden_size)
 
     def embed_text(self, text: str) -> list[float]:
@@ -61,10 +125,45 @@ class EmbeddingGemmaClient:
         self,
         texts: Sequence[str],
         max_length: int = 8192,
+        batch_size: int | None = None,
     ) -> list[list[float]]:
         if not texts:
             return []
 
+        # Use HF Inference API if in API mode
+        if self.mode == "hf_api":
+            return self._embed_texts_api(texts)
+
+        # Auto-batch on CPU to avoid OOM, process all at once on GPU
+        if batch_size is None:
+            batch_size = 8 if self.mode == "cpu" else len(texts)
+
+        # Process in batches if needed
+        if len(texts) <= batch_size:
+            return self._embed_texts_batch(texts, max_length)
+
+        # Batch processing with progress bar
+        all_embeddings = []
+        total_batches = (len(texts) + batch_size - 1) // batch_size
+
+        with tqdm(total=len(texts), desc="Generating embeddings", unit="text") as pbar:
+            for i in range(0, len(texts), batch_size):
+                batch = texts[i:i + batch_size]
+                batch_embeddings = self._embed_texts_batch(batch, max_length)
+                all_embeddings.extend(batch_embeddings)
+                pbar.update(len(batch))
+
+                # Free memory between batches
+                gc.collect()
+
+        return all_embeddings
+
+    def _embed_texts_batch(
+        self,
+        texts: Sequence[str],
+        max_length: int = 8192,
+    ) -> list[list[float]]:
+        """Process a single batch of texts."""
         inputs = self.tokenizer(
             list(texts),
             padding=True,
@@ -83,6 +182,52 @@ class EmbeddingGemmaClient:
             if self.normalize:
                 embeddings = F.normalize(embeddings, p=2, dim=1)
         return embeddings.detach().cpu().tolist()
+
+    def _embed_texts_api(self, texts: Sequence[str]) -> list[list[float]]:
+        """Generate embeddings using HF Inference API."""
+        try:
+            # API returns embeddings directly
+            embeddings = []
+            for text in texts:
+                result = self.inference_client.feature_extraction(
+                    text,
+                    model=self.model_name
+                )
+                # Result is already a list of floats
+                embeddings.append(result)
+
+            # Normalize if requested
+            if self.normalize:
+                embeddings_tensor = torch.tensor(embeddings, dtype=torch.float32)
+                embeddings_tensor = F.normalize(embeddings_tensor, p=2, dim=1)
+                return embeddings_tensor.tolist()
+            return embeddings
+        except Exception as e:
+            # If API fails, fall back to CPU
+            print(f"⚠️  HF Inference API failed: {e}")
+            print("⚠️  Falling back to CPU for this batch")
+            self._fallback_to_cpu()
+            return self.embed_texts(texts)  # Retry with CPU mode
+
+    def _fallback_to_cpu(self) -> None:
+        """Emergency fallback from API to CPU mode."""
+        if self.mode == "hf_api":
+            print("🔄 Switching to CPU mode...")
+            self.mode = "cpu"
+            self.device = torch.device("cpu")
+            self.inference_client = None
+
+            # Load model locally
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                self.model_name,
+                token=self.hf_token,
+            )
+            self.model = AutoModel.from_pretrained(
+                self.model_name,
+                token=self.hf_token,
+            ).to(self.device)
+            self.model.eval()
+            print("✓ Switched to CPU mode")
 
     @staticmethod
     def _mean_pool(token_embeddings: torch.Tensor, attention_mask: torch.Tensor) -> torch.Tensor:

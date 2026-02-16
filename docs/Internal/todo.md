@@ -6,7 +6,7 @@
 - [x] Build per-member database (votes + bills + press releases)
 - [x] Set up Qdrant vector DB with Docker Compose
 - [x] Create embedding generation script
-- [ ] Load embeddings into Qdrant (ready to test)
+- [x] Load embeddings into Qdrant (369 bills + 10 PRs loaded for Burlison)
 - [ ] Build RAG pipeline with retrieval + stance extraction + contradiction detection
 - [ ] Add natural language query interface to Streamlit
 
@@ -40,7 +40,7 @@
 - [x] Define Qdrant collection schemas (bills and press releases)
 - [x] Test Qdrant connection and basic operations
 - [x] Build embedding generation script (RAG/load_embeddings.py)
-- [ ] Load embeddings into Qdrant (test with Burlison: 273 bills + 10 PRs)
+- [x] Load embeddings into Qdrant (369 bill-vote pairs + 10 PRs using CPU batching)
 - [ ] Implement semantic search function (RAG/search.py)
   - Query embedding generation
   - Qdrant similarity search

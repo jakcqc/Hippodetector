@@ -50,9 +50,11 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 - `data/burlison_press_releases.json` - Press release data (Burlison test case)
 
 ### Documentation
+- **`docs/architecture.md`** - System architecture, design decisions, data flow
 - `docs/Internal/member_profile_schema.json` - JSON schema definition for per-member databases
 - `docs/Internal/member_profile_example.json` - Example member profile with sample data
 - `docs/Internal/todo.md` - Current development checklist
+- `RAG/README.md` - RAG component setup and usage
 
 ## Current State
 - ✅ Press release scraper working
@@ -63,7 +65,11 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 - ✅ Streamlit UI for browsing press releases
 - ✅ Per-member database schema defined
 - ✅ **Burlison test case complete** (432 votes, 273 bills, 10 press releases)
-- ⏳ RAG system (next: Qdrant setup + embeddings)
+- ✅ **RAG infrastructure complete**:
+  - Docker Compose setup for Qdrant
+  - Embedding generation with smart fallback (GPU → HF API → CPU)
+  - 369 bill-vote pairs + 10 press releases loaded into Qdrant
+- ⏳ RAG pipeline (next: semantic search, stance extraction, contradiction detection)
 
 ## Test Case
 **Eric Burlison (B001316)** - Complete test case for the data collection pipeline
