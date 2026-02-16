@@ -46,10 +46,12 @@
   - Qdrant similarity search
   - Return top-k bills and press releases
   - Tested with "federal regulations" query - returns relevant bills + press releases
-- [ ] Build post-retrieval stance extraction (RAG/extract_stances.py)
+- [x] Build post-retrieval stance extraction (RAG/extract_stances.py)
   - Use dataset/memberOpinions.py IssueStance schema
   - Extract structured stances from retrieved press releases
   - Map bill subjects to issue categories
+  - Dual LLM provider support (Archia/Claude or Gemini)
+  - Tested with Gemini - correctly extracts stances with structured output
 - [ ] Build contradiction detector (RAG/detect_contradictions.py)
   - Compare extracted stances vs vote positions
   - Match topics: bill subjects ↔ issue categories
