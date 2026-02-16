@@ -20,9 +20,11 @@ uv run dataset/voting_record.py --bioguide-id O000172 --congress 119 --max-votes
 
 ## Documentation
 
-📚 **Full documentation available in the [`docs/`](docs/) directory:**
-- [Getting Started Guide](docs/README.md)
-- [Voting Record API Documentation](docs/voting_record_api.md)
+📚 **Documentation:**
+- [System Architecture](docs/architecture.md) - How Hippodetector works
+- [Command Reference](docs/CHEATSHEET.md) - Quick command guide
+- [Voting Record API](docs/voting_record_api.md) - API documentation
+- [RAG System](RAG/README.md) - Vector database and semantic search setup
 
 ---
 
