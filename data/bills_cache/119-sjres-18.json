@@ -1,0 +1,22 @@
+{
+  "billId": "119-sjres-18",
+  "congress": 119,
+  "type": "SJRES",
+  "number": "18",
+  "title": "A joint resolution disapproving the rule submitted by the Bureau of Consumer Financial Protection relating to \"Overdraft Lending: Very Large Financial Institutions\".",
+  "summary": "<p>This joint resolution nullifies the final rule issued by the Consumer Financial Protection Bureau titled <em>Overdraft Lending: Very Large Financial Institutions</em> and published on December 30, 2024. The rule revises provisions regarding charges for insufficient funds in a customer’s bank account (i.e., overdrafts) at very large financial institutions. Under&nbsp;the rule, these institutions must (1) cap overdraft charges at $5; (2) with justification, cap charges at a higher amount; or (3) handle overdrafts as credit and comply with applicable Truth in Lending Act disclosure requirements.</p>",
+  "latestAction": {
+    "actionDate": "2025-05-09",
+    "text": "Became Public Law No: 119-10."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Bank accounts, deposits, capital",
+    "Banking and financial institutions regulation",
+    "Congressional oversight",
+    "Consumer Financial Protection Bureau",
+    "User charges and fees"
+  ],
+  "cosponsors": 16,
+  "url": "https://www.congress.gov/bill/119th-congress/senate-joint-resolution/18"
+}

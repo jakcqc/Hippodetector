@@ -1,0 +1,21 @@
+{
+  "billId": "119-sjres-28",
+  "congress": 119,
+  "type": "SJRES",
+  "number": "28",
+  "title": "A joint resolution disapproving the rule submitted by the Bureau of Consumer Financial Protection relating to \"Defining Larger Participants of a Market for General-Use Digital Consumer Payment Applications\".",
+  "summary": "<p>This joint resolution nullifies the final rule issued by the Consumer Financial Protection Bureau (CFPB) titled <em>Defining Larger Participants of a Market for General-Use Digital Consumer Payment Applications</em> and published on December 10, 2024. The rule defines larger participants in the general-use digital consumer payment application market (i.e., payment apps) that are subject to&nbsp;CFPB supervisory authority. The rule defines larger participants in this market as nonbanks (1) with an annual volume of at least 50 million transactions, and (2) that are not small business concerns.</p>",
+  "latestAction": {
+    "actionDate": "2025-05-09",
+    "text": "Became Public Law No: 119-11."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Congressional oversight",
+    "Consumer Financial Protection Bureau",
+    "Consumer affairs",
+    "Internet, web applications, social media"
+  ],
+  "cosponsors": 5,
+  "url": "https://www.congress.gov/bill/119th-congress/senate-joint-resolution/28"
+}

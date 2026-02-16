@@ -1,0 +1,28 @@
+{
+  "billId": "119-hres-939",
+  "congress": 119,
+  "type": "HRES",
+  "number": "939",
+  "title": "Impeaching Donald John Trump, President of the United States for high crimes and misdemeanors.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-12-11",
+    "actionTime": "14:08:37",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Congressional-executive branch relations",
+    "Criminal investigation, prosecution, interrogation",
+    "Federal officials",
+    "Government ethics and transparency, public corruption",
+    "Government studies and investigations",
+    "Judges",
+    "Members of Congress",
+    "Presidents and presidential powers, Vice Presidents",
+    "Subversive activities",
+    "Terrorism"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/939"
+}

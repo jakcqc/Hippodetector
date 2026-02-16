@@ -1,0 +1,21 @@
+{
+  "billId": "119-hres-878",
+  "congress": 119,
+  "type": "HRES",
+  "number": "878",
+  "title": "Disapproving the behavior of Representative Jesús G. \"Chuy\" García of Illinois.",
+  "summary": "<p>This resolution expresses that the House of Representatives disapproves of the behavior of Representative Jesús G. “Chuy” García of Illinois.</p>",
+  "latestAction": {
+    "actionDate": "2025-11-18",
+    "actionTime": "15:12:21",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "House of Representatives",
+    "Illinois",
+    "Legislative rules and procedure",
+    "Members of Congress"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/878"
+}

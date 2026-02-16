@@ -1,0 +1,20 @@
+{
+  "billId": "119-hr-77",
+  "congress": 119,
+  "type": "HR",
+  "number": "77",
+  "title": "Midnight Rules Relief Act",
+  "summary": "<p><strong>Midnight Rules Relief Act</strong></p><p>This bill allows Congress to disapprove multiple regulations under one joint resolution of disapproval if the regulations were submitted for review during a portion  of the final year of a President's term.</p><p> Under current law, the Congressional Review Act generally&nbsp;provides for a period of additional review during the succeeding Congress for regulations that were submitted during the last 60 legislative days of the prior Congress. However, each joint resolution may disapprove of only one regulation.</p>",
+  "latestAction": {
+    "actionDate": "2025-02-13",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Congressional oversight",
+    "Legislative rules and procedure",
+    "Presidents and presidential powers, Vice Presidents"
+  ],
+  "cosponsors": 12,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/77"
+}

@@ -1,0 +1,22 @@
+{
+  "billId": "119-hres-888",
+  "congress": 119,
+  "type": "HRES",
+  "number": "888",
+  "title": "Censuring and condemning Delegate Stacey Plaskett and removing her from the House Permanent Select Committee on Intelligence for conduct that reflects discreditably on the House of Representatives for colluding with convicted felony sex offender Jeffrey Epstein during a congressional hearing.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-11-18",
+    "actionTime": "21:07:23",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Congressional committees",
+    "House Permanent Select Committee on Intelligence",
+    "Legislative rules and procedure",
+    "Members of Congress",
+    "Virgin Islands"
+  ],
+  "cosponsors": 21,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/888"
+}

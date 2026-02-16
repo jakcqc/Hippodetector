@@ -1,0 +1,19 @@
+{
+  "billId": "119-hr-1047",
+  "congress": 119,
+  "type": "HR",
+  "number": "1047",
+  "title": "GRID Power Act",
+  "summary": "<p><strong>Guaranteeing Reliability through the Interconnection of Dispatchable Power Act or the GRID Power Act</strong></p><p>This bill requires the Federal Energy Regulatory Commission (FERC) to issue a rule that revises the prioritization and approval process for interconnection requests for dispatchable power projects.&nbsp;(Under the bill,<em> d</em><em>ispatchable power</em> generally refers to an an electric energy generation resource capable of providing known and forecastable electric supply in time intervals necessary to ensure grid reliability.)</p><p>First, the rule must address the&nbsp;efficiency and effectiveness of the existing procedures&nbsp;for processing interconnection&nbsp;requests for new&nbsp;dispatchable power projects to ensure that new projects that improve grid reliability and resource adequacy can interconnect to the electric grid quickly, cost-effectively, and reliably.&nbsp;</p><p>Second, the rule must revise the pro forma Large Generator Interconnection Procedures, and the pro forma Large Generator Interconnection Agreement as appropriate,&nbsp;to authorize transmission providers to submit proposals to FERC  to adjust the interconnection queue of the provider to prioritize new dispatchable power projects that will improve grid reliability and resource adequacy by assigning those projects a higher positions in the queue. FERC must review and approve or deny such proposals within 60 days after the proposal is submitted.</p>",
+  "latestAction": {
+    "actionDate": "2025-09-19",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Electric power generation and transmission",
+    "Energy efficiency and conservation",
+    "Energy storage, supplies, demand"
+  ],
+  "cosponsors": 17,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/1047"
+}

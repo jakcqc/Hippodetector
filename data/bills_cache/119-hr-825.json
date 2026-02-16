@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-825",
+  "congress": 119,
+  "type": "HR",
+  "number": "825",
+  "title": "Assisting Small Businesses Not Fraudsters Act",
+  "summary": "<p><strong>Assisting Small Businesses Not Fraudsters Act</strong></p><p>This bill prohibits individuals convicted of certain financial crimes from receiving assistance from the Small Business Administration (SBA).</p><p>Specifically, the bill prohibits individuals who have been convicted of a crime involving financial misconduct or a false statement with respect to certain COVID-19 loans (e.g., Paycheck Protection Program loans, Restaurant Revitalization Fund grants, and Shuttered Venue Operators grants) from receiving any financial assistance from the SBA (other than a disaster loan).</p><p>The prohibition includes SBA assistance to small businesses that have an owner, officer, director, or key employee who has been convicted of such a crime.</p>",
+  "latestAction": {
+    "actionDate": "2025-02-25",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Small Business and Entrepreneurship."
+  },
+  "subjects": [
+    "Credit and credit markets",
+    "Criminal investigation, prosecution, interrogation",
+    "Fraud offenses and financial crimes",
+    "Government lending and loan guarantees",
+    "Small business"
+  ],
+  "cosponsors": 3,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/825"
+}

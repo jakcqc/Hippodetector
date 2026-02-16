@@ -1,0 +1,19 @@
+{
+  "billId": "119-hr-2683",
+  "congress": 119,
+  "type": "HR",
+  "number": "2683",
+  "title": "Remote Access Security Act",
+  "summary": "<p><strong>Remote Access Security Act</strong></p><p>This bill broadens the scope of the U.S. export control system to include remote access of items. <em>Remote access</em> means (1) access to an item subject to the jurisdiction of the United States by a foreign person through a network connection, including the internet or a cloud computing service, from a location other than where the item is physically located; or (2) any other form of access specified in regulations promulgated by the Department of Commerce.</p><p>The Export Control Reform Act of 2018 (ECRA), which is implemented through the Export Administration Regulations, provides a permanent statutory basis for controlling the export of dual-use goods (e.g., items with both civilian and military uses) and certain military&nbsp;parts and components. This bill applies export controls under&nbsp;ECRA to remote access of items, thereby allowing Commerce's Bureau of Industry and Security to issue licenses and impose penalties related to remote access of controlled items.</p>",
+  "latestAction": {
+    "actionDate": "2026-01-13",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs."
+  },
+  "subjects": [
+    "Computers and information technology",
+    "Presidents and presidential powers, Vice Presidents",
+    "Trade restrictions"
+  ],
+  "cosponsors": 17,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/2683"
+}

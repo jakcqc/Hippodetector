@@ -1,0 +1,22 @@
+{
+  "billId": "119-hr-1919",
+  "congress": 119,
+  "type": "HR",
+  "number": "1919",
+  "title": "Anti-CBDC Surveillance State Act",
+  "summary": "<p><strong>Anti-CBDC Surveillance State Act&nbsp; </strong></p><p>This bill prohibits a Federal Reserve bank from offering products or services directly to an individual, maintaining an account on behalf of an individual, or issuing a central bank digital currency (i.e., a digital dollar). Further, the Board of Governors of the Federal Reserve System is prohibited from using a central bank digital currency to implement monetary policy or from testing, studying, creating, or implementing a central bank digital currency, with exceptions as provided by the bill.</p>",
+  "latestAction": {
+    "actionDate": "2025-07-17",
+    "actionTime": "16:02:03",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Bank accounts, deposits, capital",
+    "Computers and information technology",
+    "Currency",
+    "Digital media",
+    "Financial services and investments"
+  ],
+  "cosponsors": 135,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/1919"
+}

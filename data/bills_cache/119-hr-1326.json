@@ -1,0 +1,31 @@
+{
+  "billId": "119-hr-1326",
+  "congress": 119,
+  "type": "HR",
+  "number": "1326",
+  "title": "DOE and USDA Interagency Research Act",
+  "summary": "<p><strong>DOE and USDA Interagency Research Act</strong></p><p>This bill requires the Department of Energy and Department of Agriculture to carry out cross-cutting and collaborative research and development activities through the establishment of an interagency agreement.</p><p>The agencies are authorized to (1) carry out reimbursable agreements in order to maximize research and development effectiveness, and (2) collaborate with other federal agencies. Further, the interagency agreement must require the use of a competitive, merit-reviewed process, which considers applications from federal agencies, national laboratories, institutions of higher education, and nonprofit institutions.</p><p>Research and development activities may include</p><ul><li>collaborative research in a variety of focus areas such as machine learning and artificial intelligence,&nbsp;biofuels and biobased&nbsp;products, grid modernization and security, rural technology development, and wildfire risks and prevention;</li><li>developing methods to accommodate large voluntary standardized and integrated data sets on agricultural, environmental, supply chain, and economic information;</li><li>supporting research infrastructure and workforce development; and</li><li>collaborative research and development on ways to improve agriculture operations and processing efficiencies, and reduce greenhouse gas emissions.</li></ul>",
+  "latestAction": {
+    "actionDate": "2025-03-25",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Agricultural practices and innovations",
+    "Agricultural research",
+    "Alternative and renewable resources",
+    "Climate change and greenhouse gases",
+    "Department of Agriculture",
+    "Department of Energy",
+    "Energy research",
+    "Energy storage, supplies, demand",
+    "Fires",
+    "Forests, forestry, trees",
+    "Pest management",
+    "Research administration and funding",
+    "Research and development",
+    "Water use and supply"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/1326"
+}

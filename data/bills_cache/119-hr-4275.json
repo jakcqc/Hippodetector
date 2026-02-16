@@ -1,0 +1,35 @@
+{
+  "billId": "119-hr-4275",
+  "congress": 119,
+  "type": "HR",
+  "number": "4275",
+  "title": "Coast Guard Authorization Act of 2025",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-07-23",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Commerce, Science, and Transportation."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Advisory bodies",
+    "Alaska",
+    "Alaska Natives and Hawaiians",
+    "Assault and harassment offenses",
+    "Atmospheric science and weather",
+    "Aviation and airports",
+    "Border security and unlawful immigration",
+    "Citizenship and naturalization",
+    "Civics education",
+    "Civil actions and liability",
+    "Coast guard",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Crime prevention",
+    "Crime victims",
+    "Criminal investigation, prosecution, interrogation",
+    "Criminal justice information and records"
+  ],
+  "cosponsors": 4,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/4275"
+}

@@ -1,0 +1,21 @@
+{
+  "billId": "119-hres-189",
+  "congress": 119,
+  "type": "HRES",
+  "number": "189",
+  "title": "Censuring Representative Al Green of Texas.",
+  "summary": "<p>This resolution censures Representative Al Green.</p>",
+  "latestAction": {
+    "actionDate": "2025-03-06",
+    "actionTime": "10:30:45",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Government ethics and transparency, public corruption",
+    "House of Representatives",
+    "Members of Congress",
+    "Texas"
+  ],
+  "cosponsors": 34,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/189"
+}

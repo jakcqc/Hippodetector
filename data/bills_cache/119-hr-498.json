@@ -1,0 +1,22 @@
+{
+  "billId": "119-hr-498",
+  "congress": 119,
+  "type": "HR",
+  "number": "498",
+  "title": "Do No Harm in Medicaid Act",
+  "summary": "<p><strong>Do No Harm in Medicaid Act</strong></p><p>This bill prohibits federal Medicaid payment for specified gender transition procedures for individuals under the age of 18. The bill defines these procedures to mean those that are intended to change the body of an individual to no longer correspond to the individual's biological sex (male or female), including specified surgeries, implants, and medications (e.g., hormones).</p><p>The bill excludes procedures that are provided to an individual under the age of 18 with the consent of a parent or legal guardian and that are intended to (1) rectify early puberty, genetic disorders, or chromosomal abnormalities; (2) reverse prior gender transition procedures; or (3) prevent imminent death or impairment of a major bodily function.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-18",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Finance."
+  },
+  "subjects": [
+    "Child health",
+    "Health programs administration and funding",
+    "Medicaid",
+    "Prescription drugs",
+    "Sex, gender, sexual orientation discrimination",
+    "Surgery and anesthesia"
+  ],
+  "cosponsors": 6,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/498"
+}

@@ -1,0 +1,19 @@
+{
+  "billId": "119-hjres-117",
+  "congress": 119,
+  "type": "HJRES",
+  "number": "117",
+  "title": "Relating to a national emergency by the President on July 30, 2025.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-09-15",
+    "actionTime": "18:56:58",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Presidents and presidential powers, Vice Presidents",
+    "War and emergency powers"
+  ],
+  "cosponsors": 7,
+  "url": "https://www.congress.gov/bill/119th-congress/house-joint-resolution/117"
+}

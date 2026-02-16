@@ -1,0 +1,18 @@
+{
+  "billId": "119-hconres-58",
+  "congress": 119,
+  "type": "HCONRES",
+  "number": "58",
+  "title": "Denouncing the horrors of socialism.",
+  "summary": "<p>This concurrent resolution denounces socialism and opposes the implementation of socialist policies in the United States.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-01",
+    "text": "Received in the Senate."
+  },
+  "subjects": [
+    "Economic theory",
+    "Political movements and philosophies"
+  ],
+  "cosponsors": 63,
+  "url": "https://www.congress.gov/bill/119th-congress/house-concurrent-resolution/58"
+}

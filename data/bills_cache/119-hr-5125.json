@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-5125",
+  "congress": 119,
+  "type": "HR",
+  "number": "5125",
+  "title": "District of Columbia Judicial Nominations Reform Act of 2025",
+  "summary": "<p><strong>District of Columbia Judicial Nominations Reform Act</strong></p><p>This bill terminates the District of Columbia (DC) Judicial Nomination Commission. </p><p>Currently, the commission recommends to the President nominees for judges for DC's Superior Court and Court of Appeals, who must then be confirmed by the Senate. The commission also appoints the chief judges for these courts. The bill terminates the commission's involvement&nbsp;in nominations and requires the President to appoint the chief judges.</p>",
+  "latestAction": {
+    "actionDate": "2025-09-18",
+    "text": "Received in the Senate."
+  },
+  "subjects": [
+    "Advisory bodies",
+    "District of Columbia",
+    "Judges",
+    "Presidents and presidential powers, Vice Presidents",
+    "State and local courts"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/5125"
+}

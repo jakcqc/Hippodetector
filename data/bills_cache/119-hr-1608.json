@@ -1,0 +1,28 @@
+{
+  "billId": "119-hr-1608",
+  "congress": 119,
+  "type": "HR",
+  "number": "1608",
+  "title": "Department of Homeland Security Vehicular Terrorism Prevention and Mitigation Act of 2025",
+  "summary": "<p><strong>Department of Homeland Security Vehicular Terrorism Prevention and Mitigation Act of 2025</strong></p><p>This bill directs the Department of Homeland Security (DHS) to submit a report to Congress on the department's efforts to prevent, deter, and respond to vehicular terrorism (i.e., an action that utilizes automotive transportation to commit terrorism). DHS must submit the report in coordination with the Transportation Security Administration and the Cybersecurity and Infrastructure Security Agency.</p><p>Among other things, the report on vehicular terrorism must include</p><ul><li>an assessment of the current and emerging threats;</li><li>a review of higher-risk locations and events that may be vulnerable, including critical infrastructure sites&nbsp;(e.g., airports and government facilities);</li><li>a description of DHS’s coordination efforts with federal, state, local, tribal, and territorial law enforcement agencies related to prevention; and</li><li>recommendations for the research, development, and deployment of technologies to detect, deter, and mitigate vehicular terrorism.</li></ul><p>DHS must submit a classified report to Congress, but may include an unclassified executive summary. DHS must publish the executive summary on the department's&nbsp;website.</p><p>In addition,&nbsp;DHS must&nbsp;brief Congress on the report's findings, conclusions, and recommendations.</p>",
+  "latestAction": {
+    "actionDate": "2025-11-18",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "Aviation and airports",
+    "Congressional oversight",
+    "Crime prevention",
+    "Government buildings, facilities, and property",
+    "Health facilities and institutions",
+    "Industrial facilities",
+    "Motor vehicles",
+    "Navigation, waterways, harbors",
+    "Public transit",
+    "Public-private cooperation",
+    "State and local government operations",
+    "Terrorism"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/1608"
+}

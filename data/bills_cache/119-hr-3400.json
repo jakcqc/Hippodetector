@@ -1,0 +1,26 @@
+{
+  "billId": "119-hr-3400",
+  "congress": 119,
+  "type": "HR",
+  "number": "3400",
+  "title": "TRAVEL Act of 2025",
+  "summary": "<p><strong>The Territorial Response and Access to Veterans' Essential Lifecare Act or the TRAVEL Act of 2025</strong></p><p>This bill authorizes the Department of Veterans Affairs (VA) to assign a physician who has been appointed in the Veterans Health Administration to serve as a traveling physician for a period of not more than one year. Such physician must provide health care to veterans at VA facilities located in American Samoa, Guam, the Northern Mariana Islands, Puerto Rico, the U.S. Virgin Islands, and any other territory or possession of the United States.</p><p>Traveling physicians must coordinate with non-VA providers when necessary to ensure high quality and coordinated care for veterans receiving hospital care and medical services.</p><p>The VA must provide a relocation or retention bonus to traveling&nbsp;physicians.</p>",
+  "latestAction": {
+    "actionDate": "2025-09-16",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Veterans' Affairs."
+  },
+  "subjects": [
+    "American Samoa",
+    "Government employee pay, benefits, personnel management",
+    "Guam",
+    "Health personnel",
+    "Northern Mariana Islands",
+    "Puerto Rico",
+    "Travel and tourism",
+    "U.S. territories and protectorates",
+    "Veterans' medical care",
+    "Virgin Islands"
+  ],
+  "cosponsors": 12,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3400"
+}

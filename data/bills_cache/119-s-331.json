@@ -1,0 +1,21 @@
+{
+  "billId": "119-s-331",
+  "congress": 119,
+  "type": "S",
+  "number": "331",
+  "title": "HALT Fentanyl Act",
+  "summary": "<p><strong>Halt All Lethal Trafficking of Fentanyl Act or the HALT Fentanyl Act</strong></p><p>This bill permanently places fentanyl-related substances as a class into schedule I of the Controlled Substances Act. A schedule I controlled substance is a drug, substance, or chemical that has a high potential for abuse; has no currently accepted medical value; and is subject to regulatory controls and administrative, civil, and criminal penalties under the Controlled Substances Act.</p><p>Under the bill, offenses involving fentanyl-related substances are triggered by the same quantity thresholds and subject to the same penalties as offenses involving fentanyl analogues (e.g., offenses involving 100 grams or more trigger a 10-year mandatory minimum prison term).</p><p>Additionally, the bill establishes a new, alternative registration process for certain schedule I research.</p><p>The bill also makes several other changes to registration requirements for conducting research with controlled substances, including</p><ul><li>permitting a single registration for related research sites in certain circumstances,</li><li>waiving the requirement for a new inspection in certain situations, and</li><li>allowing a registered researcher to perform certain manufacturing activities with small quantities of a substance without obtaining a manufacturing registration.</li></ul><p>Finally, the bill expresses the sense that Congress agrees with the interpretation of the Controlled Substances Act in <em>United States v. McCray</em>, a 2018 case decided by the U.S. District Court for the Western District of New York. In that case, the court held that butyryl fentanyl, a controlled substance, can be considered an analogue of fentanyl even though, under the Controlled Substances Act, the term <em>controlled substance analogue</em> specifically excludes a controlled substance.</p>",
+  "latestAction": {
+    "actionDate": "2025-07-16",
+    "text": "Became Public Law No: 119-26."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Department of Justice",
+    "Drug trafficking and controlled substances",
+    "Licensing and registrations",
+    "Research administration and funding"
+  ],
+  "cosponsors": 31,
+  "url": "https://www.congress.gov/bill/119th-congress/senate-bill/331"
+}

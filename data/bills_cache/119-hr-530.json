@@ -1,0 +1,24 @@
+{
+  "billId": "119-hr-530",
+  "congress": 119,
+  "type": "HR",
+  "number": "530",
+  "title": "ACES Act",
+  "summary": "<p><b>ACES Act</b></p> <p>This bill requires the Department of Veterans Affairs  to enter into an agreement with the National Academies of Sciences, Engineering, and Medicine to study and report on the prevalence and mortality of cancers among veterans who served on active duty as aircrew members and regularly flew in fixed-wing aircraft.</p><p>&nbsp;</p>",
+  "latestAction": {
+    "actionDate": "2025-05-06",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Veterans' Affairs."
+  },
+  "subjects": [
+    "Aviation and airports",
+    "Cancer",
+    "Congressional oversight",
+    "Government studies and investigations",
+    "Hazardous wastes and toxic substances",
+    "Medical research",
+    "Research administration and funding",
+    "Veterans' medical care"
+  ],
+  "cosponsors": 35,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/530"
+}

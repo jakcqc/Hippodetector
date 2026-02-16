@@ -1,0 +1,19 @@
+{
+  "billId": "119-hres-566",
+  "congress": 119,
+  "type": "HRES",
+  "number": "566",
+  "title": "Providing for consideration of the Senate amendment to the bill (H.R. 1) to provide for reconciliation pursuant to title II of H. Con. Res. 14.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-07-03",
+    "actionTime": "03:23:51",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "House of Representatives",
+    "Legislative rules and procedure"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/566"
+}

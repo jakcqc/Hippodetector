@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-5214",
+  "congress": 119,
+  "type": "HR",
+  "number": "5214",
+  "title": "District of Columbia Cash Bail Reform Act of 2025",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-11-20",
+    "text": "Received in the Senate."
+  },
+  "subjects": [
+    "Correctional facilities and imprisonment",
+    "Crimes against property",
+    "Criminal procedure and sentencing",
+    "District of Columbia",
+    "Violent crime"
+  ],
+  "cosponsors": 3,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/5214"
+}

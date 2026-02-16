@@ -1,0 +1,23 @@
+{
+  "billId": "119-hres-539",
+  "congress": 119,
+  "type": "HRES",
+  "number": "539",
+  "title": "Censuring Representative LaMonica McIver and removing her from the Committee on Homeland Security.",
+  "summary": "<p>This resolution censures Representative LaMonica McIver and removes her from the Committee on Homeland Security.&nbsp;</p>",
+  "latestAction": {
+    "actionDate": "2025-09-03",
+    "actionTime": "14:19:44",
+    "text": "On motion to table Agreed to by the Yeas and Nays: 215 - 207, 2 Present (Roll no. 223)."
+  },
+  "subjects": [
+    "Congressional committees",
+    "House Committee on Homeland Security",
+    "House of Representatives",
+    "Legislative rules and procedure",
+    "Members of Congress",
+    "New Jersey"
+  ],
+  "cosponsors": 15,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/539"
+}

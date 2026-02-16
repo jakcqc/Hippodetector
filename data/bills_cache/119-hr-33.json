@@ -1,0 +1,34 @@
+{
+  "billId": "119-hr-33",
+  "congress": 119,
+  "type": "HR",
+  "number": "33",
+  "title": "To amend the Internal Revenue Code of 1986 to provide special rules for the taxation of certain residents of Taiwan with income from sources within the United States.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-01-16",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Finance."
+  },
+  "subjects": [
+    "Accounting and auditing",
+    "Administrative law and regulatory procedures",
+    "Asia",
+    "Athletes",
+    "Congressional oversight",
+    "Department of the Treasury",
+    "Foreign and international corporations",
+    "Foreign property",
+    "Immigration status and procedures",
+    "Income tax rates",
+    "Interest, dividends, interest rates",
+    "Securities",
+    "Service industries",
+    "Taiwan",
+    "Tax administration and collection, taxpayers",
+    "Taxation of foreign income",
+    "U.S. and foreign investments",
+    "Wages and earnings"
+  ],
+  "cosponsors": 46,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/33"
+}

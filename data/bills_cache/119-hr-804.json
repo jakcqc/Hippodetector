@@ -1,0 +1,19 @@
+{
+  "billId": "119-hr-804",
+  "congress": 119,
+  "type": "HR",
+  "number": "804",
+  "title": "Rural Small Business Resilience Act",
+  "summary": "<p><strong>Rural Small Business Resilience Act</strong></p><p>This bill requires the Small Business Administration's Office of Disaster Recovery and Resilience to take necessary actions to ensure that individuals located in rural areas where a disaster has been declared have full access to disaster assistance. Such actions include providing targeted outreach and marketing materials to such individuals.</p>",
+  "latestAction": {
+    "actionDate": "2025-02-26",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Small Business and Entrepreneurship."
+  },
+  "subjects": [
+    "Disaster relief and insurance",
+    "Rural conditions and development",
+    "Small business"
+  ],
+  "cosponsors": 4,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/804"
+}

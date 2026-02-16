@@ -1,0 +1,26 @@
+{
+  "billId": "119-hr-187",
+  "congress": 119,
+  "type": "HR",
+  "number": "187",
+  "title": "MAPWaters Act of 2025",
+  "summary": "<p><strong>Modernizing Access to our Public Waters Act or the MAPWaters Act of 2025 or the MAPWaters Act of 2025</strong></p><p>This bill directs the Forest Service and the Department of the Interior to standardize and publish data relating to public's access to&nbsp;federal waterways for recreational use.</p><p>Specifically, the Forest Service and Interior must jointly develop and adopt interagency standards for data collection and dissemination of geospatial data relating to public outdoor recreational  access of federal waterways and federal fishing restrictions. The standards must ensure compatibility and interoperability among applicable federal databases with respect to collection and dissemination of such data.</p><p>Within five years, the Forest Service and Interior must also digitize and make publicly available online certain geographic information system data about (1) federal waterway restrictions, (2) federal waterway access and navigation information, and (3) federal fishing restrictions. They must also update the data about waterway restrictions, waterway access, and navigation information at least twice per year. Data about fishing restrictions must be updated in real time as changes go into effect. </p><p>Finally, the&nbsp;Forest Service and Interior&nbsp;must develop a process to allow members of the public to submit questions or comments regarding the data regarding waterway restrictions,&nbsp;waterway access, and navigation information.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-26",
+    "text": "Became Public Law No: 119-62."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Geography and mapping",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Hunting and fishing",
+    "Land use and conservation",
+    "Marine and coastal resources, fisheries",
+    "Marine and inland water transportation",
+    "Navigation, waterways, harbors",
+    "Outdoor recreation"
+  ],
+  "cosponsors": 3,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/187"
+}

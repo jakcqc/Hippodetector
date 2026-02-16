@@ -1,0 +1,20 @@
+{
+  "billId": "119-hr-4216",
+  "congress": 119,
+  "type": "HR",
+  "number": "4216",
+  "title": "Made-in-America Defense Act",
+  "summary": "<p><strong>FMS-Only List Review Act</strong></p><p>This bill requires the Department of State to conduct an annual review to identify defense articles and services eligible to be sold only through Foreign Military Sales (FMS) (i.e., U.S. government to foreign government sales) that should also be eligible to be sold through Direct Commercial Sales (DCS) (i.e., U.S. company to foreign government sales).</p><p>For each article or service identified, the review must address (1) the length of time to complete a transfer of the article or service through the FMS program as compared to the DCS process; (2) the impact of a transfer of the article or service through the DCS process on the workload of the State Department and the Department of Defense; and (3) the benefits of the transfer of the article or service through the DCS process to U.S. national security and competitiveness. &nbsp;</p><p>Within 30 days of the completion of each annual review, the State Department must report to Congress on the results of the review.</p>",
+  "latestAction": {
+    "actionDate": "2025-09-03",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Foreign Relations."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Foreign aid and international relief",
+    "Military assistance, sales, and agreements",
+    "Trade restrictions"
+  ],
+  "cosponsors": 5,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/4216"
+}

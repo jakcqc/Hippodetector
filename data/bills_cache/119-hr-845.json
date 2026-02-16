@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-845",
+  "congress": 119,
+  "type": "HR",
+  "number": "845",
+  "title": "Pet and Livestock Protection Act",
+  "summary": "<p><strong>Pet and Livestock Protection Act of 2025</strong></p><p>This bill directs the Department of the Interior to remove protections for the gray wolf under the Endangered Species Act of 1973 (ESA). Specifically, the bill requires Interior to reissue the final rule titled <em>Endangered and Threatened Wildlife and Plants; Removing the Gray Wolf (Canis lupus) From the List of Endangered and Threatened Wildlife</em> and published on November 3, 2020.</p><p>The rule removed the gray wolf in the lower 48 United States, except for the Mexican wolf (<em>C. l. baileyi</em>) subspecies, from the endangered and threatened species list. However, the U.S. District Court for the Northern District of California vacated the rule on February 10, 2022. As a result, the gray wolf reattained the protection status it had prior to the rule's promulgation.</p><p>The bill also prohibits the reissuance of the rule from being subject to judicial review.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-18",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Environment and Public Works."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Department of the Interior",
+    "Endangered and threatened species",
+    "Environmental regulatory procedures",
+    "Mammals"
+  ],
+  "cosponsors": 37,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/845"
+}

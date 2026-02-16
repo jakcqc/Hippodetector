@@ -1,0 +1,19 @@
+{
+  "billId": "119-hr-5348",
+  "congress": 119,
+  "type": "HR",
+  "number": "5348",
+  "title": "Social Security Child Protection Act of 2025",
+  "summary": "<p><strong>Social Security Child Protection Act of 2025</strong></p><p>This bill directs the Social Security Administration to issue a new Social Security number to a child under the age of 14 if the child's Social Security card was lost or stolen while being mailed to the child.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-02",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Finance."
+  },
+  "subjects": [
+    "Child safety and welfare",
+    "Computer security and identity theft",
+    "Social security and elderly assistance"
+  ],
+  "cosponsors": 1,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/5348"
+}

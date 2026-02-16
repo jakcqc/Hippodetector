@@ -1,0 +1,27 @@
+{
+  "billId": "119-hr-3633",
+  "congress": 119,
+  "type": "HR",
+  "number": "3633",
+  "title": "Digital Asset Market Clarity Act of 2025",
+  "summary": "<p><strong>Digital Asset Market Clarity Act of 2025 or the CLARITY Act of 2025</strong></p><p>This bill establishes a regulatory framework for digital commodities, defined by the bill as digital assets that rely upon a&nbsp;blockchain for their value.</p><p>The Commodity Futures Trading Commission must generally regulate digital commodities transactions, including digital commodity exchanges, brokers, and dealers. To qualify for trade on an exchange (1) a digital commodity’s blockchain must be mature, or on a blockchain system that has achieved decentralized control as defined by the bill; or (2) the issuer of the digital commodity must file certain reports. The bill establishes requirements for trade monitoring, recordkeeping, and the commingling of customer assets. &nbsp;</p><p>The bill exempts digital commodities on mature&nbsp;blockchains (and&nbsp;digital commodities on blockchains expected to mature within certain timeframes)&nbsp;from Securities and Exchange Commission (SEC) registration requirements if annual sales fall under a certain amount and other requirements are met. The bill provides the SEC with jurisdiction over digital commodity activities and transactions engaged in by certain brokers and dealers on alternative trading systems and by national securities exchanges.&nbsp;</p><p>Digital commodity exchanges, brokers, and dealers are subject to the Bank Secrecy Act for anti-money laundering and related purposes.</p><p>The bill also sets forth requirements for alternative trading systems, previously issued digital commodities, and provisional registration until the bill is implemented. &nbsp;</p><p>For more information on this bill, see <a href=\"https://www.congress.gov/crs-product/IN12583\">CRS Insight IN12583, Crypto Legislation: An Overview of H.R. 3633, the CLARITY Act</a>.</p>",
+  "latestAction": {
+    "actionDate": "2025-09-18",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs."
+  },
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Bank accounts, deposits, capital",
+    "Banking and financial institutions regulation",
+    "Business records",
+    "Computers and information technology",
+    "Currency",
+    "Digital media",
+    "Financial services and investments",
+    "Fraud offenses and financial crimes",
+    "Licensing and registrations",
+    "Securities"
+  ],
+  "cosponsors": 21,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3633"
+}

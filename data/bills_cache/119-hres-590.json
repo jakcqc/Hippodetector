@@ -1,0 +1,23 @@
+{
+  "billId": "119-hres-590",
+  "congress": 119,
+  "type": "HRES",
+  "number": "590",
+  "title": "Relating to consideration of the Senate amendment to the bill (H.R. 4) to rescind certain budget authority proposed to be rescinded in special messages transmitted to the Congress by the President on June 3, 2025, in accordance with section 1012(a) of the Congressional Budget and Impoundment Control Act of 1974.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-07-18",
+    "actionTime": "00:04:19",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Budget process",
+    "Congressional operations and organization",
+    "Congressional oversight",
+    "House of Representatives",
+    "Legislative rules and procedure",
+    "Senate"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/590"
+}

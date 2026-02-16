@@ -1,0 +1,20 @@
+{
+  "billId": "119-hr-901",
+  "congress": 119,
+  "type": "HR",
+  "number": "901",
+  "title": "Research Security and Accountability in DHS Act",
+  "summary": "<p><strong>Research Security and Accountability in DHS Act</strong></p><p>This bill requires the Science and Technology Directorate in the Department of Homeland Security (DHS) to develop a department-wide policy for safeguarding research and development from unauthorized access or disclosures of sensitive information in related acquisitions.</p><p>Additionally, the Government Accountability Office must report on the compliance of DHS with a 2021 presidential memorandum and related guidance that required certain disclosures about government-funded research and development (e.g., conflicts of interest involving foreign governments).</p>",
+  "latestAction": {
+    "actionDate": "2025-03-11",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Government information and archives",
+    "Research and development",
+    "U.S. and foreign investments"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/901"
+}

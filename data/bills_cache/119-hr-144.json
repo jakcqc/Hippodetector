@@ -1,0 +1,20 @@
+{
+  "billId": "119-hr-144",
+  "congress": 119,
+  "type": "HR",
+  "number": "144",
+  "title": "Tennessee Valley Authority Salary Transparency Act",
+  "summary": "<p><strong>Tennessee Valley Authority Salary Transparency Act</strong></p><p>This bill expands reporting requirements for the Tennessee Valley Authority (TVA). TVA is a government corporation that provides electricity in Tennessee and in portions of several surrounding states. It also provides flood control, navigation, and land management services for the Tennessee River system.</p><p>The bill reinstates the requirement for TVA to file an annual financial statement and report with Congress in March. (The requirement was terminated by the Federal Reports Elimination and Sunset Act of 1995.)</p><p>The bill also modifies the requirement that the report include the names, salaries, and duties of employees earning more than $1,500 a year. Under the bill, this information is only required for employees earning more than the maximum rate of basic pay for grade GS-13 of the General Schedule.</p>",
+  "latestAction": {
+    "actionDate": "2025-01-16",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Environment and Public Works."
+  },
+  "subjects": [
+    "Government employee pay, benefits, personnel management",
+    "Government information and archives",
+    "Personnel records",
+    "Tennessee Valley Authority"
+  ],
+  "cosponsors": 1,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/144"
+}

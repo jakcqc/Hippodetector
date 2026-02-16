@@ -1,0 +1,22 @@
+{
+  "billId": "119-hr-2931",
+  "congress": 119,
+  "type": "HR",
+  "number": "2931",
+  "title": "Save SBA from Sanctuary Cities Act of 2025",
+  "summary": "<p><strong>Save SBA from Sanctuary Cities Act</strong></p><p>This bill requires the relocation of a regional, district, or local office of the Small Business Administration (SBA) if the SBA makes a public determination that the office is located in a sanctuary jurisdiction.&nbsp;The SBA must relocate that office, within 60 days of such determination, to a location that is not a sanctuary jurisdiction.</p><p>Under the bill, a&nbsp;sanctuary jurisdiction is a state or political subdivision thereof that prohibits or restricts any government entity or official from (1) exchanging with another government entity information regarding the citizenship or immigration status of an individual; or (2) complying with specified requests by the Department of Homeland Security.</p><p>Additionally, the SBA may not establish an office in a sanctuary jurisdiction.</p>",
+  "latestAction": {
+    "actionDate": "2025-06-09",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Small Business and Entrepreneurship."
+  },
+  "subjects": [
+    "Administrative remedies",
+    "Border security and unlawful immigration",
+    "Immigration status and procedures",
+    "Intergovernmental relations",
+    "Small Business Administration",
+    "State and local government operations"
+  ],
+  "cosponsors": 1,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/2931"
+}

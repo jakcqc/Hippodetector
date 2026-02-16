@@ -1,0 +1,20 @@
+{
+  "billId": "119-hr-3628",
+  "congress": 119,
+  "type": "HR",
+  "number": "3628",
+  "title": "State Planning for Reliability and Affordability Act",
+  "summary": "<p><strong>State Planning for Reliability and Affordability Act</strong></p><p>This bill requires certain state authorities that regulate electric utilities to consider the establishment of measures regarding the reliable availability of electricity over specified time periods. These requirements would apply to electric utilities that use integrated resource plans—plans that project future electricity use to ensure resource adequacy, as opposed to utilities that rely on capacity markets, which use price trends for resource planning.</p><p>Specifically, the state authorities must consider requiring the integrated resource plans of electric utilities to include measures to ensure the reliable availability of electric energy over a 10-year period to maintain the operation of reliable generation facilities or the procurement of electric energy from reliable generation facilities.</p><p>The bill defines <em>reliable generation facilities</em> as facilities that</p><ul><li>enable the generation of electric energy on a continuous basis over a period of not fewer than 30 days;&nbsp;</li><li>have adequate fuel or a continuously available energy source on-site to enable the continuous generation of electric energy for at least 30 days, or have contractual obligations that achieve the same;</li><li>have&nbsp;operational characteristics to enable the generation of electric energy during emergency and severe weather conditions; and</li><li>provide services such as frequency support and voltage support.</li></ul>",
+  "latestAction": {
+    "actionDate": "2025-12-15",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Electric power generation and transmission",
+    "Energy efficiency and conservation",
+    "Energy storage, supplies, demand",
+    "State and local government operations"
+  ],
+  "cosponsors": 1,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3628"
+}

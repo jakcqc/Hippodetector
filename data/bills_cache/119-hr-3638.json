@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-3638",
+  "congress": 119,
+  "type": "HR",
+  "number": "3638",
+  "title": "Electric Supply Chain Act",
+  "summary": "<p><strong>Electric Supply Chain Act</strong></p><p>This bill requires the Department of Energy (DOE) to periodically assess the supply chain that supports the generation and transmission of electricity and report on the assessment to the appropriate congressional committees.</p><p>Specifically, DOE must periodically assess and report on</p><ul><li>information including trends and vulnerabilities in the supply of components needed for generating or transmitting electricity, barriers to expanding U.S. capacity to process critical minerals, and domestic policies that deter greater investment into the supply chain;</li><li>emerging issues in the supply chain; and</li><li>recommendations to address these emerging issues and to secure and expand the supply chain.</li></ul><p>The initial report must be submitted no later than one year after the date of enactment of this bill.&nbsp;</p>",
+  "latestAction": {
+    "actionDate": "2025-12-15",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Electric power generation and transmission",
+    "Energy storage, supplies, demand",
+    "Government studies and investigations",
+    "Industrial facilities"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3638"
+}

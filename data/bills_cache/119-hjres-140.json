@@ -1,0 +1,24 @@
+{
+  "billId": "119-hjres-140",
+  "congress": 119,
+  "type": "HJRES",
+  "number": "140",
+  "title": "Providing for congressional disapproval under chapter 8 of title 5, United States Code, of the rule submitted by the Bureau of Land Management relating to Public Land Order No. 7917 for Withdrawal of Federal Lands; Cook, Lake, and Saint Louis Counties, MN.",
+  "summary": "<p>This joint resolution nullifies Public Land Order 7917, which withdrew approximately 225,504 acres of National Forest System lands in Cook, Lake, and Saint Louis Counties, Minnesota, from mineral and geothermal leasing for 20 years. In 2023, the Bureau of Land Management issued the order to protect and preserve the Rainy River Watershed, the Boundary Waters Canoe Area Wilderness, the Boundary Waters Canoe Area Wilderness Mining Protection Area, and the 1854 Ceded Territory of the Lake Superior Chippewa from the potential adverse effects of mineral and geothermal exploration and development. The joint resolution removes such protections and allows such land to be leased for the exploration and development of minerals and geothermal energy.</p>",
+  "latestAction": {
+    "actionDate": "2026-01-26",
+    "text": "Received in the Senate."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Alternative and renewable resources",
+    "Department of the Interior",
+    "Lakes and rivers",
+    "Land use and conservation",
+    "Marine pollution",
+    "Mining",
+    "Minnesota"
+  ],
+  "cosponsors": 4,
+  "url": "https://www.congress.gov/bill/119th-congress/house-joint-resolution/140"
+}

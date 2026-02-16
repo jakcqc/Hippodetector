@@ -1,0 +1,22 @@
+{
+  "billId": "119-hr-3898",
+  "congress": 119,
+  "type": "HR",
+  "number": "3898",
+  "title": "PERMIT Act",
+  "summary": "<p><strong>Promoting Efficient Review for Modern Infrastructure Today Act or the PERMIT Act</strong></p><p>This bill limits the scope of the Clean Water Act by redefining <em>navigable waters</em> to exclude (1) waste treatment systems, (2) ephemeral features that flow only in direct response to precipitation, (3) prior converted cropland, (4) groundwater, or (5) any other features determined to be excluded by the U.S. Army Corps of Engineers.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-15",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Environment and Public Works."
+  },
+  "subjects": [
+    "Farmland",
+    "Marine pollution",
+    "Navigation, waterways, harbors",
+    "Seashores and lakeshores",
+    "Solid waste and recycling",
+    "Water quality"
+  ],
+  "cosponsors": 8,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3898"
+}

@@ -10,6 +10,7 @@ Usage:
 import argparse
 import json
 import os
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -19,6 +20,25 @@ from urllib.request import Request, urlopen
 
 BASE_URL = "https://api.congress.gov/v3"
 DEFAULT_LIMIT = 250
+
+
+def print_progress_bar(current: int, total: int, prefix: str = "", bar_length: int = 40) -> None:
+    """Print a simple text-based progress bar."""
+    if total == 0:
+        return
+
+    percent = current / total
+    filled_length = int(bar_length * percent)
+    bar = "█" * filled_length + "░" * (bar_length - filled_length)
+
+    # Print with carriage return to overwrite the same line
+    sys.stdout.write(f"\r{prefix} [{bar}] {percent*100:.1f}% ({current}/{total})")
+    sys.stdout.flush()
+
+    # Print newline when complete
+    if current == total:
+        sys.stdout.write("\n")
+        sys.stdout.flush()
 
 
 def load_env_file(env_path: Path) -> None:
@@ -113,11 +133,22 @@ def fetch_house_votes_for_congress(
     next_url = votes_url
 
     print(f"  Fetching House votes for Congress {congress}...")
+
+    # First request to get total count
+    payload = request_json(with_api_key(next_url, api_key))
+    votes.extend(payload.get("houseRollCallVotes", []))
+
+    pagination = payload.get("pagination", {})
+    total_count = pagination.get("count", len(votes))
+    next_url = pagination.get("next")
+
+    print_progress_bar(len(votes), total_count, prefix="    Fetching")
+
     while next_url:
         payload = request_json(with_api_key(next_url, api_key))
         votes.extend(payload.get("houseRollCallVotes", []))
         next_url = payload.get("pagination", {}).get("next")
-        print(f"    Fetched {len(votes)} votes so far...")
+        print_progress_bar(len(votes), total_count, prefix="    Fetching")
 
     return votes
 
@@ -196,8 +227,7 @@ def fetch_member_votes(
     print(f"\n  Checking {len(all_votes)} roll call votes for member {bioguide_id}...")
 
     for i, vote in enumerate(all_votes, 1):
-        if i % 25 == 0:
-            print(f"    Processed {i}/{len(all_votes)} votes...")
+        print_progress_bar(i, len(all_votes), prefix="    Processing")
 
         session = vote.get("sessionNumber")
         roll_call = vote.get("rollCallNumber")

@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-3109",
+  "congress": 119,
+  "type": "HR",
+  "number": "3109",
+  "title": "REFINER Act",
+  "summary": "<p><strong>Researching Efficient Federal Improvements for Necessary Energy Refining Act or the REFINER Act</strong></p><p>This bill requires the Department of Energy to direct the National Petroleum Council to publish a report on petrochemical refineries located in the United States. The report must include information concerning (1) the contributions of such refineries to U.S. energy security, (2) analyses and&nbsp;projections with respect to opportunities for expanding the capacities of the refineries and the risks to such refineries, (3) any federal or state executive actions that have contributed to a decline in their capacities, and (4) any recommendations to increase such capacities.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-01",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Electric power generation and transmission",
+    "Energy efficiency and conservation",
+    "Government information and archives",
+    "Industrial facilities",
+    "Oil and gas"
+  ],
+  "cosponsors": 1,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3109"
+}

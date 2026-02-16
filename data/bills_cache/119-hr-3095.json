@@ -1,0 +1,35 @@
+{
+  "billId": "119-hr-3095",
+  "congress": 119,
+  "type": "HR",
+  "number": "3095",
+  "title": "To direct the United States Postal Service to designate single, unique ZIP Codes for certain communities, and for other purposes.",
+  "summary": "<p>This bill requires the U.S Postal Service to designate a single, unique ZIP Code for each of the following 74 communities:</p><ul><li>Canyon Lake, California</li><li>Eastvale, California</li><li>Hidden Hills, California</li><li>Industry, California</li><li>North&nbsp;Tustin, California</li><li>Tehachapi, California</li><li>Castle Pines, Colorado</li><li>Centennial, Colorado</li><li>Cherry Hills Village, Colorado</li><li>Greenwood Village, Colorado</li><li>Highlands Ranch, Colorado</li><li>Keystone, Colorado</li><li>Lone Tree, Colorado</li><li>Mountain Village, Colorado</li><li>Mt Crested Butte, Colorado</li><li>Severance, Colorado</li><li>Silver Cliff, Colorado</li><li>Sterling Ranch, Colorado</li><li>Superior, Colorado</li><li>Telluride, Colorado</li><li>Scotland, Connecticut</li><li>Estero, Florida</li><li>Ft&nbsp;Myers, Florida</li><li>Hollywood, Florida</li><li>Oakland Park, Florida</li><li>Lighthouse Point, Florida</li><li>Coconut Creek, Florida</li><li>Parkland, Florida</li><li>Deerfield Beach, Florida</li><li>Wilton Manors, Florida</li><li>Burr Ridge, Illinois</li><li>Carmel, Indiana</li><li>Noblesville, Indiana</li><li>Westfield, Indiana</li><li>Zionsville, Indiana</li><li>Urbandale, Iowa</li><li>Louisiana State University, Baton Rouge, Louisiana</li><li>Montz, Louisiana</li><li>Springwater Township, Minnesota</li><li>Grass Valley, Nevada</li><li>Swanzey, New Hampshire</li><li>Kinnelon, New Jersey</li><li>Mendham Township, New Jersey</li><li>Flanders, New York</li><li>Glendale, New York</li><li>Riverside, New York</li><li>Pendelton, New York</li><li>Northampton, New York</li><li>Harnett County, North Carolina</li><li>Weddington, North Carolina</li><li>Goose Creek, South Carolina</li><li>Fairview, Texas</li><li>Fate, Texas</li><li>Heath, Texas</li><li>Murphy, Texas</li><li>Northlake, Texas</li><li>Parker, Texas</li><li>Sargent, Texas</li><li>Fairlawn, Virginia</li><li>Caledonia, Wisconsin</li><li>Franklin, Wisconsin</li><li>Glendale, Wisconsin</li><li>Greenfield, Wisconsin</li><li>Village of Mount Pleasant, Wisconsin</li><li>Village of&nbsp;Somers, Wisconsin</li><li>Village of Harrison, Wisconsin</li><li>Mills, Wyoming</li><li>Hochatown, Oklahoma</li><li>North Enid, Oklahoma</li><li>Green, Ohio</li><li>Rochester, Wisconsin</li><li>Quartzite Township, Minnesota</li><li>Frederick, Colorado</li><li>Camargo, Kentucky</li></ul>",
+  "latestAction": {
+    "actionDate": "2025-07-22",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Florida",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kentucky",
+    "Louisiana",
+    "Minnesota",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New York State",
+    "North Carolina",
+    "Ohio",
+    "Oklahoma",
+    "Postal service",
+    "Texas"
+  ],
+  "cosponsors": 33,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3095"
+}

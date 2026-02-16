@@ -1,0 +1,22 @@
+{
+  "billId": "119-hres-893",
+  "congress": 119,
+  "type": "HRES",
+  "number": "893",
+  "title": "Censuring Representative Cory Mills of Florida and removing him from the Committee on Armed Services and the Committee on Foreign Affairs.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-11-19",
+    "actionTime": "21:20:25",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Congressional committees",
+    "Florida",
+    "House Committee on Armed Services",
+    "House of Representatives",
+    "Members of Congress"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/893"
+}

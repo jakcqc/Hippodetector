@@ -1,0 +1,27 @@
+{
+  "billId": "119-hr-3668",
+  "congress": 119,
+  "type": "HR",
+  "number": "3668",
+  "title": "Improving Interagency Coordination for Pipeline Reviews Act",
+  "summary": "<p><strong></strong><strong>Improving Interagency Coordination for Pipeline Reviews Act</strong></p><p>This bill expedites the environmental review of certain natural gas pipeline projects or liquefied natural gas (LNG) import or export terminals for authorizations under the Natural Gas Act.</p><p>Specifically, the bill makes the Federal Energy Regulatory Commission (FERC) the only lead agency for the purpose of coordinating the environmental review of such projects under the National Environmental Policy Act of 1969 (NEPA). Thus, agencies involved in the environmental review process must defer to FERC's approved scope for a NEPA review.</p><p>FERC must invite certain federal, state, local, or tribal governmental agencies to participate in the review process for an authorization and designate the applicable governments as participating agencies by deadlines established by the bill. In addition, FERC must consult with the Transportation Security Administration regarding various pipeline security measures.</p><p>The bill prohibits FERC from establishing a deadline for authorizing a project that is more than 90 days after the completion of the NEPA review. It also requires concurrent reviews when multiple federal or state agencies are involved.</p><p>Applicants for projects do not have to obtain a water quality certification from states under Section 401 of the Clean Water Act. FERC must coordinate its NEPA review with states where a potential discharge into navigable waters may occur.</p><p>If a federal or state agency requires an applicant for a pipeline authorization to submit data, the agency must consider any such data gathered by aerial or other remote means that is submitted.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-15",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Commerce, Science, and Transportation."
+  },
+  "subjects": [
+    "Computer security and identity theft",
+    "Environmental assessment, monitoring, research",
+    "Federal Energy Regulatory Commission (FERC)",
+    "Government information and archives",
+    "Intergovernmental relations",
+    "Licensing and registrations",
+    "Oil and gas",
+    "Pipelines",
+    "State and local government operations",
+    "Transportation employees",
+    "Transportation safety and security"
+  ],
+  "cosponsors": 3,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3668"
+}

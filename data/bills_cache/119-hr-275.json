@@ -1,0 +1,19 @@
+{
+  "billId": "119-hr-275",
+  "congress": 119,
+  "type": "HR",
+  "number": "275",
+  "title": "Special Interest Alien Reporting Act of 2025",
+  "summary": "<p><strong>Special Interest Alien Reporting Act of 2024 [<em>sic</em>]</strong></p><p>This bill requires the Department of Homeland Security (DHS) to report every month on non-U.S. nationals (<em>aliens </em>under federal law) who attempt to unlawfully enter the United States and who potentially pose a national security risk. DHS must report on (1) the number of individuals, (2) the nationalities or countries of last residence of these individuals, and (3) the location of the encounters.</p>",
+  "latestAction": {
+    "actionDate": "2025-06-27",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "Border security and unlawful immigration",
+    "Congressional oversight",
+    "Government information and archives"
+  ],
+  "cosponsors": 6,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/275"
+}

@@ -1,0 +1,25 @@
+{
+  "billId": "119-hr-993",
+  "congress": 119,
+  "type": "HR",
+  "number": "993",
+  "title": "Emerging Innovative Border Technologies Act",
+  "summary": "<p><strong>Emerging Innovative Border Technologies Act</strong></p><p>This bill requires U.S. Customs and Border Protection (CBP) and the Science and Technology Directorate of the Department of Homeland Security to develop a plan to identify, integrate, and deploy emerging and innovative technologies to improve border security operations. Such technologies may incorporate artificial intelligence, machine-learning, automation, fiber-optic sensing technology, nanotechnology, optical and cognitive radar, modeling and simulation technology, hyperspectral and LIDAR sensors, and imaging, identification, and categorization systems.&nbsp;</p><p>The bill authorizes CBP to establish one or more Innovation Teams to research and adapt commercial technologies that may be used by CBP.</p><p>The plan must describe how the Innovation Teams have been implemented and also detail</p><ul><li>goals and timelines for adoption of qualifying technologies,</li><li>metrics and key performance parameters for determining the plan's effectiveness,</li><li>which technologies used by other federal agencies CBP may also utilize,</li><li>which existing authorities CBP may use to procure technologies,</li><li>how CBP legacy border technology programs may be replaced,</li><li>the expected privacy and security impact of security-related technology on border communities, and</li><li>recent technological advancements in specified technologies.</li></ul><p>CBP must provide the plan to Congress within 180 days of the bill’s enactment.&nbsp;The bill also requires CBP to annually report to Congress regarding the activities of the Innovation Teams.</p>",
+  "latestAction": {
+    "actionDate": "2025-03-11",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "Advanced technology and technological innovations",
+    "Border security and unlawful immigration",
+    "Computers and information technology",
+    "Congressional oversight",
+    "Homeland security",
+    "Law enforcement administration and funding",
+    "Performance measurement",
+    "Right of privacy",
+    "Technology assessment"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/993"
+}

@@ -1,0 +1,18 @@
+{
+  "billId": "119-hconres-30",
+  "congress": 119,
+  "type": "HCONRES",
+  "number": "30",
+  "title": "Expressing support for local law enforcement officers.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-05-20",
+    "text": "Star Print ordered on the referred concurrent resolution."
+  },
+  "subjects": [
+    "Congressional tributes",
+    "Law enforcement officers"
+  ],
+  "cosponsors": 35,
+  "url": "https://www.congress.gov/bill/119th-congress/house-concurrent-resolution/30"
+}

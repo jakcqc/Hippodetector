@@ -1,0 +1,21 @@
+{
+  "billId": "119-sjres-11",
+  "congress": 119,
+  "type": "SJRES",
+  "number": "11",
+  "title": "A joint resolution providing for congressional disapproval under chapter 8 of title 5, United States Code, of the rule submitted by the Bureau of Ocean Energy Management relating to \"Protection of Marine Archaeological Resources\".",
+  "summary": "<p>This joint resolution nullifies the&nbsp;final rule issued by the Bureau of Ocean Energy Management (BOEM) titled <em>Protection of Marine Archaeological&nbsp;</em><em>Resources</em> and published on September 3, 2024. </p><p>The rule requires operators and&nbsp;lessees conducting oil and gas exploration or development on the Outer Continental Shelf and that are seeking BOEM approval for such activities to also provide BOEM with an archaeological report for the area of potential effects.&nbsp;The report must identify potential archaeological resources (material remains of human life or activities that are at least 50 years old and that are of archaeological interest) on the sea floor. The rule modified regulations that only required such a report when a&nbsp;BOEM regional director has reason to believe that an archaeological resource may be present in the lease area.&nbsp;</p>",
+  "latestAction": {
+    "actionDate": "2025-03-14",
+    "text": "Became Public Law No: 119-3."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Archaeology and anthropology",
+    "Historical and cultural resources",
+    "Marine and coastal resources, fisheries",
+    "Oil and gas"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/senate-joint-resolution/11"
+}

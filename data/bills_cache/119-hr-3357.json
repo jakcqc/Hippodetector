@@ -1,0 +1,20 @@
+{
+  "billId": "119-hr-3357",
+  "congress": 119,
+  "type": "HR",
+  "number": "3357",
+  "title": "Enhancing Multi-Class Share Disclosures Act",
+  "summary": "<p><b>Enhancing Multi-Class Share Disclosures Act </b></p> <p>This bill requires issuers of securities with multi-class share structures to disclose certain information in any proxy solicitation or consent solicitation material. A multi-class share structure occurs when a company issues two or more classes of shares that have different voting rights. For example, a company may issue one class of shares with no or few voting rights for the public, and another class with more voting rights for company founders and executives. </p> <p>Under the bill, the issuer must disclose certain information about each director, director nominee, named executive officer, and each beneficial owner of securities with 5% or more of the total combined voting power of all classes of securities entitled to vote in the election of directors. Specifically, the issuer must disclose (1) the number of shares of all classes of securities entitled to vote in the election of directors beneficially owned by such person, and (2) the amount of voting power held by such person.</p>",
+  "latestAction": {
+    "actionDate": "2025-07-24",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs."
+  },
+  "subjects": [
+    "Consumer affairs",
+    "Corporate finance and management",
+    "Financial services and investments",
+    "Securities"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3357"
+}

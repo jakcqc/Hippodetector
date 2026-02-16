@@ -1,0 +1,18 @@
+{
+  "billId": "119-hr-495",
+  "congress": 119,
+  "type": "HR",
+  "number": "495",
+  "title": "Subterranean Border Defense Act",
+  "summary": "<p><strong>Subterranean Border Defense Act</strong></p><p>This bill requires recurring annual reporting by U.S. Customs and Border Protection (CBP) on the implementation of a strategic plan to counter illicit cross-border tunnel operations. Currently,&nbsp;CBP is only required to report once no later than one year after the plan's development.&nbsp;</p>",
+  "latestAction": {
+    "actionDate": "2025-03-11",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "Border security and unlawful immigration",
+    "Government information and archives"
+  ],
+  "cosponsors": 8,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/495"
+}

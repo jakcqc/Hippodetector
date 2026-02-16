@@ -1,0 +1,23 @@
+{
+  "billId": "119-hr-788",
+  "congress": 119,
+  "type": "HR",
+  "number": "788",
+  "title": "DOE and SBA Research Act",
+  "summary": "<p><strong>DOE and SBA Research Act</strong></p><p>This bill requires the Department of Energy and the Small Business Administration to enter into an agreement to collaborate on research and development activities. These activities must include, as appropriate, small businesses.</p><p>The agencies must report on any collaborative research achievements and potential opportunities to expand the technical capabilities of the agencies.</p>",
+  "latestAction": {
+    "actionDate": "2025-02-26",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Department of Energy",
+    "Product development and innovation",
+    "Public-private cooperation",
+    "Research administration and funding",
+    "Research and development",
+    "Small Business Administration"
+  ],
+  "cosponsors": 3,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/788"
+}

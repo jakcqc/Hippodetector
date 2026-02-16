@@ -1,0 +1,19 @@
+{
+  "billId": "119-hr-1366",
+  "congress": 119,
+  "type": "HR",
+  "number": "1366",
+  "title": "Mining Regulatory Clarity Act",
+  "summary": "<p><strong>Mining Regulatory Clarity Act</strong></p><p>This bill&nbsp;allows mining operators to use federal lands for activities ancillary to mining, such as waste disposal, regardless of whether those lands contain mineral deposits valuable enough to be mined (mineral validity). It also establishes the Abandoned&nbsp;Hardrock Mine Fund.</p><p>The bill addresses a 2022 decision in the U.S. Court of Appeals for the Ninth Circuit&nbsp;related to the Rosemont Copper Mine in Arizona (commonly known as <a href=\"https://cdn.ca9.uscourts.gov/datastore/opinions/2022/05/12/19-17585.pdf\">the Rosemont decision</a>, described further in <a href=\"https://crs.gov/Reports/R48166\">CRS Report R48166</a>). The court held that mining claims are only allowed where mineral validity has been established and that mill site claims are more appropriate means for establishing a mining waste disposal site under the Mining Act.</p><p>The bill allows a mining operator to (1) locate and include within its plan of operations as many mill site claims (e.g., areas for waste rock disposal)&nbsp;as are reasonably necessary for its operations, and (2) use or occupy public land in accordance with an approved plan of operations.</p><p>Additionally, the bill requires any revenue generated from fees for such mill site claims to be deposited into the Abandoned Hardrock Mine Fund. The Department of the Interior must use the fund for certain abandoned hardrock mine reclamation activities.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-18",
+    "text": "Received in the Senate."
+  },
+  "subjects": [
+    "Government trust funds",
+    "Land use and conservation",
+    "Mining"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/1366"
+}

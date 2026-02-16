@@ -1,0 +1,22 @@
+{
+  "billId": "119-hres-488",
+  "congress": 119,
+  "type": "HRES",
+  "number": "488",
+  "title": "Denouncing the antisemitic terrorist attack in Boulder, Colorado.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-06-09",
+    "actionTime": "19:03:05",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Border security and unlawful immigration",
+    "Colorado",
+    "Intergovernmental relations",
+    "Law enforcement officers",
+    "Terrorism"
+  ],
+  "cosponsors": 7,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/488"
+}

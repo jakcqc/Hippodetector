@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-26",
+  "congress": 119,
+  "type": "HR",
+  "number": "26",
+  "title": "Protecting American Energy Production Act",
+  "summary": "<p><strong>Protecting American Energy Production Act</strong></p><p>This bill prohibits the President from declaring a moratorium on the use of hydraulic fracturing unless Congress authorizes the moratorium. The bill also expresses the sense of Congress that states should maintain primacy&nbsp;(authority) for the regulation of hydraulic fracturing for oil and natural gas production on state and private lands.</p><p>Hydraulic fracturing, or fracking, is a process to extract underground resources such as oil or gas from a geologic formation by injecting water, a propping agent (e.g., sand), and chemical additives into a well under enough pressure to fracture the formation.</p>",
+  "latestAction": {
+    "actionDate": "2025-02-10",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Congressional-executive branch relations",
+    "Mining",
+    "Oil and gas",
+    "Presidents and presidential powers, Vice Presidents",
+    "State and local government operations"
+  ],
+  "cosponsors": 18,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/26"
+}

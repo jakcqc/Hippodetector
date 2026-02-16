@@ -1,0 +1,19 @@
+{
+  "billId": "119-hres-499",
+  "congress": 119,
+  "type": "HRES",
+  "number": "499",
+  "title": "Providing for consideration of the bill (H.R. 4) to rescind certain budget authority proposed to be rescinded in special messages transmitted to the Congress by the President on June 3, 2025, in accordance with section 1012(a) of the Congressional Budget and Impoundment Control Act of 1974, and for other purposes.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-06-11",
+    "actionTime": "16:51:08",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "House of Representatives",
+    "Legislative rules and procedure"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/499"
+}

@@ -1,0 +1,24 @@
+{
+  "billId": "119-hr-2243",
+  "congress": 119,
+  "type": "HR",
+  "number": "2243",
+  "title": "LEOSA Reform Act",
+  "summary": "<p><strong>LEOSA Reform Act of 2025</strong></p><p>This bill broadens the authority for certain law enforcement officers to carry concealed firearms across state lines.</p><p>Specifically, the bill allows qualified active and retired law enforcement officers to carry concealed firearms and ammunition (including magazines) in school zones; in national parks; on state, local, or private property that is open to the public; and in certain federal facilities that are open to the public.</p><p>Further, the bill permits states to reduce the frequency with which retired law enforcement officers must meet certain qualification standards.</p>",
+  "latestAction": {
+    "actionDate": "2025-05-15",
+    "text": "Received in the Senate and Read twice and referred to the Committee on the Judiciary."
+  },
+  "subjects": [
+    "Educational facilities and institutions",
+    "Firearms and explosives",
+    "Government buildings, facilities, and property",
+    "Government employee pay, benefits, personnel management",
+    "Law enforcement officers",
+    "Licensing and registrations",
+    "Personnel records",
+    "State and local government operations"
+  ],
+  "cosponsors": 18,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/2243"
+}

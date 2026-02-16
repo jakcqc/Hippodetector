@@ -1,0 +1,35 @@
+{
+  "billId": "119-s-1582",
+  "congress": 119,
+  "type": "S",
+  "number": "1582",
+  "title": "GENIUS Act",
+  "summary": "<p><strong>Guiding and Establishing National Innovation for U.S. Stablecoins Act or the GENIUS Act</strong></p><p>This bill establishes a regulatory framework for payment&nbsp;stablecoins (digital assets which an issuer must redeem for a fixed value).</p><p>Under the bill, only permitted issuers may issue a payment stablecoin for use by U.S. persons, subject to certain exceptions and safe harbors. Permitted issuers must be a subsidiary of an insured depository institution, a federal-qualified nonbank payment stablecoin issuer, or a state-qualified payment stablecoin issuer. Permitted issuers must be regulated by the appropriate federal or state&nbsp;regulator. Permitted issuers may choose federal or state regulation; however, state regulation is&nbsp;limited to those with&nbsp;a&nbsp;stablecoin issuance of $10 billion or less.</p><p>Permitted issuers must maintain reserves backing the&nbsp;stablecoin on a one-to-one basis using  U.S. currency or other similarly liquid assets, as specified. Permitted issuers must also publicly disclose their redemption policy and publish monthly&nbsp;the details of their reserves.</p><p>The bill specifies requirements for (1) reusing reserves; (2) providing safekeeping services for&nbsp;stablecoins; and (3) supervisory, examination, and enforcement authority over federal-qualified issuers.</p><p>The bill allows foreign issuers of stablecoins to offer, sell, or make available in the United States stablecoins using digital asset service providers, subject to requirements, including  a determination by the&nbsp;Department of Treasury that they are subject to comparable foreign regulations.</p><p>Under the bill, permitted payment stablecoins are not considered securities under securities law. However, permitted issuers&nbsp;are&nbsp;subject to the Bank Secrecy Act for anti-money laundering and related purposes.</p>",
+  "latestAction": {
+    "actionDate": "2025-07-18",
+    "text": "Became Public Law No: 119-27."
+  },
+  "subjects": [
+    "Accounting and auditing",
+    "Administrative law and regulatory procedures",
+    "Bank accounts, deposits, capital",
+    "Banking and financial institutions regulation",
+    "Bankruptcy",
+    "Business records",
+    "Civil actions and liability",
+    "Congressional oversight",
+    "Currency",
+    "Department of the Treasury",
+    "Digital media",
+    "Financial crises and stabilization",
+    "Financial services and investments",
+    "Fraud offenses and financial crimes",
+    "Government studies and investigations",
+    "Interest, dividends, interest rates",
+    "International monetary system and foreign exchange",
+    "Judicial procedure and administration",
+    "Judicial review and appeals"
+  ],
+  "cosponsors": 5,
+  "url": "https://www.congress.gov/bill/119th-congress/senate-bill/1582"
+}

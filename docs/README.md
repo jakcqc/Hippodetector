@@ -23,7 +23,7 @@ Welcome to the Hippodetector documentation! This project detects hypocrisy in U.
 
 Hippodetector uses a **RAG (Retrieval-Augmented Generation)** system to detect contradictions between what Congress members say and how they vote:
 
-1. **Data Collection**: Fetch voting records, bill details, and press releases for each member
+1. **Data Collection**: Fetch voting records, comprehensive bill details (titles, summaries, subjects), and press releases for each member
 2. **Per-Member Databases**: Store complete profiles in `data/members/{bioguideId}.json`
 3. **Vector Embeddings**: Generate embeddings for bills (with vote direction) and press releases
 4. **Semantic Retrieval**: Query the vector database using natural language (e.g., "What climate bills did they vote against?")
@@ -91,7 +91,7 @@ uv run dataset/voting_record.py --bioguide-id B001316 --congress 119 --max-votes
 # Step 2: Scrape press releases
 uv run dataset/pressReleaseScraper.py --bioguide-ids B001316
 
-# Step 3: Fetch bill details for the votes
+# Step 3: Fetch bill details for the votes (includes summaries & subjects)
 uv run dataset/fetch_bill_details.py --from-votes data/votes_B001316.json
 
 # Step 4: Build complete member profile
@@ -301,6 +301,43 @@ See [docs/Internal/todo.md](Internal/todo.md) for the complete checklist.
 3. **Launch the Streamlit UI** to browse existing press release data
 4. **Explore the Data**: Check the JSON files in `data/` directory
 5. **Follow Development**: Check [todo.md](Internal/todo.md) for progress updates
+
+## Known Limitations
+
+### Data Collection
+
+1. **Amendments Not Included**
+   - House Amendments (HAMDT) and Senate Amendments (SAMDT) are **not fetched** in bill details
+   - Reason: Congress.gov API uses a different endpoint (`/amendment/`) for amendments vs. bills
+   - Impact: ~17% of votes in a typical record won't have full bill details (e.g., 55/328 for Burlison)
+   - Vote records still contain basic amendment info (type, number, vote position)
+
+2. **API Requirements & Limits**
+   - Congress.gov API requires a `User-Agent` header in all requests
+   - **API rate limit: 5,000 requests per hour**
+   - Bill details require 3 API calls per bill:
+     - Base bill data (title, latest action, etc.)
+     - Bill summaries (detailed descriptions)
+     - Legislative subjects (topics/categories)
+   - For ~273 bills: ~819 API calls total (~16% of hourly limit, ~5 minutes)
+   - Default 0.5s delay between bills (configurable with `--delay`)
+   - API key required: Sign up at https://api.congress.gov/sign-up/
+
+3. **House-Only Voting Records**
+   - Senate voting records not yet supported in the Congress.gov API beta
+   - Only House of Representatives members can have full voting records fetched
+
+4. **Press Release Coverage**
+   - Press releases are scraped from individual House.gov websites
+   - Availability depends on member's website structure and historical archive
+   - No standardized API for press releases
+
+### Future Improvements
+
+- Add support for fetching amendment details via `/amendment/` endpoint
+- Implement Senate vote fetching when API support becomes available
+- Add retry logic for failed API requests
+- Parallel fetching for faster data collection
 
 ## Resources
 

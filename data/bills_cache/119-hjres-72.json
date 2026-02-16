@@ -1,0 +1,19 @@
+{
+  "billId": "119-hjres-72",
+  "congress": 119,
+  "type": "HJRES",
+  "number": "72",
+  "title": "Relating to a national emergency by the President on February 1, 2025.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2026-02-12",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Finance."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Presidents and presidential powers, Vice Presidents",
+    "War and emergency powers"
+  ],
+  "cosponsors": 10,
+  "url": "https://www.congress.gov/bill/119th-congress/house-joint-resolution/72"
+}

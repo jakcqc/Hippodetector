@@ -1,0 +1,20 @@
+{
+  "billId": "119-hr-2056",
+  "congress": 119,
+  "type": "HR",
+  "number": "2056",
+  "title": "District of Columbia Federal Immigration Compliance Act of 2025",
+  "summary": "<p><strong>District of Columbia Federal Immigration Compliance Act</strong></p><p>This bill&nbsp;prohibits the District of Columbia (DC) from&nbsp;limiting its cooperation with federal immigration enforcement activities, except for certain instances involving witnesses and victims of crime.&nbsp;</p><p>Specifically, the bill bars DC from adopting a law, policy, or practice prohibiting DC governmental entities from sending, receiving, maintaining, or exchanging information regarding the citizenship or immigration status of any individual with a federal, state, or local government entity.</p><p>Further, DC may not adopt a law, policy, or practice of&nbsp;not complying with lawful requests from the Department of Homeland Security (DHS) to comply with a detainer for, or notify about the release of, an individual from custody. (A detainer is a formal request from DHS that a state or locality hold an individual in custody for up to 48 hours after the individual would otherwise be released so that DHS may facilitate the individual's removal.)</p><p>The bill provides exceptions allowing DC to adopt policies of not sharing information or complying with a detainer request regarding an individual who comes forward as a victim or a witness of a crime.</p>",
+  "latestAction": {
+    "actionDate": "2025-06-12",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "District of Columbia",
+    "Federal preemption",
+    "Immigration status and procedures",
+    "State and local government operations"
+  ],
+  "cosponsors": 1,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/2056"
+}

@@ -1,0 +1,19 @@
+{
+  "billId": "119-hr-856",
+  "congress": 119,
+  "type": "HR",
+  "number": "856",
+  "title": "Safe and Smart Federal Purchasing Act",
+  "summary": "<p><strong>Safe and Smart Federal Purchasing Act</strong></p><p>This bill requires the Office of Management and Budget (OMB) to evaluate the procurement activities of federal agencies to determine whether provisions of the Federal Acquisition Regulation related to the lowest price technically acceptable source selection process have created any national security risk and report to Congress.</p>",
+  "latestAction": {
+    "actionDate": "2025-03-04",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Government information and archives",
+    "Public contracts and procurement"
+  ],
+  "cosponsors": 1,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/856"
+}

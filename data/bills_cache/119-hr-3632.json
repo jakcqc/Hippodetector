@@ -1,0 +1,24 @@
+{
+  "billId": "119-hr-3632",
+  "congress": 119,
+  "type": "HR",
+  "number": "3632",
+  "title": "Power Plant Reliability Act of 2025",
+  "summary": "<p><strong>Power Plant Reliability Act of 2025</strong></p><p>This bill modifies the process that the Federal Energy Regulatory Commission (FERC) uses to determine, upon a complaint from a state commission, whether a public utility (i.e.,&nbsp;power plant) must remain open because the retirement of the power plant will make the bulk power system unreliable, including by allowing&nbsp;transmission organizations to also file complaints with FERC.</p><p>If&nbsp;FERC finds that any interstate service of any public utility is inadequate or insufficient, or is likely to become inadequate or insufficient within five&nbsp;years of receiving such complaint, then FERC must determine the proper, adequate, or sufficient service to be furnished through an order, rule, or regulation (order).</p><p>The bill specifies that FERC may order a power plant to remain open for up to five years. Any affected state commission, transmission organization, or power plant may request that FERC extend such order.</p><p>A&nbsp;FERC order must determine (1) any rate or charge necessary to provide compensation for the additional costs of the service, and (2) the cost allocation of any rate or charge.</p><p>A power plant owner or operator must notify FERC and affected&nbsp;state commissions or transmission organizations&nbsp;at least five years before any planned retirement of a unit of an electric generating facility except in the case of an emergency or similar event that renders a unit inoperable.</p><p>The bill exempts from federal, state, and local environmental laws and regulations any action taken by a generating facility to comply with such&nbsp;orders.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-17",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Energy and Natural Resources."
+  },
+  "subjects": [
+    "Alternative and renewable resources",
+    "Congressional oversight",
+    "Dams and canals",
+    "Electric power generation and transmission",
+    "Energy prices",
+    "Energy storage, supplies, demand",
+    "Government information and archives",
+    "Government studies and investigations"
+  ],
+  "cosponsors": 4,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3632"
+}

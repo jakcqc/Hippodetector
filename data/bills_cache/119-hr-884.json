@@ -1,0 +1,21 @@
+{
+  "billId": "119-hr-884",
+  "congress": 119,
+  "type": "HR",
+  "number": "884",
+  "title": "To prohibit individuals who are not citizens of the United States from voting in elections in the District of Columbia and to repeal the Local Resident Voting Rights Amendment Act of 2022.",
+  "summary": "<p>This bill prohibits a non-U.S. citizen from voting in a District of Columbia (DC) election and repeals relevant provisions of DC law.</p><p>Federal law prohibits noncitizens from voting in a federal election; however, in 2022, DC enacted a law allowing noncitizens who meet residency and other requirements to vote in local elections. This bill repeals the DC law, which went into effect on February 23, 2023.&nbsp;</p>",
+  "latestAction": {
+    "actionDate": "2025-06-11",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Homeland Security and Governmental Affairs."
+  },
+  "subjects": [
+    "District of Columbia",
+    "Elections, voting, political campaign regulation",
+    "Immigration status and procedures",
+    "State and local government operations",
+    "Voting rights"
+  ],
+  "cosponsors": 14,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/884"
+}

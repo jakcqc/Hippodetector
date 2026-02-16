@@ -1,0 +1,18 @@
+{
+  "billId": "119-hr-695",
+  "congress": 119,
+  "type": "HR",
+  "number": "695",
+  "title": "Medal of Honor Act",
+  "summary": "<p><strong>Medal of Honor Act</strong></p><p>This bill increases the monthly special pension for living Medal of Honor recipients from $1,406.73 to $8,333.33 and establishes a rate of $1,406.73 for the monthly special pension for surviving spouses of Medal of Honor recipients. Both amounts must be adjusted annually for inflation.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-01",
+    "text": "Became Public Law No: 119-43."
+  },
+  "subjects": [
+    "Inflation and prices",
+    "Veterans' pensions and compensation"
+  ],
+  "cosponsors": 4,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/695"
+}

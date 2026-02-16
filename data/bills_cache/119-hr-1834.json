@@ -1,0 +1,35 @@
+{
+  "billId": "119-hr-1834",
+  "congress": 119,
+  "type": "HR",
+  "number": "1834",
+  "title": "Breaking the Gridlock Act",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2026-02-10",
+    "text": "Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 319."
+  },
+  "subjects": [
+    "Asia",
+    "China",
+    "Commuting",
+    "Computer security and identity theft",
+    "Computers and information technology",
+    "Congressional leadership",
+    "Congressional oversight",
+    "Consumer affairs",
+    "Corporate finance and management",
+    "Financial crises and stabilization",
+    "Fires",
+    "First responders and emergency personnel",
+    "Foreign and international corporations",
+    "Fraud offenses and financial crimes",
+    "Government information and archives",
+    "Government studies and investigations",
+    "Historical and cultural resources",
+    "Iran",
+    "Life, casualty, property insurance"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/1834"
+}

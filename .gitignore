@@ -210,5 +210,5 @@ __marimo__/
 
 # Hippodetector data files
 # These are fetched from Congress API and can be regenerated
-data/*.json
-data/*.csv
+# data/*.json
+# data/*.csv

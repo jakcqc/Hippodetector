@@ -1,0 +1,23 @@
+{
+  "billId": "119-hjres-25",
+  "congress": 119,
+  "type": "HJRES",
+  "number": "25",
+  "title": "Providing for congressional disapproval under chapter 8 of title 5, United States Code, of the rule submitted by the Internal Revenue Service relating to \"Gross Proceeds Reporting by Brokers That Regularly Provide Services Effectuating Digital Asset Sales\".",
+  "summary": "<p>This joint resolution nullifies the rule titled <em>Gross Proceeds Reporting by Brokers That Regularly Provide Services Effectuating Digital Asset Sales</em> and issued by the Internal Revenue Service (IRS) on December 30, 2024. The rule generally requires persons effectuating decentralized financial (DeFi) transactions to report certain information regarding digital asset sales to the IRS. <em></em><em></em><em></em><em></em></p>",
+  "latestAction": {
+    "actionDate": "2025-04-10",
+    "text": "Became Public Law No: 119-5."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Congressional oversight",
+    "Currency",
+    "Digital media",
+    "Financial services and investments",
+    "Internal Revenue Service (IRS)",
+    "Tax administration and collection, taxpayers"
+  ],
+  "cosponsors": 9,
+  "url": "https://www.congress.gov/bill/119th-congress/house-joint-resolution/25"
+}

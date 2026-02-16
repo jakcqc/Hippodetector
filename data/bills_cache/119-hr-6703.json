@@ -1,0 +1,29 @@
+{
+  "billId": "119-hr-6703",
+  "congress": 119,
+  "type": "HR",
+  "number": "6703",
+  "title": "Lower Health Care Premiums for All Americans Act",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-12-18",
+    "text": "Received in the Senate."
+  },
+  "subjects": [
+    "Administrative law and regulatory procedures",
+    "Civil actions and liability",
+    "Contracts and agency",
+    "Department of Health and Human Services",
+    "Disability and health-based discrimination",
+    "Employee benefits and pensions",
+    "Government information and archives",
+    "Health care costs and insurance",
+    "Health care coverage and access",
+    "Health information and medical records",
+    "Health programs administration and funding",
+    "Prescription drugs",
+    "Right of privacy"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/6703"
+}

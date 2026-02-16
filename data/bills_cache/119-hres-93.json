@@ -1,0 +1,19 @@
+{
+  "billId": "119-hres-93",
+  "congress": 119,
+  "type": "HRES",
+  "number": "93",
+  "title": "Providing for consideration of the bill (H.R. 27) to amend the Controlled Substances Act with respect to the scheduling of fentanyl-related substances, and for other purposes.",
+  "summary": null,
+  "latestAction": {
+    "actionDate": "2025-02-05",
+    "actionTime": "16:59:54",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "House of Representatives",
+    "Legislative rules and procedure"
+  ],
+  "cosponsors": 0,
+  "url": "https://www.congress.gov/bill/119th-congress/house-resolution/93"
+}

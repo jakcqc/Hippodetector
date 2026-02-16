@@ -1,0 +1,24 @@
+{
+  "billId": "119-hconres-64",
+  "congress": 119,
+  "type": "HCONRES",
+  "number": "64",
+  "title": "To direct the removal of United States Armed Forces from hostilities within or against Venezuela that have not been authorized by Congress.",
+  "summary": "<p>This concurrent resolution directs the President to remove U.S. Armed Forces from hostilities within or against Venezuela unless a declaration of war or authorization to use military force for such purpose has been enacted.</p>",
+  "latestAction": {
+    "actionDate": "2025-12-17",
+    "actionTime": "18:09:06",
+    "text": "Motion to reconsider laid on the table Agreed to without objection."
+  },
+  "subjects": [
+    "Congressional oversight",
+    "Congressional-executive branch relations",
+    "Latin America",
+    "Military operations and strategy",
+    "Military personnel and dependents",
+    "Presidents and presidential powers, Vice Presidents",
+    "Venezuela"
+  ],
+  "cosponsors": 46,
+  "url": "https://www.congress.gov/bill/119th-congress/house-concurrent-resolution/64"
+}

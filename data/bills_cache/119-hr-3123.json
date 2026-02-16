@@ -1,0 +1,18 @@
+{
+  "billId": "119-hr-3123",
+  "congress": 119,
+  "type": "HR",
+  "number": "3123",
+  "title": "Ernest Peltz Accrued Veterans Benefits Act",
+  "summary": "<p><strong>Ernest Peltz Accrued Veterans Benefits Act</strong></p><p>This bill establishes procedures for the Department of Veterans Affairs (VA) to issue a pension that was due but unpaid at the time of a veteran’s death. Specifically, if the VA issues a decision awarding entitlement to a pension to a veteran prior to the veteran’s death but issues the payment after the veteran dies, the pension must be paid to the first available recipient on the following list:&nbsp;(1) the veteran’s living spouse; (2) the veteran’s living children; (3) the veteran’s living dependent parents; or (4) the estate of the veteran, unless the estate will escheat&nbsp;(i.e., transfer to the state).&nbsp;To be eligible for such pension payments, a claimant of accrued benefits must file an application within one year after the veteran's death.</p><p>If no application for accrued benefits is filed within one year following the death of the veteran, the pension must be paid to the veteran’s estate unless the estate will escheat.</p>",
+  "latestAction": {
+    "actionDate": "2026-02-03",
+    "text": "Received in the Senate and Read twice and referred to the Committee on Veterans' Affairs."
+  },
+  "subjects": [
+    "Family relationships",
+    "Veterans' pensions and compensation"
+  ],
+  "cosponsors": 2,
+  "url": "https://www.congress.gov/bill/119th-congress/house-bill/3123"
+}
