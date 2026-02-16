@@ -3,14 +3,6 @@ Ever wondered about how hypocritical a local representative is? Now you can find
 
 Hippodetector helps you analyze politician voting records from Congress and detect inconsistencies between their votes and public statements.
 
-## Features
-
-- ✅ Fetch voting records from the official Congress.gov API
-- ✅ Get detailed vote information for any House member
-- ✅ Export voting data to JSON for analysis
-- ✅ Search members by name or Bioguide ID
-- ✅ LLM integration for analyzing voting patterns
-
 ## Quick Start
 
 ```bash
@@ -22,8 +14,6 @@ uv run dataset/voting_record.py --bioguide-id O000172 --congress 119 --max-votes
 
 📚 **Documentation:**
 - [System Architecture](docs/architecture.md) - How Hippodetector works
-- [Command Reference](docs/CHEATSHEET.md) - Quick command guide
-- [Voting Record API](docs/voting_record_api.md) - API documentation
 - [RAG System](RAG/README.md) - Vector database and semantic search setup
 
 ---
