@@ -1,8 +1,14 @@
 # Hippodetector Documentation
 
-Welcome to the Hippodetector documentation! This project helps you analyze politician voting records to detect hypocrisy by comparing their votes with their public statements.
+Welcome to the Hippodetector documentation! This project detects hypocrisy in U.S. Congress members by comparing their voting records against their public statements (press releases) using RAG (Retrieval-Augmented Generation).
 
 ## Documentation Index
+
+### Architecture & Design
+- **[Project Overview](../AGENTS.md)** - High-level architecture and design decisions
+- **[Member Profile Schema](Internal/member_profile_schema.json)** - JSON schema for per-member databases
+- **[Schema Example](Internal/member_profile_example.json)** - Sample member profile with data
+- **[Development Checklist](Internal/todo.md)** - Current development roadmap
 
 ### API Documentation
 - **[Voting Record API](voting_record_api.md)** - Complete guide to fetching and using voting records
@@ -11,6 +17,22 @@ Welcome to the Hippodetector documentation! This project helps you analyze polit
 - [Quick Start Guide](#quick-start)
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
+- [Running the Streamlit UI](#streamlit-ui)
+
+## How It Works
+
+Hippodetector uses a **RAG (Retrieval-Augmented Generation)** system to detect contradictions between what Congress members say and how they vote:
+
+1. **Data Collection**: Fetch voting records, bill details, and press releases for each member
+2. **Per-Member Databases**: Store complete profiles in `data/members/{bioguideId}.json`
+3. **Vector Embeddings**: Generate embeddings for bills (with vote direction) and press releases
+4. **Semantic Retrieval**: Query the vector database using natural language (e.g., "What climate bills did they vote against?")
+5. **LLM Reasoning**: Compare retrieved votes vs. statements to identify contradictions
+6. **Contextual Output**: Generate explanations like "Voted Nay on HR 2891 (climate bill) but issued 3 press releases championing environmental leadership"
+
+### Current Development Phase
+
+We're using **Eric Burlison** as a test case to validate the full pipeline before scaling to all 435 House members.
 
 ## Quick Start
 
@@ -44,11 +66,25 @@ cp .env.example .env
    CONGRESS_API=your_api_key_here
    ```
 
-### 3. Fetch Voting Records
+### 3. Run the Streamlit UI
 
 ```bash
-# Get recent votes for a politician
-uv run dataset/voting_record.py --bioguide-id O000172 --congress 119 --max-votes 50
+# Launch the press release viewer
+uv run streamlit run server/app.py
+```
+
+The UI will open at `http://localhost:8501` showing press releases by member.
+
+### 4. Fetch Data (Optional)
+
+```bash
+# Fetch voting records
+uv run dataset/voting_record.py --bioguide-id B001310 --congress 119 --max-votes 50
+
+# Scrape press releases
+uv run dataset/pressReleaseScraper.py --bioguide-ids B001310
+
+# Fetch bill details (coming soon)
 ```
 
 ## Installation
@@ -138,43 +174,82 @@ The script creates a JSON file in `data/votes_<bioguide_id>.json` with:
 
 **Note:** Data files (*.json, *.csv) in the `data/` directory are ignored by git and must be generated locally by running the scripts.
 
+## Streamlit UI
+
+Launch the web interface to browse press releases:
+
+```bash
+uv run streamlit run server/app.py
+```
+
+### Current Features
+- Browse press releases by member
+- Filter by text/title search
+- View member profiles (name, state, party, status)
+- Formatted HTML display of press release content
+- Dark/light theme with custom "Where are the Hippos?" branding
+
+### Upcoming Features
+- Member voting record visualization
+- Bills voted on with summaries
+- Contradiction detection and highlighting
+- Natural language query interface (RAG-powered)
+- Side-by-side comparison: votes vs. rhetoric
+
 ## Project Structure
 
 ```
 Hippodetector/
-├── dataset/
-│   ├── fetch_congress_members.py          # Fetch Congress member list (prerequisite)
-│   └── voting_record.py        # Fetch member voting records (main script)
-├── data/
-│   ├── .gitkeep               # Preserves directory in git
-│   ├── congress_members.json   # List of all Congress members (generated)
-│   └── votes_*.json           # Voting records by member (generated)
-├── LLM/
-│   └── archia_*.py            # LLM integration
-├── docs/
-│   ├── README.md              # This file
-│   ├── voting_record_api.md   # Complete API reference
-│   ├── examples.md            # Practical examples
-│   └── CHEATSHEET.md          # Quick reference
-├── .env.example               # Environment variables template
-├── .gitignore                 # Ignores data/*.json and data/*.csv
-├── pyproject.toml            # Project dependencies
-└── README.md                 # Main project README
+├── dataset/                    # Data collection scripts
+│   ├── fetch_congress_members.py    # Fetch member metadata
+│   ├── voting_record.py             # Fetch voting records
+│   ├── billDataGrabber.py           # Fetch bill details from Congress.gov
+│   └── pressReleaseScraper.py       # Scrape press releases from House.gov
+├── data/                       # Generated data (gitignored)
+│   ├── congress_members.json        # All member metadata
+│   ├── congress_bills_voted_last_5_years.json  # Bill metadata (421K bills)
+│   ├── votes_*.json                 # Individual voting records
+│   ├── *_press_releases.json        # Press release data
+│   └── members/                     # Per-member databases (future)
+│       └── {bioguideId}.json        # Complete member profile
+├── LLM/                        # Embedding & model code
+│   ├── archia_hello_world.py        # Model testing
+│   ├── hf_embedding_gemma.py        # Embedding generation
+│   └── archia_model_types.py        # Model type definitions
+├── server/                     # Streamlit UI
+│   ├── app.py                       # Main Streamlit app
+│   └── HippoD.png                   # App logo
+├── docs/                       # Documentation
+│   ├── README.md                    # This file
+│   ├── voting_record_api.md         # API reference
+│   ├── examples.md                  # Practical examples
+│   ├── CHEATSHEET.md                # Quick reference
+│   └── Internal/                    # Internal documentation
+│       ├── member_profile_schema.json    # Database schema
+│       ├── member_profile_example.json   # Schema example
+│       └── todo.md                       # Development checklist
+├── AGENTS.md                   # Project overview for AI agents
+├── .env.example                # Environment variables template
+├── pyproject.toml              # Project dependencies (uv)
+└── README.md                   # Main project README
 ```
 
-**Note:** Files marked as "(generated)" are created by running the scripts and are not committed to git.
+**Note:** Files in `data/` are generated by running scripts and are gitignored (not committed).
 
 ## Common Bioguide IDs
 
 Here are some commonly searched politicians:
 
+### Test Case
+- **Eric Burlison** (MO-7): `B001310` ← *Primary test case for RAG system*
+
 ### House Members (Current)
-- Alexandria Ocasio-Cortez: `O000172`
-- Nancy Pelosi: `P000197`
-- Kevin McCarthy: `M001165`
-- Hakeem Jeffries: `J000294`
-- Marjorie Taylor Greene: `G000596`
-- Matt Gaetz: `G000578`
+- Alexandria Ocasio-Cortez (NY-14): `O000172`
+- Nancy Pelosi (CA-11): `P000197`
+- Kevin McCarthy (CA-20): `M001165`
+- Hakeem Jeffries (NY-08): `J000294`
+- Marjorie Taylor Greene (GA-14): `G000596`
+- Matt Gaetz (FL-01): `G000578`
 
 ### Finding More IDs
 
@@ -192,12 +267,25 @@ Here are some commonly searched politicians:
    - https://bioguide.congress.gov/
    - https://www.congress.gov/members
 
-## Next Steps
+## Development Roadmap
 
-1. **[Read the Voting Record API Documentation](voting_record_api.md)** for detailed usage
-2. **Explore the Data**: Check the JSON files in `data/` directory
-3. **Build Analysis Tools**: Use the voting data to detect hypocrisy
-4. **Integrate with LLMs**: Use the LLM tools to analyze voting patterns
+### Current Phase: Building the RAG System
+1. ✅ Define per-member database schema
+2. ⏳ Build data aggregation pipeline
+3. ⏳ Generate Burlison test case profile
+4. ⏳ Implement vector DB and embeddings
+5. ⏳ Build RAG query interface
+6. ⏳ Add contradiction detection to Streamlit
+
+See [docs/Internal/todo.md](Internal/todo.md) for the complete checklist.
+
+## Next Steps for Users
+
+1. **[Read the Member Profile Schema](Internal/member_profile_schema.json)** to understand the data structure
+2. **[Review the Project Overview](../AGENTS.md)** for architecture details
+3. **Launch the Streamlit UI** to browse existing press release data
+4. **Explore the Data**: Check the JSON files in `data/` directory
+5. **Follow Development**: Check [todo.md](Internal/todo.md) for progress updates
 
 ## Resources
 

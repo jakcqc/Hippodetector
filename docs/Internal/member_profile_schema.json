@@ -1,0 +1,329 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Member Profile Schema",
+  "description": "Schema for per-member database containing metadata, votes, bills, and press releases",
+  "type": "object",
+  "required": ["metadata", "dataCollection", "votes", "bills", "pressReleases"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["bioguideId", "name", "lastName", "state", "party", "chamber"],
+      "properties": {
+        "bioguideId": {
+          "type": "string",
+          "description": "Unique bioguide identifier",
+          "example": "B001310"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name",
+          "example": "Eric Burlison"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Eric"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Burlison"
+        },
+        "state": {
+          "type": "string",
+          "description": "State represented",
+          "example": "Missouri"
+        },
+        "district": {
+          "type": "string",
+          "description": "District number (House members only)",
+          "example": "7"
+        },
+        "party": {
+          "type": "string",
+          "description": "Full party name",
+          "example": "Republican"
+        },
+        "partyCode": {
+          "type": "string",
+          "description": "Single letter party code",
+          "enum": ["R", "D", "I"],
+          "example": "R"
+        },
+        "chamber": {
+          "type": "string",
+          "enum": ["House", "Senate"],
+          "example": "House"
+        },
+        "currentMember": {
+          "type": "boolean",
+          "description": "Whether member is currently serving",
+          "example": true
+        },
+        "profileUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Official website URL",
+          "example": "https://burlison.house.gov"
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Official photo URL"
+        }
+      }
+    },
+    "dataCollection": {
+      "type": "object",
+      "required": ["fetchedAt", "votesCount", "billsCount", "pressReleasesCount"],
+      "properties": {
+        "fetchedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this profile was last updated",
+          "example": "2026-02-15T20:30:00Z"
+        },
+        "votesCount": {
+          "type": "integer",
+          "description": "Total number of votes in this profile",
+          "example": 342
+        },
+        "billsCount": {
+          "type": "integer",
+          "description": "Total number of unique bills",
+          "example": 287
+        },
+        "pressReleasesCount": {
+          "type": "integer",
+          "description": "Total number of press releases",
+          "example": 156
+        },
+        "votesSource": {
+          "type": "string",
+          "format": "uri",
+          "description": "Source URL for voting record",
+          "example": "https://clerk.house.gov/members/B001310"
+        },
+        "billsSource": {
+          "type": "string",
+          "format": "uri",
+          "description": "Source API for bill details",
+          "example": "https://api.congress.gov/v3/bill"
+        },
+        "pressReleasesSource": {
+          "type": "string",
+          "format": "uri",
+          "description": "Source URL for press releases",
+          "example": "https://burlison.house.gov/media/press-releases"
+        }
+      }
+    },
+    "votes": {
+      "type": "array",
+      "description": "Array of all votes cast by this member",
+      "items": {
+        "type": "object",
+        "required": ["congress", "rollCall", "date", "billType", "billNumber", "memberVote", "billId"],
+        "properties": {
+          "congress": {
+            "type": "integer",
+            "description": "Congress number",
+            "example": 119
+          },
+          "session": {
+            "type": "integer",
+            "description": "Session number",
+            "example": 1
+          },
+          "rollCall": {
+            "type": "integer",
+            "description": "Roll call number",
+            "example": 240
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Vote date and time",
+            "example": "2025-09-08T18:56:00-04:00"
+          },
+          "billType": {
+            "type": "string",
+            "description": "Type of bill (HR, S, HRES, SRES, etc.)",
+            "example": "HR"
+          },
+          "billNumber": {
+            "type": "string",
+            "description": "Bill number",
+            "example": "3424"
+          },
+          "billUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Congress.gov URL for this bill",
+            "example": "https://www.congress.gov/bill/119/house-bill/3424"
+          },
+          "question": {
+            "type": "string",
+            "description": "Question being voted on",
+            "example": "On Passage"
+          },
+          "result": {
+            "type": "string",
+            "description": "Result of the vote",
+            "example": "Passed"
+          },
+          "voteType": {
+            "type": "string",
+            "description": "Type of vote",
+            "example": "2/3 Yea-And-Nay"
+          },
+          "memberVote": {
+            "type": "string",
+            "description": "How this member voted",
+            "enum": ["Yea", "Nay", "Present", "Not Voting"],
+            "example": "Yea"
+          },
+          "billId": {
+            "type": "string",
+            "description": "Composite bill identifier for joining with bills array",
+            "pattern": "^\\d+-[a-z]+-\\d+$",
+            "example": "119-hr-3424"
+          }
+        }
+      }
+    },
+    "bills": {
+      "type": "array",
+      "description": "Array of unique bills this member voted on, with full details",
+      "items": {
+        "type": "object",
+        "required": ["billId", "congress", "type", "number", "title"],
+        "properties": {
+          "billId": {
+            "type": "string",
+            "description": "Composite identifier: {congress}-{type}-{number}",
+            "pattern": "^\\d+-[a-z]+-\\d+$",
+            "example": "119-hr-3424"
+          },
+          "congress": {
+            "type": "integer",
+            "example": 119
+          },
+          "type": {
+            "type": "string",
+            "description": "Bill type",
+            "example": "HR"
+          },
+          "number": {
+            "type": "string",
+            "description": "Bill number",
+            "example": "3424"
+          },
+          "title": {
+            "type": "string",
+            "description": "Full bill title",
+            "example": "To establish a program for expanding access to Medicare"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Bill summary text"
+          },
+          "latestAction": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date",
+                "example": "2025-09-08"
+              },
+              "text": {
+                "type": "string",
+                "example": "Passed House"
+              }
+            }
+          },
+          "subjects": {
+            "type": "array",
+            "description": "Topic tags for this bill",
+            "items": {
+              "type": "string"
+            },
+            "example": ["Healthcare", "Medicare"]
+          },
+          "cosponsors": {
+            "type": "integer",
+            "description": "Number of cosponsors",
+            "example": 42
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "API URL for full bill details",
+            "example": "https://api.congress.gov/v3/bill/119/hr/3424"
+          }
+        }
+      }
+    },
+    "pressReleases": {
+      "type": "array",
+      "description": "Array of press releases issued by this member",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "date", "url"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for this press release",
+            "example": "pr-2025-09-10-healthcare"
+          },
+          "title": {
+            "type": "string",
+            "description": "Press release title",
+            "example": "Burlison Votes to Strengthen Medicare"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Publication date",
+            "example": "2025-09-10"
+          },
+          "publishedTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Full publication timestamp",
+            "example": "2025-09-10T14:30:00Z"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to press release on member's website",
+            "example": "https://burlison.house.gov/media/press-releases/burlison-votes-strengthen-medicare"
+          },
+          "bodyText": {
+            "type": "string",
+            "description": "Plain text body content"
+          },
+          "bodyHtml": {
+            "type": "string",
+            "description": "HTML formatted body content"
+          },
+          "topics": {
+            "type": "array",
+            "description": "Extracted topics/themes from this press release",
+            "items": {
+              "type": "string"
+            },
+            "example": ["Healthcare", "Medicare", "Seniors"]
+          },
+          "relatedBills": {
+            "type": "array",
+            "description": "Bill IDs mentioned or related to this press release",
+            "items": {
+              "type": "string",
+              "pattern": "^\\d+-[a-z]+-\\d+$"
+            },
+            "example": ["119-hr-3424"]
+          }
+        }
+      }
+    }
+  }
+}

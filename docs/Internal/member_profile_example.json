@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "bioguideId": "B001310",
+    "name": "Eric Burlison",
+    "firstName": "Eric",
+    "lastName": "Burlison",
+    "state": "Missouri",
+    "district": "7",
+    "party": "Republican",
+    "partyCode": "R",
+    "chamber": "House",
+    "currentMember": true,
+    "profileUrl": "https://burlison.house.gov",
+    "imageUrl": "https://burlison.house.gov/sites/evo-subsites/burlison.house.gov/files/evo-media-image/burlison_official.jpg"
+  },
+
+  "dataCollection": {
+    "fetchedAt": "2026-02-15T20:30:00Z",
+    "votesCount": 342,
+    "billsCount": 287,
+    "pressReleasesCount": 156,
+    "votesSource": "https://clerk.house.gov/members/B001310",
+    "billsSource": "https://api.congress.gov/v3/bill",
+    "pressReleasesSource": "https://burlison.house.gov/media/press-releases"
+  },
+
+  "votes": [
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 240,
+      "date": "2025-09-08T18:56:00-04:00",
+      "billType": "HR",
+      "billNumber": "3424",
+      "billUrl": "https://www.congress.gov/bill/119/house-bill/3424",
+      "question": "On Passage",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "billId": "119-hr-3424"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 156,
+      "date": "2025-06-12T15:23:00-04:00",
+      "billType": "HR",
+      "billNumber": "2891",
+      "billUrl": "https://www.congress.gov/bill/119/house-bill/2891",
+      "question": "On Passage",
+      "result": "Failed",
+      "voteType": "Yea-And-Nay",
+      "memberVote": "Nay",
+      "billId": "119-hr-2891"
+    }
+  ],
+
+  "bills": [
+    {
+      "billId": "119-hr-3424",
+      "congress": 119,
+      "type": "HR",
+      "number": "3424",
+      "title": "To establish a program for expanding access to Medicare services in rural communities",
+      "summary": "This bill establishes a Medicare Rural Access Program to increase healthcare provider availability in underserved rural areas through loan forgiveness incentives and telehealth expansion.",
+      "latestAction": {
+        "date": "2025-09-08",
+        "text": "Passed House by Yea-Nay: 289-143"
+      },
+      "subjects": ["Healthcare", "Medicare", "Rural Development", "Telehealth"],
+      "cosponsors": 42,
+      "url": "https://api.congress.gov/v3/bill/119/hr/3424"
+    },
+    {
+      "billId": "119-hr-2891",
+      "congress": 119,
+      "type": "HR",
+      "number": "2891",
+      "title": "Climate Action and Green Energy Investment Act",
+      "summary": "This bill authorizes $50 billion in federal investment for renewable energy infrastructure, establishes emissions reduction targets for 2030, and creates a carbon pricing mechanism for heavy industries.",
+      "latestAction": {
+        "date": "2025-06-12",
+        "text": "Failed in House by Yea-Nay: 198-234"
+      },
+      "subjects": ["Climate Change", "Energy", "Environment", "Emissions"],
+      "cosponsors": 87,
+      "url": "https://api.congress.gov/v3/bill/119/hr/2891"
+    }
+  ],
+
+  "pressReleases": [
+    {
+      "id": "pr-2025-09-10-medicare-rural",
+      "title": "Burlison Votes to Strengthen Medicare Access for Missouri Families",
+      "date": "2025-09-10",
+      "publishedTime": "2025-09-10T14:30:00Z",
+      "url": "https://burlison.house.gov/media/press-releases/burlison-votes-strengthen-medicare-rural",
+      "bodyText": "Today I was proud to vote for HR 3424, which will bring critical healthcare resources to rural Missouri communities. This bill ensures our seniors have access to quality medical care without traveling hundreds of miles. As someone who represents rural Missouri, I know firsthand the challenges our communities face...",
+      "bodyHtml": "<p>Today I was proud to vote for HR 3424, which will bring critical healthcare resources to rural Missouri communities...</p>",
+      "topics": ["Healthcare", "Medicare", "Rural Communities", "Missouri"],
+      "relatedBills": ["119-hr-3424"]
+    },
+    {
+      "id": "pr-2025-05-03-energy-independence",
+      "title": "Burlison: Pursuing Real Energy Solutions for America",
+      "date": "2025-05-03",
+      "publishedTime": "2025-05-03T09:15:00Z",
+      "url": "https://burlison.house.gov/media/press-releases/burlison-energy-solutions",
+      "bodyText": "America needs sensible energy policies that promote independence and economic growth. While I support environmental stewardship, we must pursue practical solutions that don't devastate working families with higher energy costs or sacrifice American jobs. We can have clean air and water without radical mandates that cripple our economy...",
+      "bodyHtml": "<p>America needs sensible energy policies that promote independence and economic growth...</p>",
+      "topics": ["Energy", "Economy", "Jobs", "Environmental Policy"],
+      "relatedBills": []
+    }
+  ]
+}
