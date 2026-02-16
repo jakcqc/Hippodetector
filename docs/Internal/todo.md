@@ -3,10 +3,11 @@
 ## High Level Objectives
 
 ### RAG System
-- [ ] Build per-member database (votes + bills + press releases)
-- [ ] Set up Qdrant vector DB with Docker Compose
-- [ ] Generate embeddings and load into Qdrant
-- [ ] Build RAG pipeline with retrieval + LLM reasoning
+- [x] Build per-member database (votes + bills + press releases)
+- [x] Set up Qdrant vector DB with Docker Compose
+- [x] Create embedding generation script
+- [ ] Load embeddings into Qdrant (ready to test)
+- [ ] Build RAG pipeline with retrieval + stance extraction + contradiction detection
 - [ ] Add natural language query interface to Streamlit
 
 ### Scale to All Members
@@ -35,14 +36,24 @@
 - [x] Generate complete Burlison profile JSON (data/members/B001316.json)
 
 ### RAG System Setup
-- [ ] Create docker-compose.yml for Qdrant
-- [ ] Define Qdrant collection schemas (bills and press releases)
-- [ ] Test Qdrant connection and basic operations
-- [ ] Generate embeddings for Burlison's bills (273 bills with vote context)
-- [ ] Generate embeddings for Burlison's press releases (10 releases)
-- [ ] Load bill embeddings into Qdrant with metadata
-- [ ] Load press release embeddings into Qdrant with metadata
-- [ ] Implement semantic search function (query → retrieve relevant items)
-- [ ] Build LLM reasoning layer for contradiction detection
-- [ ] Test RAG pipeline with sample queries on Burlison data
+- [x] Create docker-compose.yml for Qdrant
+- [x] Define Qdrant collection schemas (bills and press releases)
+- [x] Test Qdrant connection and basic operations
+- [x] Build embedding generation script (RAG/load_embeddings.py)
+- [ ] Load embeddings into Qdrant (test with Burlison: 273 bills + 10 PRs)
+- [ ] Implement semantic search function (RAG/search.py)
+  - Query embedding generation
+  - Qdrant similarity search
+  - Return top-k bills and press releases
+- [ ] Build post-retrieval stance extraction (RAG/extract_stances.py)
+  - Use dataset/memberOpinions.py IssueStance schema
+  - Extract structured stances from retrieved press releases
+  - Map bill subjects to issue categories
+- [ ] Build contradiction detector (RAG/detect_contradictions.py)
+  - Compare extracted stances vs vote positions
+  - Match topics: bill subjects ↔ issue categories
+  - Generate structured contradiction output with sources
+- [ ] Test full RAG pipeline with sample queries on Burlison data
 - [ ] Add natural language query interface to Streamlit UI
+
+**Note**: Using post-processing approach (Option 3) - extract stances AFTER retrieval for flexibility and cost-efficiency

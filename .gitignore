@@ -212,3 +212,6 @@ __marimo__/
 # These are fetched from Congress API and can be regenerated
 # data/*.json
 # data/*.csv
+
+# Qdrant vector database storage
+data/qdrant_storage/

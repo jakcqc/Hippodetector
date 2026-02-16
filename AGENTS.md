@@ -12,8 +12,9 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 
 ### RAG System
 - **Vector DB**: Embeddings of bills (with vote direction) and press releases
-- **Query Pattern**: Natural language → retrieve relevant votes/statements → LLM reasons about contradictions
-- **Output**: Contextual explanations of rhetoric vs. action gaps
+- **Query Pattern**: Natural language → retrieve relevant votes/statements → extract structured stances → compare stances vs votes → LLM explains contradictions
+- **Stance Extraction**: Post-retrieval extraction using `dataset/memberOpinions.py` schema (24 issue categories)
+- **Output**: Structured contradictions with source citations (IssueStance model)
 
 ### Tech Stack
 - Python 3.12 (uv package manager)

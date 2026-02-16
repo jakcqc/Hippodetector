@@ -1,0 +1,252 @@
+# RAG System Design Document
+
+## Overview
+
+This document describes the design of the Hippodetector RAG system for detecting contradictions between congressional members' voting records and public statements.
+
+## Data Flow Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. DATA INGESTION                                               │
+│                                                                  │
+│  Member Profile (data/members/B001316.json)                     │
+│  ├── metadata: name, party, state                               │
+│  ├── votes: [{billId, memberVote, voteDate, ...}]              │
+│  ├── bills: [{billId, title, summary, subjects, ...}]          │
+│  └── pressReleases: [{id, title, bodyText, date, ...}]         │
+│                                                                  │
+│  ↓ join votes + bills by billId                                 │
+│  ↓ create embedding texts                                       │
+│                                                                  │
+│  Embeddings Generated (google/embeddinggemma-300m)              │
+│  ├── Bill embeddings: title + summary + subjects + vote         │
+│  └── PR embeddings: title + bodyText                            │
+│                                                                  │
+│  ↓ load into Qdrant                                             │
+│                                                                  │
+│  Vector Database (Qdrant)                                       │
+│  ├── Collection: bills (273 points)                             │
+│  └── Collection: press_releases (10 points)                     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 2. QUERY PROCESSING                                             │
+│                                                                  │
+│  User Query: "Find contradictions about healthcare"             │
+│                                                                  │
+│  ↓ generate embedding                                           │
+│                                                                  │
+│  RAG/search.py                                                  │
+│  ├── Search bills collection (top-k by cosine similarity)       │
+│  ├── Search press_releases collection (top-k)                   │
+│  └── Return: List[VoteEvidence], List[RawPressRelease]          │
+│                                                                  │
+│  Retrieved Items:                                               │
+│  ├── 5-10 relevant bills with vote positions                    │
+│  └── 3-5 relevant press releases                                │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 3. STANCE EXTRACTION (Post-Processing)                          │
+│                                                                  │
+│  RAG/extract_stances.py                                         │
+│                                                                  │
+│  For each retrieved press release:                              │
+│  ├── Use LLM to extract structured stance                       │
+│  ├── Input: PR title + bodyText                                 │
+│  ├── Prompt: "Extract stance on [issue] from this statement"    │
+│  └── Output: IssueStance (dataset/memberOpinions.py)            │
+│      ├── status: "supports" | "opposes" | "mixed"               │
+│      ├── summary: brief description                             │
+│      └── source_url: PR url                                     │
+│                                                                  │
+│  Extracted Stances:                                             │
+│  ├── healthcare: {status: "opposes", summary: "..."}            │
+│  ├── immigration: {status: "supports", summary: "..."}          │
+│  └── ...                                                         │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 4. TOPIC MATCHING                                               │
+│                                                                  │
+│  Map bill subjects to issue categories:                         │
+│                                                                  │
+│  Bill Subjects          →  Issue Category                       │
+│  ─────────────────────────────────────────                      │
+│  "Healthcare"           →  health_care                           │
+│  "Medicare"             →  health_care                           │
+│  "Budget deficits"      →  budget_economy                        │
+│  "Immigration"          →  immigration                           │
+│  ...                                                             │
+│                                                                  │
+│  Matched Bills:                                                 │
+│  ├── 119-hr-3424 (Healthcare) → health_care stance              │
+│  └── 119-hr-5348 (Immigration) → immigration stance             │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 5. CONTRADICTION DETECTION                                      │
+│                                                                  │
+│  RAG/detect_contradictions.py                                   │
+│                                                                  │
+│  For each (bill, stance) pair on same topic:                    │
+│                                                                  │
+│  ├── Compare vote position vs stated stance                     │
+│  │   ├── Vote: "Yea" on healthcare bill                         │
+│  │   └── Stance: "opposes" federal healthcare regulations       │
+│  │                                                               │
+│  ├── Determine contradiction severity                           │
+│  │   ├── "direct": clear opposition                             │
+│  │   ├── "moderate": contextual difference                      │
+│  │   ├── "weak": minor inconsistency                            │
+│  │   └── "nuanced": complex/debatable                           │
+│  │                                                               │
+│  ├── Use LLM to generate explanation                            │
+│  │   ├── Input: bill summary + vote + PR excerpt + stance       │
+│  │   └── Output: natural language explanation                   │
+│  │                                                               │
+│  └── Build Contradiction object (contradiction_schema.py)       │
+│      ├── statement: StatementEvidence                           │
+│      ├── vote: VoteEvidence                                     │
+│      ├── explanation: str                                       │
+│      ├── severity: ContradictionSeverity                        │
+│      └── confidenceScore: float                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 6. OUTPUT GENERATION                                            │
+│                                                                  │
+│  ContradictionReport (contradiction_schema.py)                  │
+│  ├── query: "Find contradictions about healthcare"              │
+│  ├── memberName: "Burlison, Eric"                               │
+│  ├── bioguideId: "B001316"                                      │
+│  ├── party: "Republican"                                        │
+│  ├── contradictions: [                                          │
+│  │     {                                                         │
+│  │       issueCategory: "health_care",                          │
+│  │       severity: "moderate",                                  │
+│  │       statement: {...},                                      │
+│  │       vote: {...},                                           │
+│  │       explanation: "...",                                    │
+│  │       confidenceScore: 0.75                                  │
+│  │     }                                                         │
+│  │   ]                                                           │
+│  ├── totalFound: 1                                              │
+│  └── executionTimeMs: 1542.3                                    │
+│                                                                  │
+│  ↓ return to Streamlit UI                                       │
+│                                                                  │
+│  User sees:                                                     │
+│  ├── Contradiction summary                                      │
+│  ├── Source citations (bill + PR links)                         │
+│  ├── Confidence score                                           │
+│  └── Detailed explanation                                       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Key Design Decisions
+
+### 1. Post-Retrieval Stance Extraction (Option 3)
+
+**Why?**
+- Preserves flexibility of semantic search
+- Only processes retrieved items (cost-efficient)
+- Enables structured output without upfront categorization
+
+**Trade-offs:**
+- Can't pre-filter by issue category
+- More complex query-time logic
+- Dependent on retrieval quality
+
+### 2. Topic Matching Strategy
+
+**Bill Subjects → Issue Categories:**
+- Use fuzzy matching + keyword mapping
+- Multiple subjects can map to one issue
+- One subject can map to multiple issues (handled in contradiction detection)
+
+**Example Mappings:**
+```python
+SUBJECT_TO_ISSUE_MAP = {
+    "health care": ["health_care"],
+    "medicare": ["health_care", "social_security"],
+    "medicaid": ["health_care", "welfare_poverty"],
+    "immigration": ["immigration"],
+    "border security": ["immigration", "homeland_security"],
+    ...
+}
+```
+
+### 3. Contradiction Severity Scoring
+
+**Criteria:**
+1. **Direct**: Vote directly contradicts stated position
+   - Example: Says "oppose X", votes Yes on X
+2. **Moderate**: Contradiction in related context
+   - Example: Says "reduce regulations", votes for regulatory bill
+3. **Weak**: Minor inconsistency or timing difference
+   - Example: Old statement, recent changed vote
+4. **Nuanced**: Complex, debatable, or requires context
+   - Example: Supports concept but opposes specific implementation
+
+### 4. Confidence Scoring
+
+**Factors:**
+1. Topic match strength (bill subjects ↔ issue category)
+2. Clarity of extracted stance (supports vs mixed)
+3. Recency (older statements = lower confidence)
+4. LLM's own confidence in extraction
+
+## Schema Relationships
+
+```
+memberOpinions.py (Input)
+├── IssueStance
+│   ├── status: StanceStatus
+│   ├── summary: str
+│   └── source_url: str
+└── CandidateIssueProfile
+    ├── health_care: IssueStance
+    ├── immigration: IssueStance
+    └── ... (24 categories)
+
+contradiction_schema.py (Output)
+├── VoteEvidence (from Qdrant bills collection)
+│   ├── billId, title, summary
+│   ├── memberVote, voteDate
+│   └── subjects
+├── StatementEvidence (from Qdrant press_releases + LLM extraction)
+│   ├── id, title, date, url
+│   ├── excerpt
+│   ├── extractedStance (from IssueStance.status)
+│   └── stanceSummary (from IssueStance.summary)
+├── Contradiction
+│   ├── statement: StatementEvidence
+│   ├── vote: VoteEvidence
+│   ├── explanation: str (LLM-generated)
+│   ├── severity: ContradictionSeverity
+│   └── confidenceScore: float
+└── ContradictionReport
+    ├── query: str
+    ├── member metadata
+    ├── contradictions: List[Contradiction]
+    └── search metadata
+```
+
+## Implementation Roadmap
+
+1. ✅ **Data Ingestion**: Load embeddings into Qdrant
+2. ⏳ **Search Function**: Implement semantic search (RAG/search.py)
+3. ⏳ **Stance Extraction**: LLM extraction using IssueStance schema (RAG/extract_stances.py)
+4. ⏳ **Topic Matching**: Map bill subjects to issue categories
+5. ⏳ **Contradiction Detection**: Compare and score (RAG/detect_contradictions.py)
+6. ⏳ **Streamlit UI**: Display ContradictionReport to users
+
+## Future Enhancements
+
+- **Multi-member queries**: Compare positions across members
+- **Temporal analysis**: Track position changes over time
+- **Bill co-sponsorship**: Include co-sponsored bills as additional evidence
+- **Social media integration**: Analyze tweets/statements beyond press releases
+- **Explainability**: Add citation highlighting and reasoning chains
