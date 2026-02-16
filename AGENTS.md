@@ -25,10 +25,12 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 ## Key Files
 
 ### Data Collection
-- `dataset/voting_record.py` - Fetch member voting records
-- `dataset/billDataGrabber.py` - Fetch bill details from Congress.gov
+- `dataset/voting_record.py` - Fetch member voting records (with progress bars)
+- `dataset/fetch_bill_details.py` - Fetch comprehensive bill details (summaries & subjects)
+- `dataset/build_member_profile.py` - Aggregate votes, bills, and press releases into per-member profiles
 - `dataset/pressReleaseScraper.py` - Scrape press releases from House.gov
 - `dataset/fetch_congress_members.py` - Get member metadata
+- `dataset/billDataGrabber.py` - Legacy bill fetcher (superseded by fetch_bill_details.py)
 
 ### Analysis
 - `LLM/archia_hello_world.py` - Model testing
@@ -42,6 +44,8 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 - `data/congress_members.json` - All member metadata
 - `data/congress_bills_voted_last_5_years.json` - All bills with votes (421K bills, 20K with votes)
 - `data/votes_{bioguideId}.json` - Individual voting records
+- `data/bills_cache/` - Cached bill details (comprehensive: summaries & subjects)
+- `data/members/{bioguideId}.json` - Complete member profiles (votes + bills + press releases)
 - `data/burlison_press_releases.json` - Press release data (Burlison test case)
 
 ### Documentation
@@ -52,20 +56,28 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 ## Current State
 - ✅ Press release scraper working
 - ✅ Bill metadata collected (5-year window)
-- ✅ Sample voting records (2 members)
+- ✅ Voting record fetcher with progress bars
+- ✅ Bill details fetcher with comprehensive data (summaries & subjects, 3 API calls per bill)
+- ✅ Member profile aggregation script (combines votes + bills + press releases)
 - ✅ Streamlit UI for browsing press releases
 - ✅ Per-member database schema defined
-- ⏳ Pipeline development (in progress)
-- ⏳ RAG system (planned)
+- ✅ **Burlison test case complete** (432 votes, 273 bills, 10 press releases)
+- ⏳ RAG system (next: Qdrant setup + embeddings)
 
 ## Test Case
-**Eric Burlison** is the initial test case for the full pipeline (votes + bills + press releases → RAG analysis)
+**Eric Burlison (B001316)** - Complete test case for the data collection pipeline
+- ✅ 432 votes with positions
+- ✅ 273 bills with comprehensive details (titles, summaries, subjects)
+- ✅ 10 press releases
+- ✅ Full profile saved to `data/members/B001316.json`
+- Next: RAG analysis with this data
 
 ## Development Guidelines
 1. **Data collection**: Always cache API responses to avoid redundant calls
-2. **File structure**: Use separate per-member files (`data/members/{bioguideId}.json`) not one monolithic file
-3. **Scalability**: Design for all 435 House members, but validate with Burlison first
-4. **RAG first**: The goal is contradiction detection via retrieval + LLM reasoning, not just keyword matching
+2. **API rate limits**: Congress.gov API has 5,000 requests/hour limit (bill details need 3 calls each)
+3. **File structure**: Use separate per-member files (`data/members/{bioguideId}.json`) not one monolithic file
+4. **Scalability**: Design for all 435 House members, but validate with Burlison first
+5. **RAG first**: The goal is contradiction detection via retrieval + LLM reasoning, not just keyword matching
 
 ## Next Agent Tasks
 See `docs/Internal/todo.md` for current checklist (organized by High Level / Low Level)

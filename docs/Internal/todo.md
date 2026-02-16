@@ -23,13 +23,13 @@
 
 ### Pipeline Development
 - [x] Find Burlison's bioguide ID
-- [ ] Build member profile aggregation script
-- [x] Implement voting record fetcher for specific bioguide ID
-- [ ] Implement bill details fetcher (takes list of bill IDs from votes)
-- [ ] Link existing press release data
+- [x] Build member profile aggregation script
+- [x] Implement voting record fetcher for specific bioguide ID (with progress bars)
+- [x] Implement bill details fetcher (comprehensive data: summaries & subjects)
+- [x] Link existing press release data
 
 ### Burlison Test Case
-- [ ] Fetch Burlison's voting record
-- [ ] Extract unique bills from Burlison's votes
-- [ ] Fetch bill details for Burlison's bills
-- [ ] Generate complete Burlison profile JSON
+- [x] Fetch Burlison's voting record (432 votes)
+- [x] Extract unique bills from Burlison's votes (273 bills)
+- [x] Fetch bill details for Burlison's bills (comprehensive data)
+- [x] Generate complete Burlison profile JSON (data/members/B001316.json)
