@@ -41,10 +41,11 @@
 - [x] Test Qdrant connection and basic operations
 - [x] Build embedding generation script (RAG/load_embeddings.py)
 - [x] Load embeddings into Qdrant (369 bill-vote pairs + 10 PRs using CPU batching)
-- [ ] Implement semantic search function (RAG/search.py)
+- [x] Implement semantic search function (RAG/search.py)
   - Query embedding generation
   - Qdrant similarity search
   - Return top-k bills and press releases
+  - Tested with "federal regulations" query - returns relevant bills + press releases
 - [ ] Build post-retrieval stance extraction (RAG/extract_stances.py)
   - Use dataset/memberOpinions.py IssueStance schema
   - Extract structured stances from retrieved press releases
