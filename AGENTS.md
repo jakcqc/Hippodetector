@@ -19,7 +19,7 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 - Python 3.12 (uv package manager)
 - Streamlit (UI)
 - Congress.gov API
-- Vector DB (Chroma/FAISS/Pinecone - TBD)
+- Qdrant (vector DB via Docker)
 - Embedding model (see `LLM/` directory)
 
 ## Key Files

@@ -66,7 +66,14 @@ cp .env.example .env
    CONGRESS_API=your_api_key_here
    ```
 
-### 3. Run the Streamlit UI
+### 3. Start Qdrant (Vector Database)
+
+```bash
+# Start Qdrant vector database
+docker compose up -d
+```
+
+### 4. Run the Streamlit UI
 
 ```bash
 # Launch the press release viewer
@@ -75,16 +82,20 @@ uv run streamlit run server/app.py
 
 The UI will open at `http://localhost:8501` showing press releases by member.
 
-### 4. Fetch Data (Optional)
+### 5. Fetch Data (Optional)
 
 ```bash
-# Fetch voting records
-uv run dataset/voting_record.py --bioguide-id B001316 --congress 119 --max-votes 50
+# Step 1: Fetch voting records
+uv run dataset/voting_record.py --bioguide-id B001316 --congress 119 --max-votes 500
 
-# Scrape press releases
+# Step 2: Scrape press releases
 uv run dataset/pressReleaseScraper.py --bioguide-ids B001316
 
-# Fetch bill details (coming soon)
+# Step 3: Fetch bill details for the votes
+uv run dataset/fetch_bill_details.py --from-votes data/votes_B001316.json
+
+# Step 4: Build complete member profile
+uv run dataset/build_member_profile.py --bioguide-id B001316
 ```
 
 ## Installation
@@ -93,6 +104,7 @@ uv run dataset/pressReleaseScraper.py --bioguide-ids B001316
 
 - **Python**: 3.12 or higher
 - **Package Manager**: uv
+- **Docker**: For running Qdrant vector database
 - **Operating System**: Linux, macOS, or Windows (WSL recommended)
 
 ### Install uv
@@ -203,8 +215,10 @@ Hippodetector/
 ├── dataset/                    # Data collection scripts
 │   ├── fetch_congress_members.py    # Fetch member metadata
 │   ├── voting_record.py             # Fetch voting records
-│   ├── billDataGrabber.py           # Fetch bill details from Congress.gov
-│   └── pressReleaseScraper.py       # Scrape press releases from House.gov
+│   ├── billDataGrabber.py           # Fetch bill details from Congress.gov (legacy)
+│   ├── fetch_bill_details.py        # Fetch full bill details for specific bills
+│   ├── pressReleaseScraper.py       # Scrape press releases from House.gov
+│   └── build_member_profile.py      # Aggregate all data into member profile
 ├── data/                       # Generated data (gitignored)
 │   ├── congress_members.json        # All member metadata
 │   ├── congress_bills_voted_last_5_years.json  # Bill metadata (421K bills)
@@ -229,6 +243,7 @@ Hippodetector/
 │       ├── member_profile_example.json   # Schema example
 │       └── todo.md                       # Development checklist
 ├── AGENTS.md                   # Project overview for AI agents
+├── docker-compose.yml          # Qdrant vector database setup
 ├── .env.example                # Environment variables template
 ├── pyproject.toml              # Project dependencies (uv)
 └── README.md                   # Main project README
