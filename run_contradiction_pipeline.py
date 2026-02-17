@@ -27,12 +27,21 @@ import argparse
 import json
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Set
+
+from tqdm import tqdm
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 DATA_DIR = PROJECT_ROOT / "data"
 MEMBERS_DIR = DATA_DIR / "members"
+
+# Precomputed embeddings zip files (House members only)
+PR_EMBEDDINGS_ZIPS = [
+    DATA_DIR / "press_release_embeddings_1.zip",
+    DATA_DIR / "press_release_embeddings_2.zip",
+]
 
 
 class PipelineRunner:
@@ -64,16 +73,28 @@ class PipelineRunner:
         print()
 
         results = []
-        for i, bioguide_id in enumerate(self.bioguide_ids, 1):
-            print("\n" + "=" * 80)
-            print(f"POLITICIAN {i}/{len(self.bioguide_ids)}: {bioguide_id}")
-            print("=" * 80)
 
-            result = self.run_for_politician(bioguide_id)
-            results.append(result)
+        # Use tqdm progress bar for multiple politicians
+        with tqdm(
+            total=len(self.bioguide_ids),
+            desc="Processing politicians",
+            unit="politician",
+            ncols=100
+        ) as pbar:
+            for i, bioguide_id in enumerate(self.bioguide_ids, 1):
+                pbar.set_description(f"Processing {bioguide_id}")
 
-            if not result["success"]:
-                print(f"\n⚠️  Pipeline failed for {bioguide_id}: {result.get('error')}")
+                print("\n" + "=" * 80)
+                print(f"POLITICIAN {i}/{len(self.bioguide_ids)}: {bioguide_id}")
+                print("=" * 80)
+
+                result = self.run_for_politician(bioguide_id)
+                results.append(result)
+
+                if not result["success"]:
+                    tqdm.write(f"\n⚠️  Pipeline failed for {bioguide_id}: {result.get('error')}")
+
+                pbar.update(1)
 
         # Summary
         print("\n" + "=" * 80)
@@ -217,6 +238,62 @@ class PipelineRunner:
         return []
 
 
+def get_available_house_members() -> Set[str]:
+    """
+    Get all available House member bioguide IDs from pre-computed embeddings.
+
+    Returns:
+        Set of bioguide IDs that have pre-computed PR embeddings.
+    """
+    available_ids = set()
+
+    for zip_path in PR_EMBEDDINGS_ZIPS:
+        if not zip_path.exists():
+            continue
+
+        try:
+            with zipfile.ZipFile(zip_path, 'r') as zf:
+                for name in zf.namelist():
+                    # Extract bioguide ID from paths like "press_release_embeddings_1/B001316.json"
+                    if name.endswith('.json'):
+                        bioguide_id = name.split('/')[-1].replace('.json', '')
+                        available_ids.add(bioguide_id)
+        except Exception as e:
+            print(f"Warning: Could not read {zip_path.name}: {e}")
+            continue
+
+    return available_ids
+
+
+def validate_bioguide_ids(bioguide_ids: List[str]) -> tuple[List[str], List[str]]:
+    """
+    Validate that bioguide IDs belong to House members with pre-computed embeddings.
+
+    Args:
+        bioguide_ids: List of bioguide IDs to validate
+
+    Returns:
+        Tuple of (valid_ids, invalid_ids)
+    """
+    available_members = get_available_house_members()
+
+    if not available_members:
+        print("⚠️  Warning: Could not load list of available House members from zip files")
+        print("   Pipeline will proceed but may fail if members are not House members")
+        return bioguide_ids, []
+
+    valid_ids = []
+    invalid_ids = []
+
+    for bioguide_id in bioguide_ids:
+        if bioguide_id in available_members:
+            valid_ids.append(bioguide_id)
+        else:
+            invalid_ids.append(bioguide_id)
+
+    return valid_ids, invalid_ids
+
+
 def load_bioguide_ids_from_file(file_path: Path) -> List[str]:
     """Load bioguide IDs from a text file (one per line)."""
     if not file_path.exists():
@@ -287,6 +364,34 @@ def main():
     if not bioguide_ids:
         print("Error: No bioguide IDs provided")
         sys.exit(1)
+
+    # Validate bioguide IDs (House members only)
+    print("Validating bioguide IDs...")
+    valid_ids, invalid_ids = validate_bioguide_ids(bioguide_ids)
+
+    if invalid_ids:
+        print("\n" + "=" * 80)
+        print("⚠️  WARNING: Invalid Bioguide IDs Detected")
+        print("=" * 80)
+        print("The following bioguide IDs are NOT House members with pre-computed PR embeddings:")
+        for invalid_id in invalid_ids:
+            print(f"  - {invalid_id}")
+        print("\nNote: This pipeline uses pre-computed PR embeddings for House members only.")
+        print("      Senate members or invalid IDs will fail during embedding load.")
+        print("=" * 80)
+
+        # Ask user if they want to continue with valid IDs only
+        if valid_ids:
+            print(f"\nFound {len(valid_ids)} valid House member ID(s).")
+            print("Proceeding with valid IDs only...\n")
+            bioguide_ids = valid_ids
+        else:
+            print("\n❌ Error: No valid House member bioguide IDs found.")
+            print(f"   Available members: {len(get_available_house_members())} House members")
+            print("   See sample_politicians.txt for examples")
+            sys.exit(1)
+    else:
+        print(f"✓ All {len(bioguide_ids)} bioguide ID(s) are valid House members\n")
 
     # Run pipeline
     runner = PipelineRunner(
