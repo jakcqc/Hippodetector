@@ -36,6 +36,7 @@ SKIP_VOTING=""
 SKIP_BILLS=""
 SKIP_PROFILE=""
 SKIP_EMBEDDINGS=""
+SKIP_CONTRADICTIONS=""
 MAX_VOTES=""
 
 # Parse arguments
@@ -51,12 +52,13 @@ while [[ $# -gt 0 ]]; do
             echo "  $0 --sample                          # Run sample 20 politicians"
             echo ""
             echo "Options:"
-            echo "  --skip-all          Skip all data collection steps"
-            echo "  --skip-voting       Skip fetching voting records"
-            echo "  --skip-bills        Skip fetching bill details"
-            echo "  --skip-profile      Skip building member profile"
-            echo "  --skip-embeddings   Skip loading embeddings"
-            echo "  --max-votes N       Limit votes to fetch (testing)"
+            echo "  --skip-all             Skip all data collection steps"
+            echo "  --skip-voting          Skip fetching voting records"
+            echo "  --skip-bills           Skip fetching bill details"
+            echo "  --skip-profile         Skip building member profile"
+            echo "  --skip-embeddings      Skip loading embeddings"
+            echo "  --skip-contradictions  Skip contradiction detection (run Steps 1-4 only)"
+            echo "  --max-votes N          Limit votes to fetch (testing)"
             echo ""
             echo "Examples:"
             echo "  # Run full pipeline for Burlison"
@@ -100,6 +102,10 @@ while [[ $# -gt 0 ]]; do
             SKIP_EMBEDDINGS="--skip-embeddings"
             shift
             ;;
+        --skip-contradictions)
+            SKIP_CONTRADICTIONS="--skip-contradictions"
+            shift
+            ;;
         --max-votes)
             MAX_VOTES="--max-votes $2"
             shift 2
@@ -133,7 +139,7 @@ elif [ -n "$FROM_FILE" ]; then
 fi
 
 # Add skip flags
-CMD="$CMD $SKIP_VOTING $SKIP_BILLS $SKIP_PROFILE $SKIP_EMBEDDINGS $MAX_VOTES"
+CMD="$CMD $SKIP_VOTING $SKIP_BILLS $SKIP_PROFILE $SKIP_EMBEDDINGS $SKIP_CONTRADICTIONS $MAX_VOTES"
 
 # Show command being run
 echo -e "${GREEN}Running:${NC} $CMD"

@@ -30,6 +30,9 @@ Usage:
 
     # Skip steps already completed
     python run_contradiction_pipeline.py --bioguide-ids B001316 --skip-voting --skip-bills
+
+    # Run data collection only (skip contradiction detection)
+    python run_contradiction_pipeline.py --bioguide-ids B001316 --skip-contradictions
 """
 
 import argparse
@@ -63,6 +66,7 @@ class PipelineRunner:
         skip_bills: bool = False,
         skip_profile: bool = False,
         skip_embeddings: bool = False,
+        skip_contradictions: bool = False,
         max_votes: Optional[int] = None,
     ):
         self.bioguide_ids = bioguide_ids
@@ -70,6 +74,7 @@ class PipelineRunner:
         self.skip_bills = skip_bills
         self.skip_profile = skip_profile
         self.skip_embeddings = skip_embeddings
+        self.skip_contradictions = skip_contradictions
         self.max_votes = max_votes
 
     def run(self):
@@ -172,10 +177,14 @@ class PipelineRunner:
                 print("\n🔢 Step 4: Skipping embeddings (already loaded)")
 
             # Step 5: Run contradiction detection
-            print("\n🔍 Step 5: Detecting contradictions...")
-            contradictions = self._detect_contradictions(bioguide_id)
-            result["steps_completed"].append("contradiction_detection")
-            result["contradictions"] = contradictions
+            if not self.skip_contradictions:
+                print("\n🔍 Step 5: Detecting contradictions...")
+                contradictions = self._detect_contradictions(bioguide_id)
+                result["steps_completed"].append("contradiction_detection")
+                result["contradictions"] = contradictions
+            else:
+                print("\n🔍 Step 5: Skipping contradiction detection (run separately later)")
+                result["contradictions"] = []
 
             result["success"] = True
             print(f"\n✅ Pipeline completed successfully for {bioguide_id}")
@@ -357,6 +366,11 @@ def main():
         help="Skip loading embeddings (if already loaded)"
     )
     parser.add_argument(
+        "--skip-contradictions",
+        action="store_true",
+        help="Skip contradiction detection (run Steps 1-4 only, detect contradictions later)"
+    )
+    parser.add_argument(
         "--max-votes",
         type=int,
         help="Limit number of votes to fetch (for testing)"
@@ -409,6 +423,7 @@ def main():
         skip_bills=args.skip_bills,
         skip_profile=args.skip_profile,
         skip_embeddings=args.skip_embeddings,
+        skip_contradictions=args.skip_contradictions,
         max_votes=args.max_votes,
     )
 
