@@ -210,7 +210,18 @@ __marimo__/
 
 # Hippodetector data files
 # These are fetched from Congress API and can be regenerated
-# data/*.json
+
+# New structure (post-refactoring)
+data/votes/*.json
+data/profiles/*.json
+data/bills_cache/*.json
+
+# Old structure (deprecated - kept for reference)
+# data/votes_*.json
+# data/members/*.json
+
+# Shared data files
+# data/*.json (too broad - be specific instead)
 # data/*.csv
 
 # Compressed data archives
