@@ -536,12 +536,13 @@ def main() -> None:
         st.warning("`press_releases_by_bioguide.json` is not in `membersByBioguideId` format.")
         return
     all_parties = sorted({str(md.get("partyName") or "-") for _, md in selectable_members})
+    party_options = ["All parties", "Third party"] + all_parties
     all_states = sorted({str(md.get("state") or "-") for _, md in selectable_members})
 
     st.subheader("Navigator")
     nav1, nav2, nav3, nav4, nav5, nav6 = st.columns([2.1, 1.2, 1.0, 1.5, 1.2, 0.9])
     with nav2:
-        selected_party = st.selectbox("Party", ["All parties"] + all_parties, index=0)
+        selected_party = st.selectbox("Party", party_options, index=0)
     with nav3:
         selected_state = st.selectbox("State", ["All states"] + all_states, index=0)
     with nav4:
@@ -560,7 +561,14 @@ def main() -> None:
     for bg, md in selectable_members:
         party_name = str(md.get("partyName") or "-")
         state_name = str(md.get("state") or "-")
-        party_ok = selected_party == "All parties" or party_name == selected_party
+        normalized_party = normalize_text(party_name)
+        is_major_party = ("republican" in normalized_party) or ("democrat" in normalized_party)
+        if selected_party == "All parties":
+            party_ok = True
+        elif selected_party == "Third party":
+            party_ok = not is_major_party
+        else:
+            party_ok = party_name == selected_party
         state_ok = selected_state == "All states" or state_name == selected_state
         if party_ok and state_ok:
             filtered_members.append((bg, md))
