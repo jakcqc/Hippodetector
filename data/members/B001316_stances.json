@@ -1,0 +1,183 @@
+{
+  "metadata": {
+    "bioguideId": "B001316",
+    "name": "Burlison, Eric",
+    "firstName": "Eric",
+    "lastName": "Burlison",
+    "state": "Missouri",
+    "district": "7",
+    "party": "Republican",
+    "partyCode": "R",
+    "chamber": "House of Representatives",
+    "currentMember": true,
+    "profileUrl": "https://burlison.house.gov",
+    "imageUrl": "https://www.congress.gov/img/member/b001316_200.jpg"
+  },
+  "stances": [
+    {
+      "press_release": {
+        "title": "Burlison Announces Hearing on Making Housing More Affordable",
+        "date": "January 15, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-announces-hearing-making-housing-more-affordable"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Burlison supports government reform aimed at reducing federal regulations that he believes have driven up housing costs and constrained housing supply, advocating for market-based approaches and highlighting Republican-led initiatives as solutions.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-announces-hearing-making-housing-more-affordable"
+        },
+        "budget_economy": {
+          "status": "opposes",
+          "summary": "Burlison opposes the current budget economy, blaming Democratic policies and regulations for increased housing costs and advocating for market-based solutions and reversing current policies to make homeownership more attainable.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-announces-hearing-making-housing-more-affordable"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Burlison, Freedom Caucus Board Urge President Trump to Continue Federal Immigration Enforcement",
+        "date": "January 28, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-freedom-caucus-board-urge-president-trump-continue-federal"
+      },
+      "stances": {
+        "budget_economy": {
+          "status": "supports",
+          "summary": "The press release advocates for fully funding the Department of Homeland Security and ending funding for Sanctuary Cities, indicating support for directing resources towards specific enforcement priorities.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-freedom-caucus-board-urge-president-trump-continue-federal"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Burlison to Host IRS and SBA Assistance Week Throughout Missouri\u2019s 7th District",
+        "date": "January 28, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-host-irs-and-sba-assistance-week-throughout-missouris-7th-district"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "mixed",
+          "summary": "While the press release doesn't explicitly state a position on government reform, Burlison's efforts to help constituents navigate bureaucratic red tape and resolve issues with the IRS and SBA suggest a desire for improved government efficiency and responsiveness, but it does not advocate for specific reforms.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-host-irs-and-sba-assistance-week-throughout-missouris-7th-district"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Burlison Introduces Bill to Expand Counter-Drone Authority for State and Local Law Enforcement",
+        "date": "February 12, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-introduces-bill-expand-counter-drone-authority-state-and-local-law"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Rep. Burlison supports government reform by advocating for expanded authority and resources for state and local law enforcement to counter drone threats, streamlining processes and increasing capabilities through pilot programs and permanent authorization pathways.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-introduces-bill-expand-counter-drone-authority-state-and-local-law"
+        },
+        "budget_economy": {
+          "status": "supports",
+          "summary": "The legislation relies on existing federal grant programs, suggesting support for using existing resources and complementing a previous $500 million initiative, indicating a fiscally conservative approach of leveraging existing funding streams.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-introduces-bill-expand-counter-drone-authority-state-and-local-law"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Burlison Opens Hearing on Saving the American Dream Through Housing Affordability",
+        "date": "January 22, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-opens-hearing-saving-american-dream-through-housing-affordability"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Burlison advocates for government reform to reduce regulations and spending, arguing that these factors, along with illegal immigration, have driven up housing costs and made homeownership unaffordable; he supports policies that remove barriers to building homes and provide tax relief.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-opens-hearing-saving-american-dream-through-housing-affordability"
+        },
+        "budget_economy": {
+          "status": "opposes",
+          "summary": "Burlison opposes excessive federal spending, which he believes fuels inflation and drives up housing costs, making homes unaffordable for many Americans. He supports policies that remove barriers to building homes and provide tax relief.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-opens-hearing-saving-american-dream-through-housing-affordability"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Burlison, Schmitt Welcome Administrative Action to Rein in Corps Enforcement at Table Rock Lake",
+        "date": "January 15, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-schmitt-welcome-administrative-action-rein-corps-enforcement-table"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Congressman Burlison supports government reform aimed at reducing bureaucratic red tape and ensuring that government agencies, specifically the U.S. Army Corps of Engineers, adhere to congressional intent and prioritize the needs of citizens.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-schmitt-welcome-administrative-action-rein-corps-enforcement-table"
+        },
+        "budget_economy": {
+          "status": "supports",
+          "summary": "The press release highlights the Trump administration's commitment to delivering projects on time and within budget, indicating support for budget economy. The removal of the Little Rock District commander was partly based on the need for efficient project delivery within budget.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-schmitt-welcome-administrative-action-rein-corps-enforcement-table"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Burlison Sends Letter to ATF Director Daniel Driscoll Demanding Immediate Corrective Action",
+        "date": "January 16, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-sends-letter-atf-director-daniel-driscoll-demanding-immediate"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Congressman Burlison supports government reform by demanding the ATF implement recent National Firearms Act reforms and fix its eForms system, indicating a desire for the agency to function more effectively and transparently.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-sends-letter-atf-director-daniel-driscoll-demanding-immediate"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Burlison Welcomes Army Corps Workshops to Help Table Rock Lake Landowners Resolve Boundary Issues",
+        "date": "February 13, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/burlison-welcomes-army-corps-workshops-help-table-rock-lake-landowners-resolve"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Congressman Burlison supports government reform that brings clarity, fairness, and common sense to the enforcement of boundary regulations around Table Rock Lake, aiming to reduce uncertainty and stress for landowners who acted in good faith.",
+          "source_url": "https://burlison.house.gov/media/press-releases/burlison-welcomes-army-corps-workshops-help-table-rock-lake-landowners-resolve"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Rep. Burlison\u2019s Smart Space Act Advances Out of Committee",
+        "date": "February 12, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/rep-burlisons-smart-space-act-advances-out-committee"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Rep. Burlison supports government reform by reducing waste and increasing accountability in the management of federal real estate, aiming to save taxpayer money by consolidating or relocating underutilized buildings.",
+          "source_url": "https://burlison.house.gov/media/press-releases/rep-burlisons-smart-space-act-advances-out-committee"
+        },
+        "budget_economy": {
+          "status": "supports",
+          "summary": "Rep. Burlison supports budget economy by aiming to reduce wasteful spending on underutilized federal buildings through the Smart Space Act, advocating for accountability and common sense in government management of real estate.",
+          "source_url": "https://burlison.house.gov/media/press-releases/rep-burlisons-smart-space-act-advances-out-committee"
+        }
+      }
+    },
+    {
+      "press_release": {
+        "title": "Rep. Eric Burlison Leads Amicus Brief in Supreme Court Case Defending a Uniform Federal Election Day",
+        "date": "February 13, 2026",
+        "url": "https://burlison.house.gov/media/press-releases/rep-eric-burlison-leads-amicus-brief-supreme-court-case-defending-uniform"
+      },
+      "stances": {
+        "government_reform": {
+          "status": "supports",
+          "summary": "Rep. Burlison supports government reform that reinforces a uniform federal election day, arguing it ensures consistency, finality, and public confidence in federal elections by preventing states from extending the voting period.",
+          "source_url": "https://burlison.house.gov/media/press-releases/rep-eric-burlison-leads-amicus-brief-supreme-court-case-defending-uniform"
+        }
+      }
+    }
+  ]
+}
