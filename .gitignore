@@ -215,7 +215,6 @@ __marimo__/
 data/votes/*.json
 data/profiles/*.json
 data/bills_cache/*.json
-data/PR/*.json
 data/press_releases_by_bioguide.json
 
 # Old structure (deprecated - kept for reference)
