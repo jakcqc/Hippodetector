@@ -213,5 +213,11 @@ __marimo__/
 # data/*.json
 # data/*.csv
 
+# Compressed data archives
+data/*.zip
+
+# Windows Zone.Identifier files (download markers)
+*:Zone.Identifier
+
 # Qdrant vector database storage
 data/qdrant_storage/

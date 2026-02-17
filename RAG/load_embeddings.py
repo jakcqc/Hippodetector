@@ -9,6 +9,7 @@ import argparse
 import json
 import re
 import sys
+import zipfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from uuid import uuid4
@@ -31,6 +32,13 @@ PRESS_RELEASES_COLLECTION = "press_releases"
 # Project paths
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MEMBERS_DIR = PROJECT_ROOT / "data" / "members"
+DATA_DIR = PROJECT_ROOT / "data"
+
+# Precomputed embeddings zip files
+PR_EMBEDDINGS_ZIPS = [
+    DATA_DIR / "press_release_embeddings_1.zip",
+    DATA_DIR / "press_release_embeddings_2.zip",
+]
 
 
 def strip_html(text: str) -> str:
@@ -279,6 +287,94 @@ def load_press_releases_into_qdrant(
     return len(points)
 
 
+def load_precomputed_pr_embeddings_into_qdrant(
+    bioguide_id: str,
+    qdrant_client: QdrantClient
+) -> int:
+    """Load pre-computed press release embeddings from zip files."""
+    print(f"\nLoading pre-computed embeddings for {bioguide_id}...")
+
+    # Find the member's embedding file in one of the zip archives
+    pr_data = None
+    for zip_path in PR_EMBEDDINGS_ZIPS:
+        if not zip_path.exists():
+            continue
+
+        try:
+            with zipfile.ZipFile(zip_path, 'r') as zf:
+                # Try to find the bioguide file
+                folder_name = zip_path.stem  # e.g., "press_release_embeddings_1"
+                json_path = f"{folder_name}/{bioguide_id}.json"
+
+                if json_path in zf.namelist():
+                    print(f"Found embeddings in {zip_path.name}")
+                    with zf.open(json_path) as f:
+                        pr_data = json.load(f)
+                    break
+        except Exception as e:
+            print(f"Warning: Could not read {zip_path.name}: {e}")
+            continue
+
+    if not pr_data:
+        print(f"⚠️  No pre-computed embeddings found for {bioguide_id}")
+        print("   Falling back to generating fresh embeddings...")
+        return -1  # Signal to fall back
+
+    # Extract metadata and press releases
+    metadata = pr_data.get("metadata", {})
+    press_releases = pr_data.get("pressReleases", [])
+
+    print(f"Found {len(press_releases)} press releases with embeddings")
+
+    if not press_releases:
+        print("No press releases to load")
+        return 0
+
+    # Create points for Qdrant
+    points = []
+    for pr in press_releases:
+        # Check if embedding exists
+        embedding = pr.get("embedding")
+        if not embedding:
+            print(f"Warning: PR '{pr.get('title', 'Unknown')[:50]}...' missing embedding, skipping")
+            continue
+
+        # Create payload
+        payload = {
+            # Press release details
+            "id": pr.get("releaseId", pr.get("id")),
+            "title": pr.get("title", ""),
+            "date": pr.get("date", ""),
+            "publishedTime": pr.get("publishedTime", ""),
+            "url": pr.get("url", ""),
+            "bodyText": pr.get("textSource", pr.get("bodyText", "")),
+            "topics": pr.get("topics", []),
+            "relatedBills": pr.get("relatedBills", []),
+            # Member details
+            "bioguideId": bioguide_id,
+            "memberName": metadata.get("name", ""),
+            "party": metadata.get("party", ""),
+            "state": metadata.get("state", ""),
+        }
+
+        point = PointStruct(
+            id=str(uuid4()),
+            vector=embedding,
+            payload=payload
+        )
+        points.append(point)
+
+    # Upload to Qdrant
+    print(f"Uploading {len(points)} points to Qdrant...")
+    qdrant_client.upsert(
+        collection_name=PRESS_RELEASES_COLLECTION,
+        points=points
+    )
+
+    print(f"✓ Loaded {len(points)} pre-computed press release embeddings")
+    return len(points)
+
+
 def main() -> None:
     """Main entry point."""
     parser = argparse.ArgumentParser(
@@ -289,6 +385,11 @@ def main() -> None:
         type=str,
         required=True,
         help="Bioguide ID of the member (e.g., B001316 for Burlison)"
+    )
+    parser.add_argument(
+        "--use-precomputed-pr",
+        action="store_true",
+        help="Use pre-computed PR embeddings from zip files (faster, saves LLM costs)"
     )
 
     args = parser.parse_args()
@@ -320,7 +421,23 @@ def main() -> None:
 
     # Load data
     bills_loaded = load_bills_into_qdrant(profile, embedding_client, qdrant_client)
-    pr_loaded = load_press_releases_into_qdrant(profile, embedding_client, qdrant_client)
+
+    # Load press releases (precomputed or generate fresh)
+    if args.use_precomputed_pr:
+        print("\n" + "=" * 60)
+        print("Using Pre-Computed Press Release Embeddings")
+        print("=" * 60)
+        pr_loaded = load_precomputed_pr_embeddings_into_qdrant(
+            bioguide_id=args.bioguide_id,
+            qdrant_client=qdrant_client
+        )
+
+        # Fall back to generating if precomputed not found
+        if pr_loaded == -1:
+            print("\nFalling back to generating fresh embeddings...")
+            pr_loaded = load_press_releases_into_qdrant(profile, embedding_client, qdrant_client)
+    else:
+        pr_loaded = load_press_releases_into_qdrant(profile, embedding_client, qdrant_client)
 
     # Summary
     print("\n" + "=" * 60)
