@@ -224,8 +224,8 @@ data/bills_cache/*.json
 # data/*.json (too broad - be specific instead)
 # data/*.csv
 
-# Compressed data archives
-data/*.zip
+# Compressed data archives (including subdirectories)
+data/**/*.zip
 
 # Windows Zone.Identifier files (download markers)
 *:Zone.Identifier
