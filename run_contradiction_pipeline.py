@@ -9,6 +9,15 @@ This script runs the complete pipeline:
 5. Extract stances from press releases (using RAG search)
 6. Detect contradictions
 
+Output Files:
+    data/votes/{bioguide_id}.json         - Individual voting records
+    data/bills/{bioguide_id}.json         - Bill details for voted bills
+    data/members/{bioguide_id}.json       - Complete member profile (votes + bills + PRs)
+    data/qdrant_storage/                  - Vector database (embeddings)
+
+    The member profile (data/members/) is the most comprehensive output,
+    containing all data joined together in a single file.
+
 Usage:
     # Single politician by bioguide ID
     python run_contradiction_pipeline.py --bioguide-ids B001316
