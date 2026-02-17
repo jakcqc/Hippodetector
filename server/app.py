@@ -1,6 +1,7 @@
 ﻿from __future__ import annotations
 
 import base64
+from datetime import datetime
 import json
 import math
 from pathlib import Path
@@ -414,6 +415,36 @@ def build_release_index(data_path: str, mtime_ns: int) -> dict[str, Any]:
     }
 
 
+def parse_release_datetime(release: dict[str, Any]) -> datetime:
+    candidates = [
+        str(release.get("publishedTime") or "").strip(),
+        str(release.get("date") or "").strip(),
+    ]
+    for raw in candidates:
+        if not raw:
+            continue
+        iso_candidate = raw.replace("Z", "+00:00")
+        try:
+            return datetime.fromisoformat(iso_candidate)
+        except ValueError:
+            pass
+        for fmt in ("%B %d, %Y", "%b %d, %Y", "%d-%b-%Y", "%Y-%m-%d"):
+            try:
+                return datetime.strptime(raw, fmt)
+            except ValueError:
+                continue
+    return datetime.min
+
+
+def sort_release_indices(indices: list[int], releases: list[dict[str, Any]], sort_mode: str) -> list[int]:
+    reverse = sort_mode == "Date: Newest first"
+    return sorted(
+        indices,
+        key=lambda idx: parse_release_datetime(releases[idx]),
+        reverse=reverse,
+    )
+
+
 def member_label(bioguide_id: str, member_data: dict[str, Any]) -> str:
     name = member_data.get("name") or "Unknown"
     status = member_data.get("status") or "-"
@@ -507,14 +538,14 @@ def main() -> None:
     page_icon: str | Path = "🦛"
     if HIPPO_ICON_PATH.exists():
         page_icon = HIPPO_ICON_PATH
-    st.set_page_config(page_title="Hippodetector Press Release Viewer", page_icon=page_icon, layout="wide")
+    st.set_page_config(page_title="Hippodetector Press Releases", page_icon=page_icon, layout="wide")
     inject_css()
 
     st.markdown(
         """
         <div class="hero">
-          <p class="hero-title">Where are the Hippos?</p>
-          <p class="hero-sub">Soft view for browsing Congress member releases keyed by bioguideId.</p>
+          <p class="hero-title">Press Releases</p>
+          <p class="hero-sub">Browse Congress member press releases keyed by bioguideId.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -524,8 +555,12 @@ def main() -> None:
         st.error(f"Required file not found: {PRESS_RELEASES_FILE}")
         return
 
+    load_bar = st.progress(0, text="Loading press release data...")
+    load_bar.progress(15, text="Checking dataset signature...")
     dataset_mtime_ns = PRESS_RELEASES_FILE.stat().st_mtime_ns
+    load_bar.progress(45, text="Building release index...")
     index_data = build_release_index(str(PRESS_RELEASES_FILE), dataset_mtime_ns)
+    load_bar.progress(75, text="Preparing member and filter views...")
     payload = index_data["payload"]
     members_map = index_data["members_map"]
     selectable_members = index_data["selectable_members"]
@@ -538,9 +573,11 @@ def main() -> None:
     all_parties = sorted({str(md.get("partyName") or "-") for _, md in selectable_members})
     party_options = ["All parties", "Third party"] + all_parties
     all_states = sorted({str(md.get("state") or "-") for _, md in selectable_members})
+    load_bar.progress(100, text="Press release data ready.")
+    load_bar.empty()
 
     st.subheader("Navigator")
-    nav1, nav2, nav3, nav4, nav5, nav6 = st.columns([2.1, 1.2, 1.0, 1.5, 1.2, 0.9])
+    nav1, nav2, nav3, nav4, nav5, nav6, nav7 = st.columns([2.0, 1.2, 1.0, 1.3, 1.2, 1.1, 0.9])
     with nav2:
         selected_party = st.selectbox("Party", party_options, index=0)
     with nav3:
@@ -555,6 +592,8 @@ def main() -> None:
     with nav5:
         query = st.text_input("Fuzzy search", "", placeholder="Try: border security")
     with nav6:
+        sort_mode = st.selectbox("Sort", ["Date: Newest first", "Date: Oldest first"], index=0)
+    with nav7:
         page_size = st.number_input("Releases/page", min_value=1, max_value=500, value=25, step=5)
 
     filtered_members = []
@@ -634,15 +673,17 @@ def main() -> None:
         selected_party,
         selected_state,
         search_scope,
+        sort_mode,
         normalize_text(query),
     )
     if st.session_state.get("release_search_signature") != search_signature:
-        st.session_state["filtered_release_indices"] = fuzzy_filter_indices(
+        matched_indices = fuzzy_filter_indices(
             search_base_indices,
             search_texts,
             query,
             0.42,
         )
+        st.session_state["filtered_release_indices"] = sort_release_indices(matched_indices, all_releases, sort_mode)
         st.session_state["release_search_signature"] = search_signature
         st.session_state["release_page"] = 1
     filtered_release_indices = st.session_state.get("filtered_release_indices", search_base_indices)
@@ -735,15 +776,15 @@ def main() -> None:
         st.subheader("Releases")
         for local_idx, release in enumerate(paged_releases, start=0):
             global_idx = start_idx + local_idx
-            release_idx = paged_release_indices[local_idx]
             title = release.get("title") or "Untitled release"
             date = release.get("date") or release.get("publishedTime") or "-"
             bg = release.get("_bioguideId", "-")
             member_name = release.get("_memberName", "-")
-            header = f"{global_idx + 1}. {title} ({date})"
+            header = f"{global_idx + 1}. [{date}] {title}"
             with st.expander(header, expanded=(local_idx == 0)):
                 st.markdown("<div class='card'>", unsafe_allow_html=True)
                 st.markdown(f"<div class='field'><b>Member:</b> {member_name} ({bg})</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='field'><b>Date:</b> {date}</div>", unsafe_allow_html=True)
                 st.markdown(f"<div class='field'><b>URL:</b> {release.get('url', '-')}</div>", unsafe_allow_html=True)
                 st.markdown("</div>", unsafe_allow_html=True)
                 body_html = release.get("bodyHtml")

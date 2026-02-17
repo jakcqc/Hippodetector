@@ -17,7 +17,7 @@ except ModuleNotFoundError:
 
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
-VOTED_BILLS_FILE = DATA_DIR / "congress_bills_voted_compact_last_1_year.json"
+VOTED_BILLS_FILE = DATA_DIR / "congress_bills_voted_compact_last_10_years.json"
 
 
 def load_json(path: Path) -> Any:
@@ -193,8 +193,12 @@ def main() -> None:
         )
         return
 
+    load_bar = st.progress(0, text="Loading voted bills data...")
+    load_bar.progress(15, text="Checking dataset signature...")
     dataset_mtime_ns = VOTED_BILLS_FILE.stat().st_mtime_ns
+    load_bar.progress(45, text="Building bill index and search cache...")
     index_data = build_bill_index(str(VOTED_BILLS_FILE), dataset_mtime_ns)
+    load_bar.progress(75, text="Preparing bill filters...")
     payload = index_data["payload"]
     bills = index_data["bills"]
     search_texts = index_data["search_texts"]
@@ -216,6 +220,8 @@ def main() -> None:
     proposer_parties = sorted({party for bill in bills for party in extract_proposer_parties(bill)})
     proposer_states = sorted({state for bill in bills for state in extract_proposer_states(bill)})
     status_options = ["All", "Passed", "Not Passed", "Mixed", "Unknown"]
+    load_bar.progress(100, text="Voted bills data ready.")
+    load_bar.empty()
 
     st.subheader("Navigator")
     nav1, nav2, nav3, nav4, nav5 = st.columns([2.1, 1.0, 1.0, 1.0, 1.0])
