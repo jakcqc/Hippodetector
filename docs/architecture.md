@@ -262,6 +262,7 @@ The project includes an end-to-end automated pipeline for processing politicians
 
 5. **Detect Contradictions** (TODO)
    - Will implement full contradiction detection logic
+   - Can be skipped with `--skip-contradictions` to run Steps 1-4 only
 
 ### Bash Wrapper: `run_pipeline.sh`
 
@@ -277,6 +278,9 @@ Convenient command-line interface:
 # From custom file
 ./run_pipeline.sh --file my_politicians.txt
 
+# Data collection only (skip contradiction detection)
+./run_pipeline.sh --sample --skip-contradictions
+
 # Skip data collection (use existing data)
 ./run_pipeline.sh B001316 --skip-all
 ```
@@ -285,7 +289,7 @@ Convenient command-line interface:
 - Progress bar for multi-politician processing (tqdm)
 - House member validation (filters non-House members)
 - Color-coded output
-- Skip flags for partial pipeline execution
+- Skip flags for partial pipeline execution (`--skip-voting`, `--skip-bills`, `--skip-profile`, `--skip-embeddings`, `--skip-contradictions`)
 
 ### Pre-computed Embeddings
 

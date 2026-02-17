@@ -19,6 +19,9 @@ The easiest way to analyze politicians is using the automated pipeline:
 # Run from a custom file
 ./run_pipeline.sh --file my_politicians.txt
 
+# Run data collection only (skip contradiction detection)
+./run_pipeline.sh --sample --skip-contradictions
+
 # See all options
 ./run_pipeline.sh --help
 ```
@@ -28,7 +31,7 @@ The pipeline automatically:
 2. Fetches bill details
 3. Builds member profile (votes + bills + press releases)
 4. Loads embeddings into Qdrant vector database
-5. Detects contradictions (coming soon)
+5. Detects contradictions (coming soon - can be skipped with `--skip-contradictions`)
 
 ### Manual Steps
 
@@ -38,6 +41,9 @@ uv run python dataset/voting_record.py --bioguide-id O000172 --congress 119 --ma
 
 # Or use the Python script directly
 uv run python run_contradiction_pipeline.py --bioguide-ids B001316
+
+# Run data collection only (skip contradiction detection)
+uv run python run_contradiction_pipeline.py --bioguide-ids B001316 --skip-contradictions
 ```
 
 ## Data Files

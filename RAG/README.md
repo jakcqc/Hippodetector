@@ -31,6 +31,9 @@ The easiest way to set up everything:
 
 # Or run 20 sample politicians
 ./run_pipeline.sh --sample
+
+# Run data collection only (skip contradiction detection)
+./run_pipeline.sh --sample --skip-contradictions
 ```
 
 This automatically:
@@ -38,7 +41,7 @@ This automatically:
 2. Fetches bill details
 3. Builds member profile
 4. Loads embeddings into Qdrant (using pre-computed PR embeddings when available)
-5. Detects contradictions (coming soon)
+5. Detects contradictions (coming soon - can be skipped with `--skip-contradictions`)
 
 ### 3. Manual Data Loading (Alternative)
 
@@ -151,5 +154,5 @@ curl http://localhost:6333/collections/press_releases | grep points_count
 
 - **House Member Validation**: Pipeline automatically validates bioguide IDs against 438 available members
 - **Progress Bar**: Visual progress tracking for batch processing
-- **Skip Flags**: Resume pipeline from any step (`--skip-voting`, `--skip-bills`, etc.)
+- **Skip Flags**: Resume pipeline from any step (`--skip-voting`, `--skip-bills`, `--skip-embeddings`, `--skip-contradictions`)
 - **Sample Data**: `sample_politicians.txt` with 20 diverse representatives for testing
