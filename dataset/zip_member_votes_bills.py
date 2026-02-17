@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-MEMBERS_DIR = Path("data/members")
+PROFILES_DIR = Path("data/profiles")
 
 
 def load_json(path: Path) -> Dict[str, Any]:
@@ -48,12 +48,12 @@ def process_member_file(path: Path) -> None:
 
 
 def main() -> None:
-    if not MEMBERS_DIR.exists():
-        raise FileNotFoundError(f"Directory not found: {MEMBERS_DIR}")
+    if not PROFILES_DIR.exists():
+        raise FileNotFoundError(f"Directory not found: {PROFILES_DIR}")
 
-    member_files = sorted(MEMBERS_DIR.glob("*.json"))
+    member_files = sorted(PROFILES_DIR.glob("*.json"))
     if not member_files:
-        print(f"No member files found in {MEMBERS_DIR}")
+        print(f"No member files found in {PROFILES_DIR}")
         return
 
     for member_file in member_files:

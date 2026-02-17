@@ -329,7 +329,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=str,
-        help="Output file path (default: data/votes_<bioguide_id>.json)",
+        help="Output file path (default: data/votes/<bioguide_id>.json)",
     )
 
     args = parser.parse_args()
@@ -370,7 +370,7 @@ def main() -> None:
     if args.output:
         output_path = Path(args.output)
     else:
-        output_path = Path(f"data/votes_{bioguide_id}.json")
+        output_path = Path(f"data/votes/{bioguide_id}.json")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 

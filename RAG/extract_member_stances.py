@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from RAG.extract_stances import extract_stance_from_text
 
-MEMBERS_DIR = Path(__file__).resolve().parents[1] / "data" / "members"
+PROFILES_DIR = Path(__file__).resolve().parents[1] / "data" / "profiles"
 
 
 def main():
@@ -36,7 +36,7 @@ def main():
     args = parser.parse_args()
 
     # Load member profile
-    profile_path = MEMBERS_DIR / f"{args.bioguide_id}.json"
+    profile_path = PROFILES_DIR / f"{args.bioguide_id}.json"
     if not profile_path.exists():
         print(f"Error: Member profile not found: {profile_path}")
         return
@@ -110,7 +110,7 @@ def main():
     print(f"Total stances extracted: {total_stances}")
 
     # Save to file
-    output_file = MEMBERS_DIR / f"{args.bioguide_id}_stances.json"
+    output_file = PROFILES_DIR / f"{args.bioguide_id}_stances.json"
     with open(output_file, 'w') as f:
         json.dump({
             "metadata": profile['metadata'],

@@ -2,7 +2,7 @@
 Fetch full bill details from Congress.gov API.
 
 Usage:
-    python fetch_bill_details.py --from-votes data/votes_B001316.json
+    python fetch_bill_details.py --from-votes data/votes/B001316.json
     python fetch_bill_details.py --bill-ids 119-hr-3424 119-s-1234
 """
 

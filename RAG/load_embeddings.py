@@ -31,7 +31,7 @@ PRESS_RELEASES_COLLECTION = "press_releases"
 
 # Project paths
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-MEMBERS_DIR = PROJECT_ROOT / "data" / "members"
+PROFILES_DIR = PROJECT_ROOT / "data" / "profiles"
 DATA_DIR = PROJECT_ROOT / "data"
 
 # Precomputed embeddings zip files
@@ -54,7 +54,7 @@ def strip_html(text: str) -> str:
 
 def load_member_profile(bioguide_id: str) -> Dict[str, Any]:
     """Load member profile from JSON file."""
-    profile_path = MEMBERS_DIR / f"{bioguide_id}.json"
+    profile_path = PROFILES_DIR / f"{bioguide_id}.json"
     if not profile_path.exists():
         raise FileNotFoundError(
             f"Member profile not found: {profile_path}\n"

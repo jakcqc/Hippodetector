@@ -1,0 +1,890 @@
+{
+  "fetchedAtUtc": "2026-02-17T06:53:41.296071+00:00",
+  "member": {
+    "bioguideId": "K000404",
+    "name": null,
+    "state": "Northern Mariana Islands",
+    "party": null,
+    "chamber": "House of Representatives"
+  },
+  "congress": null,
+  "voteSummary": {
+    "Yea": 0,
+    "Nay": 0,
+    "Aye": 11,
+    "No": 30,
+    "Present": 0,
+    "Not Voting": 10,
+    "Other": 0
+  },
+  "totalVotes": 51,
+  "votes": [
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 259,
+      "date": "2025-09-10T17:36:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "97",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/97"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 245,
+      "date": "2025-09-10T16:50:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "85",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/85"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 247,
+      "date": "2025-09-10T16:57:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "87",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/87"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 260,
+      "date": "2025-09-10T17:40:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "100",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/100"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 244,
+      "date": "2025-09-10T16:34:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "99",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/99"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 249,
+      "date": "2025-09-10T17:03:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "89",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/89"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 246,
+      "date": "2025-09-10T16:54:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "86",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/86"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 80,
+      "date": "2025-03-27T10:34:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "13",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/13"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 82,
+      "date": "2025-03-27T10:44:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "15",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/15"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 81,
+      "date": "2025-03-27T10:40:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "14",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/14"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 248,
+      "date": "2025-09-10T17:00:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "88",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/88"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 251,
+      "date": "2025-09-10T17:10:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "79",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/79"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 252,
+      "date": "2025-09-10T17:14:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "81",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/81"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 253,
+      "date": "2025-09-10T17:17:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "90",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/90"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 254,
+      "date": "2025-09-10T17:21:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "91",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/91"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 255,
+      "date": "2025-09-10T17:25:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "93",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/93"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 256,
+      "date": "2025-09-10T17:28:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "94",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/94"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 257,
+      "date": "2025-09-10T17:30:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "95",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/95"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 258,
+      "date": "2025-09-10T17:33:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "96",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/96"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 250,
+      "date": "2025-09-10T17:07:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "78",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/78"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 326,
+      "date": "2025-12-11T14:30:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "125",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/125"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 327,
+      "date": "2025-12-11T14:34:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "127",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/127"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 325,
+      "date": "2025-12-11T14:26:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "123",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/123"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 79,
+      "date": "2025-03-27T10:30:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "12",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/12"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 352,
+      "date": "2025-12-18T14:21:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "138",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/138"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 353,
+      "date": "2025-12-18T14:27:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "139",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/139"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 354,
+      "date": "2025-12-18T14:30:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "140",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/140"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 150,
+      "date": "2025-06-04T16:59:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "25",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/25"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 26,
+      "date": "2026-01-14T17:15:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "149",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/149"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 27,
+      "date": "2026-01-14T17:19:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "150",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/150"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 180,
+      "date": "2025-06-25T16:53:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "35",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/35"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 206,
+      "date": "2025-07-18T00:17:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "54",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/54"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 207,
+      "date": "2025-07-18T00:20:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "55",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/55"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 208,
+      "date": "2025-07-18T00:23:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "56",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/56"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 209,
+      "date": "2025-07-18T00:27:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "57",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/57"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 210,
+      "date": "2025-07-18T00:31:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "60",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/60"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 204,
+      "date": "2025-07-18T00:10:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "52",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/52"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 205,
+      "date": "2025-07-18T00:13:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "53",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/53"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 43,
+      "date": "2026-01-22T16:47:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "155",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/155"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 44,
+      "date": "2026-01-22T16:51:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "156",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/156"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 229,
+      "date": "2025-09-03T21:51:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "68",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/68"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 234,
+      "date": "2025-09-03T22:09:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "73",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/73"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 236,
+      "date": "2025-09-04T10:28:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "75",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/75"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 237,
+      "date": "2025-09-04T10:33:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "76",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/76"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 230,
+      "date": "2025-09-03T21:54:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "69",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/69"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 231,
+      "date": "2025-09-03T21:57:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "70",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/70"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 232,
+      "date": "2025-09-03T22:00:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "71",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/71"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 233,
+      "date": "2025-09-03T22:05:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "72",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/72"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 235,
+      "date": "2025-09-04T10:21:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "74",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/74"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Not Voting",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 227,
+      "date": "2025-09-03T21:45:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "66",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/66"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "MP"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 228,
+      "date": "2025-09-03T21:48:00-04:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "67",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/67"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "MP"
+    }
+  ]
+}

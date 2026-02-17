@@ -1,0 +1,2063 @@
+{
+  "fetchedAtUtc": "2026-02-17T08:41:47.433928+00:00",
+  "member": {
+    "bioguideId": "V000139",
+    "name": null,
+    "state": "Tennessee",
+    "party": null,
+    "chamber": "House of Representatives"
+  },
+  "congress": null,
+  "voteSummary": {
+    "Yea": 65,
+    "Nay": 34,
+    "Aye": 17,
+    "No": 3,
+    "Present": 1,
+    "Not Voting": 0,
+    "Other": 0
+  },
+  "totalVotes": 120,
+  "votes": [
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 313,
+      "date": "2025-12-04T10:28:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "1069",
+        "url": "https://www.congress.gov/bill/119/house-bill/1069"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 319,
+      "date": "2025-12-10T17:24:00-05:00",
+      "legislation": {
+        "type": "S",
+        "number": "1071",
+        "url": "https://www.congress.gov/bill/119/senate-bill/1071"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 316,
+      "date": "2025-12-09T19:04:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "1676",
+        "url": "https://www.congress.gov/bill/119/house-bill/1676"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 314,
+      "date": "2025-12-04T10:34:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "1049",
+        "url": "https://www.congress.gov/bill/119/house-bill/1049"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 315,
+      "date": "2025-12-09T18:57:00-05:00",
+      "legislation": {
+        "type": "S",
+        "number": "356",
+        "url": "https://www.congress.gov/bill/119/senate-bill/356"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 321,
+      "date": "2025-12-10T17:42:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "432",
+        "url": "https://www.congress.gov/bill/119/house-resolution/432"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 317,
+      "date": "2025-12-10T14:03:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "936",
+        "url": "https://www.congress.gov/bill/119/house-resolution/936"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 320,
+      "date": "2025-12-10T17:32:00-05:00",
+      "legislation": {
+        "type": "S",
+        "number": "1071",
+        "url": "https://www.congress.gov/bill/119/senate-bill/1071"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 318,
+      "date": "2025-12-10T15:24:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "936",
+        "url": "https://www.congress.gov/bill/119/house-resolution/936"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 326,
+      "date": "2025-12-11T14:30:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "125",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/125"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 327,
+      "date": "2025-12-11T14:34:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "127",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/127"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 328,
+      "date": "2025-12-11T14:41:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3383",
+        "url": "https://www.congress.gov/bill/119/house-bill/3383"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 329,
+      "date": "2025-12-11T14:49:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3898",
+        "url": "https://www.congress.gov/bill/119/house-bill/3898"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 330,
+      "date": "2025-12-11T14:55:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3898",
+        "url": "https://www.congress.gov/bill/119/house-bill/3898"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 331,
+      "date": "2025-12-11T15:03:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "432",
+        "url": "https://www.congress.gov/bill/119/house-resolution/432"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 322,
+      "date": "2025-12-11T14:08:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "939",
+        "url": "https://www.congress.gov/bill/119/house-resolution/939"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 337,
+      "date": "2025-12-16T14:00:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "951",
+        "url": "https://www.congress.gov/bill/119/house-resolution/951"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 338,
+      "date": "2025-12-16T14:32:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "951",
+        "url": "https://www.congress.gov/bill/119/house-resolution/951"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 339,
+      "date": "2025-12-16T16:47:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4371",
+        "url": "https://www.congress.gov/bill/119/house-bill/4371"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 340,
+      "date": "2025-12-16T16:53:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4371",
+        "url": "https://www.congress.gov/bill/119/house-bill/4371"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 341,
+      "date": "2025-12-16T16:59:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3632",
+        "url": "https://www.congress.gov/bill/119/house-bill/3632"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 342,
+      "date": "2025-12-16T17:05:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3632",
+        "url": "https://www.congress.gov/bill/119/house-bill/3632"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 323,
+      "date": "2025-12-11T14:15:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3628",
+        "url": "https://www.congress.gov/bill/119/house-bill/3628"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 324,
+      "date": "2025-12-11T14:22:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3638",
+        "url": "https://www.congress.gov/bill/119/house-bill/3638"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 325,
+      "date": "2025-12-11T14:26:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "123",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/123"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "No",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 332,
+      "date": "2025-12-11T16:43:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2550",
+        "url": "https://www.congress.gov/bill/119/house-bill/2550"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 333,
+      "date": "2025-12-12T10:24:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3668",
+        "url": "https://www.congress.gov/bill/119/house-bill/3668"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 334,
+      "date": "2025-12-12T10:33:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3668",
+        "url": "https://www.congress.gov/bill/119/house-bill/3668"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 335,
+      "date": "2025-12-15T18:55:00-05:00",
+      "legislation": {
+        "type": "S",
+        "number": "284",
+        "url": "https://www.congress.gov/bill/119/senate-bill/284"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 336,
+      "date": "2025-12-15T19:02:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3187",
+        "url": "https://www.congress.gov/bill/119/house-bill/3187"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 351,
+      "date": "2025-12-17T18:40:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3492",
+        "url": "https://www.congress.gov/bill/119/house-bill/3492"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 345,
+      "date": "2025-12-17T18:01:00-05:00",
+      "legislation": {
+        "type": "HCONRES",
+        "number": "61",
+        "url": "https://www.congress.gov/bill/119/house-concurrent-resolution/61"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 346,
+      "date": "2025-12-17T18:08:00-05:00",
+      "legislation": {
+        "type": "HCONRES",
+        "number": "64",
+        "url": "https://www.congress.gov/bill/119/house-concurrent-resolution/64"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 343,
+      "date": "2025-12-17T10:52:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "953",
+        "url": "https://www.congress.gov/bill/119/house-resolution/953"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 344,
+      "date": "2025-12-17T11:06:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "953",
+        "url": "https://www.congress.gov/bill/119/house-resolution/953"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 348,
+      "date": "2025-12-17T18:21:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6703",
+        "url": "https://www.congress.gov/bill/119/house-bill/6703"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 350,
+      "date": "2025-12-17T18:34:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3492",
+        "url": "https://www.congress.gov/bill/119/house-bill/3492"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 349,
+      "date": "2025-12-17T18:27:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6703",
+        "url": "https://www.congress.gov/bill/119/house-bill/6703"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 352,
+      "date": "2025-12-18T14:21:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "138",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/138"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 356,
+      "date": "2025-12-18T14:39:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4776",
+        "url": "https://www.congress.gov/bill/119/house-bill/4776"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 355,
+      "date": "2025-12-18T14:36:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4776",
+        "url": "https://www.congress.gov/bill/119/house-bill/4776"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 357,
+      "date": "2025-12-18T14:42:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "1366",
+        "url": "https://www.congress.gov/bill/119/house-bill/1366"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 361,
+      "date": "2025-12-18T14:55:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "498",
+        "url": "https://www.congress.gov/bill/119/house-bill/498"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 362,
+      "date": "2025-12-18T14:59:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "498",
+        "url": "https://www.congress.gov/bill/119/house-bill/498"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 360,
+      "date": "2025-12-18T14:52:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "845",
+        "url": "https://www.congress.gov/bill/119/house-bill/845"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 347,
+      "date": "2025-12-17T18:14:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3616",
+        "url": "https://www.congress.gov/bill/119/house-bill/3616"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 353,
+      "date": "2025-12-18T14:27:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "139",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/139"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 354,
+      "date": "2025-12-18T14:30:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "140",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/140"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 358,
+      "date": "2025-12-18T14:45:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "1366",
+        "url": "https://www.congress.gov/bill/119/house-bill/1366"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 1,
+      "rollCall": 359,
+      "date": "2025-12-18T14:48:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "845",
+        "url": "https://www.congress.gov/bill/119/house-bill/845"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 1,
+      "date": "2026-01-06T18:58:00-05:00",
+      "legislation": {
+        "type": null,
+        "number": null,
+        "url": null
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Quorum",
+      "memberVote": "Present",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 2,
+      "date": "2026-01-07T16:57:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "977",
+        "url": "https://www.congress.gov/bill/119/house-resolution/977"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 4,
+      "date": "2026-01-07T17:44:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "780",
+        "url": "https://www.congress.gov/bill/119/house-resolution/780"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 3,
+      "date": "2026-01-07T17:32:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "977",
+        "url": "https://www.congress.gov/bill/119/house-resolution/977"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 10,
+      "date": "2026-01-08T15:30:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "780",
+        "url": "https://www.congress.gov/bill/119/house-resolution/780"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 8,
+      "date": "2026-01-08T15:17:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "504",
+        "url": "https://www.congress.gov/bill/119/house-bill/504"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 9,
+      "date": "2026-01-08T15:23:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "131",
+        "url": "https://www.congress.gov/bill/119/house-bill/131"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 12,
+      "date": "2026-01-09T10:41:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "5184",
+        "url": "https://www.congress.gov/bill/119/house-bill/5184"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 5,
+      "date": "2026-01-08T14:57:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6938",
+        "url": "https://www.congress.gov/bill/119/house-bill/6938"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 6,
+      "date": "2026-01-08T15:03:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6938",
+        "url": "https://www.congress.gov/bill/119/house-bill/6938"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 7,
+      "date": "2026-01-08T15:10:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6938",
+        "url": "https://www.congress.gov/bill/119/house-bill/6938"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 14,
+      "date": "2026-01-12T19:04:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6500",
+        "url": "https://www.congress.gov/bill/119/house-bill/6500"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 11,
+      "date": "2026-01-08T17:13:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "1834",
+        "url": "https://www.congress.gov/bill/119/house-bill/1834"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 13,
+      "date": "2026-01-12T18:56:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2683",
+        "url": "https://www.congress.gov/bill/119/house-bill/2683"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 15,
+      "date": "2026-01-12T19:11:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6504",
+        "url": "https://www.congress.gov/bill/119/house-bill/6504"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 17,
+      "date": "2026-01-13T14:03:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "988",
+        "url": "https://www.congress.gov/bill/119/house-resolution/988"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 19,
+      "date": "2026-01-13T17:51:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2262",
+        "url": "https://www.congress.gov/bill/119/house-bill/2262"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 18,
+      "date": "2026-01-13T16:59:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2262",
+        "url": "https://www.congress.gov/bill/119/house-bill/2262"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 22,
+      "date": "2026-01-13T18:11:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4593",
+        "url": "https://www.congress.gov/bill/119/house-bill/4593"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 23,
+      "date": "2026-01-13T18:17:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4593",
+        "url": "https://www.congress.gov/bill/119/house-bill/4593"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 25,
+      "date": "2026-01-14T14:02:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "992",
+        "url": "https://www.congress.gov/bill/119/house-resolution/992"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 20,
+      "date": "2026-01-13T17:57:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2270",
+        "url": "https://www.congress.gov/bill/119/house-bill/2270"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 21,
+      "date": "2026-01-13T18:04:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2312",
+        "url": "https://www.congress.gov/bill/119/house-bill/2312"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 26,
+      "date": "2026-01-14T17:15:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "149",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/149"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 16,
+      "date": "2026-01-13T13:55:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "988",
+        "url": "https://www.congress.gov/bill/119/house-resolution/988"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 27,
+      "date": "2026-01-14T17:19:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "150",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/150"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 24,
+      "date": "2026-01-14T13:56:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "992",
+        "url": "https://www.congress.gov/bill/119/house-resolution/992"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 28,
+      "date": "2026-01-14T17:27:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "7006",
+        "url": "https://www.congress.gov/bill/119/house-bill/7006"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 29,
+      "date": "2026-01-15T10:29:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "152",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/152"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 30,
+      "date": "2026-01-15T10:36:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2988",
+        "url": "https://www.congress.gov/bill/119/house-bill/2988"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 39,
+      "date": "2026-01-22T11:06:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1014",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1014"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 32,
+      "date": "2026-01-20T18:54:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "5763",
+        "url": "https://www.congress.gov/bill/119/house-bill/5763"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 33,
+      "date": "2026-01-20T19:05:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "5764",
+        "url": "https://www.congress.gov/bill/119/house-bill/5764"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 36,
+      "date": "2026-01-21T16:31:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6945",
+        "url": "https://www.congress.gov/bill/119/house-bill/6945"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 38,
+      "date": "2026-01-21T16:45:00-05:00",
+      "legislation": {
+        "type": "HJRES",
+        "number": "140",
+        "url": "https://www.congress.gov/bill/119/house-joint-resolution/140"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 34,
+      "date": "2026-01-21T13:58:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1009",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1009"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 37,
+      "date": "2026-01-21T16:38:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6945",
+        "url": "https://www.congress.gov/bill/119/house-bill/6945"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 35,
+      "date": "2026-01-21T14:04:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1009",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1009"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 42,
+      "date": "2026-01-22T16:41:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "7147",
+        "url": "https://www.congress.gov/bill/119/house-bill/7147"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 41,
+      "date": "2026-01-22T11:52:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1014",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1014"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 40,
+      "date": "2026-01-22T11:14:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "154",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/154"
+      },
+      "question": "",
+      "result": "Agreed to",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 31,
+      "date": "2026-01-15T10:43:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2988",
+        "url": "https://www.congress.gov/bill/119/house-bill/2988"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 45,
+      "date": "2026-01-22T16:58:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "7148",
+        "url": "https://www.congress.gov/bill/119/house-bill/7148"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 46,
+      "date": "2026-01-22T17:04:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6359",
+        "url": "https://www.congress.gov/bill/119/house-bill/6359"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 47,
+      "date": "2026-01-22T17:07:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6359",
+        "url": "https://www.congress.gov/bill/119/house-bill/6359"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 48,
+      "date": "2026-01-22T17:33:00-05:00",
+      "legislation": {
+        "type": "HCONRES",
+        "number": "68",
+        "url": "https://www.congress.gov/bill/119/house-concurrent-resolution/68"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 43,
+      "date": "2026-01-22T16:47:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "155",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/155"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 44,
+      "date": "2026-01-22T16:51:00-05:00",
+      "legislation": {
+        "type": "HAMDT",
+        "number": "156",
+        "url": "https://www.congress.gov/amendment/119/house-amendment/156"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 51,
+      "date": "2026-02-03T11:42:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1032",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1032"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 52,
+      "date": "2026-02-03T12:34:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1032",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1032"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 53,
+      "date": "2026-02-03T14:09:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "7148",
+        "url": "https://www.congress.gov/bill/119/house-bill/7148"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 49,
+      "date": "2026-02-02T18:57:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "980",
+        "url": "https://www.congress.gov/bill/119/house-bill/980"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 50,
+      "date": "2026-02-02T19:14:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3123",
+        "url": "https://www.congress.gov/bill/119/house-bill/3123"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 56,
+      "date": "2026-02-04T16:13:00-05:00",
+      "legislation": {
+        "type": "HJRES",
+        "number": "142",
+        "url": "https://www.congress.gov/bill/119/house-joint-resolution/142"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 58,
+      "date": "2026-02-09T19:06:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "1531",
+        "url": "https://www.congress.gov/bill/119/house-bill/1531"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 63,
+      "date": "2026-02-11T17:59:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3617",
+        "url": "https://www.congress.gov/bill/119/house-bill/3617"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 54,
+      "date": "2026-02-04T16:00:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4090",
+        "url": "https://www.congress.gov/bill/119/house-bill/4090"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 55,
+      "date": "2026-02-04T16:06:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "4090",
+        "url": "https://www.congress.gov/bill/119/house-bill/4090"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 57,
+      "date": "2026-02-09T18:59:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "6644",
+        "url": "https://www.congress.gov/bill/119/house-bill/6644"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "2/3 Yea-And-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 60,
+      "date": "2026-02-10T21:54:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1042",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1042"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 59,
+      "date": "2026-02-10T21:03:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1042",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1042"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 68,
+      "date": "2026-02-11T18:35:00-05:00",
+      "legislation": {
+        "type": "S",
+        "number": "1383",
+        "url": "https://www.congress.gov/bill/119/senate-bill/1383"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 69,
+      "date": "2026-02-11T18:43:00-05:00",
+      "legislation": {
+        "type": "S",
+        "number": "1383",
+        "url": "https://www.congress.gov/bill/119/senate-bill/1383"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 62,
+      "date": "2026-02-11T13:02:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1057",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1057"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Recorded Vote",
+      "memberVote": "Aye",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 64,
+      "date": "2026-02-11T18:05:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "3617",
+        "url": "https://www.congress.gov/bill/119/house-bill/3617"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 65,
+      "date": "2026-02-11T18:17:00-05:00",
+      "legislation": {
+        "type": "HJRES",
+        "number": "72",
+        "url": "https://www.congress.gov/bill/119/house-joint-resolution/72"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 66,
+      "date": "2026-02-11T18:23:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "261",
+        "url": "https://www.congress.gov/bill/119/house-bill/261"
+      },
+      "question": "",
+      "result": "Failed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Nay",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 67,
+      "date": "2026-02-11T18:29:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "261",
+        "url": "https://www.congress.gov/bill/119/house-bill/261"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 61,
+      "date": "2026-02-11T12:53:00-05:00",
+      "legislation": {
+        "type": "HRES",
+        "number": "1057",
+        "url": "https://www.congress.gov/bill/119/house-resolution/1057"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    },
+    {
+      "congress": 119,
+      "session": 2,
+      "rollCall": 70,
+      "date": "2026-02-12T10:45:00-05:00",
+      "legislation": {
+        "type": "HR",
+        "number": "2189",
+        "url": "https://www.congress.gov/bill/119/house-bill/2189"
+      },
+      "question": "",
+      "result": "Passed",
+      "voteType": "Yea-and-Nay",
+      "memberVote": "Yea",
+      "party": "R",
+      "state": "TN"
+    }
+  ]
+}

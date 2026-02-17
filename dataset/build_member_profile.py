@@ -15,7 +15,8 @@ from typing import Any, Dict, List, Optional
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data"
 BILLS_CACHE_DIR = DATA_DIR / "bills_cache"
-MEMBERS_DIR = DATA_DIR / "members"
+PROFILES_DIR = DATA_DIR / "profiles"
+VOTES_DIR = DATA_DIR / "votes"
 
 
 def load_json(file_path: Path) -> Any:
@@ -43,8 +44,8 @@ def find_member_metadata(bioguide_id: str) -> Optional[Dict[str, Any]]:
 
 
 def load_voting_record(bioguide_id: str) -> Dict[str, Any]:
-    """Load voting record from data/votes_{bioguideId}.json."""
-    votes_file = DATA_DIR / f"votes_{bioguide_id}.json"
+    """Load voting record from data/votes/{bioguideId}.json."""
+    votes_file = VOTES_DIR / f"{bioguide_id}.json"
     return load_json(votes_file)
 
 
@@ -297,8 +298,8 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=MEMBERS_DIR,
-        help=f"Output directory (default: {MEMBERS_DIR})"
+        default=PROFILES_DIR,
+        help=f"Output directory (default: {PROFILES_DIR})"
     )
 
     args = parser.parse_args()

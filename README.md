@@ -67,9 +67,10 @@ Use `sample_politicians.txt` as a starting point - contains 20 diverse House mem
 
 ### Generated Data
 
-The pipeline generates member profiles in `data/members/`:
-- `{BIOGUIDE_ID}.json` - Complete member profile (votes, bills, press releases)
-- Example: `data/members/B001316.json` for Eric Burlison
+The pipeline generates:
+- `data/votes/{BIOGUIDE_ID}.json` - Voting records for each member
+- `data/profiles/{BIOGUIDE_ID}.json` - Complete member profile (votes, bills, press releases)
+- Example: `data/profiles/B001316.json` for Eric Burlison
 
 ### Streamlit Data Requirements
 

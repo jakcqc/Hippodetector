@@ -44,9 +44,9 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 ### Data
 - `data/congress_members.json` - All member metadata
 - `data/congress_bills_voted_last_5_years.json` - All bills with votes (421K bills, 20K with votes)
-- `data/votes_{bioguideId}.json` - Individual voting records
+- `data/votes/{bioguideId}.json` - Individual voting records
 - `data/bills_cache/` - Cached bill details (comprehensive: summaries & subjects)
-- `data/members/{bioguideId}.json` - Complete member profiles (votes + bills + press releases)
+- `data/profiles/{bioguideId}.json` - Complete member profiles (votes + bills + press releases)
 - `data/burlison_press_releases.json` - Press release data (Burlison test case)
 
 ### Documentation
@@ -76,7 +76,7 @@ Hippodetector detects hypocrisy in U.S. Congress members by comparing their voti
 - ✅ 432 votes with positions
 - ✅ 273 bills with comprehensive details (titles, summaries, subjects)
 - ✅ 10 press releases
-- ✅ Full profile saved to `data/members/B001316.json`
+- ✅ Full profile saved to `data/profiles/B001316.json`
 - Next: RAG analysis with this data
 
 ## Development Guidelines

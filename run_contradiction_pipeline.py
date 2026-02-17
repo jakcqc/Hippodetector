@@ -11,11 +11,11 @@ This script runs the complete pipeline:
 
 Output Files:
     data/votes/{bioguide_id}.json         - Individual voting records
-    data/bills/{bioguide_id}.json         - Bill details for voted bills
-    data/members/{bioguide_id}.json       - Complete member profile (votes + bills + PRs)
+    data/bills_cache/{bill_id}.json       - Cached bill details (shared across members)
+    data/profiles/{bioguide_id}.json      - Complete member profile (votes + bills + PRs)
     data/qdrant_storage/                  - Vector database (embeddings)
 
-    The member profile (data/members/) is the most comprehensive output,
+    The member profile (data/profiles/) is the most comprehensive output,
     containing all data joined together in a single file.
 
 Usage:
@@ -47,7 +47,8 @@ from tqdm import tqdm
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 DATA_DIR = PROJECT_ROOT / "data"
-MEMBERS_DIR = DATA_DIR / "members"
+PROFILES_DIR = DATA_DIR / "profiles"
+VOTES_DIR = DATA_DIR / "votes"
 
 # Precomputed embeddings zip files (House members only)
 PR_EMBEDDINGS_ZIPS = [
@@ -188,7 +189,8 @@ class PipelineRunner:
 
             result["success"] = True
             print(f"\n✅ Pipeline completed successfully for {bioguide_id}")
-            print(f"   Found {len(contradictions)} potential contradictions")
+            if not self.skip_contradictions:
+                print(f"   Found {len(result['contradictions'])} potential contradictions")
 
         except Exception as e:
             result["error"] = str(e)
@@ -212,7 +214,7 @@ class PipelineRunner:
 
     def _fetch_bill_details(self, bioguide_id: str) -> bool:
         """Step 2: Fetch bill details."""
-        votes_file = DATA_DIR / f"votes_{bioguide_id}.json"
+        votes_file = VOTES_DIR / f"{bioguide_id}.json"
         cmd = [
             "uv", "run", "python", "dataset/fetch_bill_details.py",
             "--from-votes", str(votes_file)

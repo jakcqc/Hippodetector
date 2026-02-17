@@ -248,11 +248,11 @@ The project includes an end-to-end automated pipeline for processing politicians
 2. **Fetch Bill Details** (`dataset/fetch_bill_details.py`)
    - For each voted bill, fetches full details from Congress API
    - Includes: title, summary, subjects, cosponsors
-   - Stores in `data/bills/{bioguide_id}.json`
+   - Stores in `data/bills_cache/{billId}.json`
 
 3. **Build Member Profile** (`dataset/build_member_profile.py`)
    - Joins votes + bills + press releases
-   - Creates unified profile: `data/members/{bioguide_id}.json`
+   - Creates unified profile: `data/profiles/{bioguide_id}.json`
    - Profile structure: metadata, votes[], bills[], pressReleases[]
 
 4. **Load Embeddings** (`RAG/load_embeddings.py`)
