@@ -7,7 +7,9 @@
 - [x] Set up Qdrant vector DB with Docker Compose
 - [x] Create embedding generation script
 - [x] Load embeddings into Qdrant (369 bills + 10 PRs loaded for Burlison)
-- [ ] Build RAG pipeline with retrieval + stance extraction + contradiction detection
+- [x] Build automated pipeline script (run_contradiction_pipeline.py + run_pipeline.sh)
+  - [x] Steps 1-4: Data collection and embedding loading (can run with `--skip-contradictions`)
+  - [ ] Step 5: Contradiction detection (TODO - can be run standalone later)
 - [ ] Add natural language query interface to Streamlit
 
 ### Scale to All Members
@@ -28,6 +30,15 @@
 - [x] Implement voting record fetcher for specific bioguide ID (with progress bars)
 - [x] Implement bill details fetcher (comprehensive data: summaries & subjects)
 - [x] Link existing press release data
+- [x] Build end-to-end automated pipeline (run_contradiction_pipeline.py)
+  - [x] Step 1: Fetch voting records
+  - [x] Step 2: Fetch bill details
+  - [x] Step 3: Build member profile
+  - [x] Step 4: Load embeddings into Qdrant
+  - [x] Skip flags for partial execution (`--skip-voting`, `--skip-bills`, `--skip-embeddings`, `--skip-contradictions`)
+  - [x] Pre-computed PR embeddings support (438 House members)
+  - [x] Bash wrapper (run_pipeline.sh) with convenience features
+  - [ ] Step 5: Contradiction detection (TODO)
 
 ### Burlison Test Case
 - [x] Fetch Burlison's voting record (432 votes)
