@@ -18,7 +18,7 @@ except ImportError:
     HF_INFERENCE_AVAILABLE = False
 
 
-MODEL_NAME = "google/embeddinggemma-300m"
+MODEL_NAME = "sentence-transformers/all-mpnet-base-v2"  # 768-dim, works with HF Inference API
 
 
 @dataclass(frozen=True)

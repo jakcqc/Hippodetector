@@ -212,9 +212,10 @@ class PipelineRunner:
 
     def _fetch_bill_details(self, bioguide_id: str) -> bool:
         """Step 2: Fetch bill details."""
+        votes_file = DATA_DIR / f"votes_{bioguide_id}.json"
         cmd = [
             "uv", "run", "python", "dataset/fetch_bill_details.py",
-            "--bioguide-id", bioguide_id
+            "--from-votes", str(votes_file)
         ]
 
         result = subprocess.run(cmd, cwd=PROJECT_ROOT)
