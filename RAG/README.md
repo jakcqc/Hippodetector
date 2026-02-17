@@ -21,20 +21,46 @@ python RAG/setup_qdrant.py
 
 Creates `bills` and `press_releases` collections in Qdrant.
 
-### 3. Load Member Data
+### 3. Run Complete Pipeline (Recommended)
+
+The easiest way to set up everything:
 
 ```bash
-# Example: Load Burlison's data
-uv run RAG/load_embeddings.py --bioguide-id B001316
+# Run for a single politician
+./run_pipeline.sh B001316
+
+# Or run 20 sample politicians
+./run_pipeline.sh --sample
 ```
 
-This will:
-- Load member profile from `data/members/B001316.json`
-- Generate embeddings using google/embeddinggemma-300m
-- Smart fallback: GPU → HF Inference API → CPU (with batching)
-- Load embeddings into Qdrant (369 bills + 10 press releases for Burlison)
+This automatically:
+1. Fetches voting records
+2. Fetches bill details
+3. Builds member profile
+4. Loads embeddings into Qdrant (using pre-computed PR embeddings when available)
+5. Detects contradictions (coming soon)
 
-**Note**: CPU mode takes ~15-20 minutes but works on limited hardware.
+### 3. Manual Data Loading (Alternative)
+
+```bash
+# Load with pre-computed embeddings (fast, no LLM cost)
+uv run python RAG/load_embeddings.py --bioguide-id B001316 --use-precomputed-pr
+
+# Or generate fresh embeddings (slower, uses LLM)
+uv run python RAG/load_embeddings.py --bioguide-id B001316
+```
+
+**Pre-computed Embeddings:**
+- Available for 438 House members in `data/press_release_embeddings_*.zip`
+- Saves ~15-20 minutes per member
+- No LLM API costs
+- Automatically used by pipeline script
+
+**Fresh Embedding Generation:**
+- Loads member profile from `data/members/{bioguide_id}.json`
+- Generates embeddings using google/embeddinggemma-300m
+- Smart fallback: GPU → HF Inference API → CPU (with batching)
+- CPU mode: ~15-20 minutes but works on limited hardware
 
 ## Components
 
@@ -64,11 +90,20 @@ This will:
 ```
 RAG/
 ├── setup_qdrant.py           # Initialize collections
-├── load_embeddings.py        # Generate & load embeddings
+├── load_embeddings.py        # Generate & load embeddings (supports pre-computed)
+├── topic_matching.py         # Map bill subjects to issue categories
+├── extract_stances.py        # LLM-based stance extraction (dual provider support)
+├── extract_member_stances.py # Batch stance extraction for all PRs
 ├── contradiction_schema.py   # Output schemas
 ├── search.py                 # Semantic search (TODO)
-├── extract_stances.py        # Stance extraction (TODO)
 └── detect_contradictions.py  # Contradiction detection (TODO)
+```
+
+**Pipeline Scripts:**
+```
+run_contradiction_pipeline.py  # End-to-end Python pipeline
+run_pipeline.sh                # Bash wrapper with convenience features
+sample_politicians.txt         # 20 diverse House members for testing
 ```
 
 ## Schemas
@@ -104,6 +139,17 @@ curl http://localhost:6333/collections/press_releases | grep points_count
 ## Next Steps
 
 1. ✅ Setup & data loading
-2. ⏳ Implement semantic search
-3. ⏳ Build contradiction detector
-4. ⏳ Add to Streamlit UI
+2. ✅ Pre-computed embeddings optimization (438 House members)
+3. ✅ Automated pipeline with progress tracking
+4. ✅ Topic matching (bill subjects → issue categories)
+5. ✅ Stance extraction with LLM (Archia/Claude + Gemini support)
+6. ⏳ Implement semantic search (RAG/search.py)
+7. ⏳ Build contradiction detector (RAG/detect_contradictions.py)
+8. ⏳ Add to Streamlit UI
+
+## Additional Features
+
+- **House Member Validation**: Pipeline automatically validates bioguide IDs against 438 available members
+- **Progress Bar**: Visual progress tracking for batch processing
+- **Skip Flags**: Resume pipeline from any step (`--skip-voting`, `--skip-bills`, etc.)
+- **Sample Data**: `sample_politicians.txt` with 20 diverse representatives for testing

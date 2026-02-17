@@ -5,12 +5,67 @@ Hippodetector helps you analyze politician voting records from Congress and dete
 
 ## Quick Start
 
+### Run Complete Pipeline
+
+The easiest way to analyze politicians is using the automated pipeline:
+
 ```bash
-# Get a politician's recent voting record
-uv run dataset/voting_record.py --bioguide-id O000172 --congress 119 --max-votes 50
+# Run for a single politician (e.g., Eric Burlison)
+./run_pipeline.sh B001316
+
+# Run for 20 sample politicians
+./run_pipeline.sh --sample
+
+# Run from a custom file
+./run_pipeline.sh --file my_politicians.txt
+
+# See all options
+./run_pipeline.sh --help
 ```
 
-## Required Data File Locations
+The pipeline automatically:
+1. Fetches voting records from Congress API
+2. Fetches bill details
+3. Builds member profile (votes + bills + press releases)
+4. Loads embeddings into Qdrant vector database
+5. Detects contradictions (coming soon)
+
+### Manual Steps
+
+```bash
+# Get a politician's recent voting record
+uv run python dataset/voting_record.py --bioguide-id O000172 --congress 119 --max-votes 50
+
+# Or use the Python script directly
+uv run python run_contradiction_pipeline.py --bioguide-ids B001316
+```
+
+## Data Files
+
+### Pre-computed Embeddings (Included)
+
+The project includes pre-computed press release embeddings for **438 House members**:
+- `data/press_release_embeddings_1.zip` - Members A-L
+- `data/press_release_embeddings_2.zip` - Members M-Z
+- Total: ~533MB compressed
+- Using these saves time and LLM API costs
+
+The pipeline automatically uses these pre-computed embeddings when available.
+
+### Sample Politicians File
+
+Use `sample_politicians.txt` as a starting point - contains 20 diverse House members:
+```bash
+./run_pipeline.sh --sample
+```
+
+### Generated Data
+
+The pipeline generates member profiles in `data/members/`:
+- `{BIOGUIDE_ID}.json` - Complete member profile (votes, bills, press releases)
+- Example: `data/members/B001316.json` for Eric Burlison
+
+### Streamlit Data Requirements
 
 The Streamlit app expects data files in `data/` with these exact names:
 

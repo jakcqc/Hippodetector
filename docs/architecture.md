@@ -234,14 +234,89 @@ contradiction_schema.py (Output)
     └── search metadata
 ```
 
+## Automated Pipeline
+
+The project includes an end-to-end automated pipeline for processing politicians:
+
+### Pipeline Script: `run_contradiction_pipeline.py`
+
+**Execution Steps:**
+1. **Fetch Voting Records** (`dataset/voting_record.py`)
+   - Retrieves all votes from Congress API
+   - Stores in `data/votes/{bioguide_id}.json`
+
+2. **Fetch Bill Details** (`dataset/fetch_bill_details.py`)
+   - For each voted bill, fetches full details from Congress API
+   - Includes: title, summary, subjects, cosponsors
+   - Stores in `data/bills/{bioguide_id}.json`
+
+3. **Build Member Profile** (`dataset/build_member_profile.py`)
+   - Joins votes + bills + press releases
+   - Creates unified profile: `data/members/{bioguide_id}.json`
+   - Profile structure: metadata, votes[], bills[], pressReleases[]
+
+4. **Load Embeddings** (`RAG/load_embeddings.py`)
+   - Generates 768-dim embeddings using `google/embeddinggemma-300m`
+   - **Optimization**: Uses pre-computed PR embeddings for 438 House members
+   - Loads into Qdrant collections: `bills`, `press_releases`
+
+5. **Detect Contradictions** (TODO)
+   - Will implement full contradiction detection logic
+
+### Bash Wrapper: `run_pipeline.sh`
+
+Convenient command-line interface:
+
+```bash
+# Single politician
+./run_pipeline.sh B001316
+
+# Sample 20 politicians
+./run_pipeline.sh --sample
+
+# From custom file
+./run_pipeline.sh --file my_politicians.txt
+
+# Skip data collection (use existing data)
+./run_pipeline.sh B001316 --skip-all
+```
+
+**Features:**
+- Progress bar for multi-politician processing (tqdm)
+- House member validation (filters non-House members)
+- Color-coded output
+- Skip flags for partial pipeline execution
+
+### Pre-computed Embeddings
+
+**Location:**
+- `data/press_release_embeddings_1.zip` (Members A-L)
+- `data/press_release_embeddings_2.zip` (Members M-Z)
+
+**Contents:**
+- 438 House members with pre-computed PR embeddings
+- ~533MB compressed
+- Saves LLM API costs and processing time
+
+**Usage:**
+```bash
+# Pipeline automatically uses pre-computed embeddings
+./run_pipeline.sh --bioguide-ids B001316
+
+# Or manually with flag
+uv run python RAG/load_embeddings.py --bioguide-id B001316 --use-precomputed-pr
+```
+
 ## Implementation Roadmap
 
 1. ✅ **Data Ingestion**: Load embeddings into Qdrant
-2. ⏳ **Search Function**: Implement semantic search (RAG/search.py)
-3. ⏳ **Stance Extraction**: LLM extraction using IssueStance schema (RAG/extract_stances.py)
-4. ⏳ **Topic Matching**: Map bill subjects to issue categories
-5. ⏳ **Contradiction Detection**: Compare and score (RAG/detect_contradictions.py)
-6. ⏳ **Streamlit UI**: Display ContradictionReport to users
+2. ✅ **Pipeline Automation**: End-to-end pipeline with progress tracking
+3. ✅ **Pre-computed Embeddings**: Optimized PR embedding loading
+4. ✅ **Topic Matching**: Map bill subjects to issue categories (RAG/topic_matching.py)
+5. ✅ **Stance Extraction**: LLM extraction using IssueStance schema (RAG/extract_stances.py)
+6. ⏳ **Search Function**: Implement semantic search (RAG/search.py)
+7. ⏳ **Contradiction Detection**: Compare and score (RAG/detect_contradictions.py)
+8. ⏳ **Streamlit UI**: Display ContradictionReport to users
 
 ## Future Enhancements
 
