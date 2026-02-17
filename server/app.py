@@ -1,30 +1,23 @@
 ﻿from __future__ import annotations
 
 import base64
-from concurrent.futures import ThreadPoolExecutor
-from difflib import SequenceMatcher
 import json
 import math
-import os
 from pathlib import Path
+import random
 import re
 from typing import Any
 
+from rapidfuzz import fuzz, process
 import streamlit as st
 
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+PRESS_RELEASES_FILE = DATA_DIR / "press_releases_by_bioguide.json"
 HIPPO_ICON_PATH = Path(__file__).resolve().parent / "HippoD.png"
 
 # Dominant colors extracted from a histogram pass on server/HippoD.png:
 # #e090a0, #f0c0b0, #f0b0c0, #c07080, #b06080
-
-
-def list_json_files() -> list[Path]:
-    if not DATA_DIR.exists():
-        return []
-    return sorted(DATA_DIR.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
-
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -50,6 +43,11 @@ def inject_css() -> None:
             --hippo-text-soft: #5d4754;
             --hippo-accent: #c07080;
             --hippo-accent-2: #b06080;
+            --hippo-control-bg: #2b2230;
+            --hippo-control-bg-hover: #3a2e41;
+            --hippo-control-border: #604a69;
+            --hippo-control-text: #ffffff;
+            --hippo-control-text-soft: #f4eaf0;
           }
           .stApp {
             background: radial-gradient(1200px 600px at 5% -10%, #f0c0b055 0%, transparent 50%),
@@ -166,54 +164,98 @@ def inject_css() -> None:
             color: #6b4f62 !important;
             fill: #6b4f62 !important;
           }
-          div[data-baseweb="select"] * {
-            color: var(--hippo-text) !important;
-          }
           div[data-baseweb="select"] > div {
-            background: var(--hippo-surface) !important;
-            border-color: var(--hippo-border) !important;
+            background: var(--hippo-control-bg) !important;
+            border-color: var(--hippo-control-border) !important;
+            color: var(--hippo-control-text) !important;
           }
           div[data-baseweb="popover"],
           div[data-baseweb="menu"] {
-            background: var(--hippo-surface) !important;
-            border: 1px solid var(--hippo-border) !important;
-            color: var(--hippo-text) !important;
+            background: var(--hippo-control-bg) !important;
+            border: 1px solid var(--hippo-control-border) !important;
+            color: var(--hippo-control-text) !important;
           }
           div[data-baseweb="popover"] *,
           div[data-baseweb="menu"] * {
-            color: var(--hippo-text) !important;
-            fill: var(--hippo-text) !important;
+            color: var(--hippo-control-text) !important;
+            fill: var(--hippo-control-text) !important;
           }
           div[data-baseweb="select"] [role="combobox"],
           div[data-baseweb="select"] span,
           div[data-baseweb="select"] svg {
-            color: var(--hippo-text) !important;
-            fill: var(--hippo-text) !important;
-            -webkit-text-fill-color: var(--hippo-text) !important;
+            color: var(--hippo-control-text) !important;
+            fill: var(--hippo-control-text) !important;
+            -webkit-text-fill-color: var(--hippo-control-text) !important;
           }
           div[data-baseweb="select"] input {
-            color: var(--hippo-text) !important;
-            -webkit-text-fill-color: var(--hippo-text) !important;
+            color: var(--hippo-control-text) !important;
+            -webkit-text-fill-color: var(--hippo-control-text) !important;
           }
           ul[role="listbox"] {
-            background: var(--hippo-surface) !important;
-            border: 1px solid var(--hippo-border) !important;
+            background: var(--hippo-control-bg) !important;
+            border: 1px solid var(--hippo-control-border) !important;
           }
           ul[role="listbox"] li {
-            color: var(--hippo-text) !important;
-            background: var(--hippo-surface) !important;
+            color: var(--hippo-control-text) !important;
+            background: var(--hippo-control-bg) !important;
           }
           ul[role="listbox"] li[aria-selected="true"] {
-            background: #f0b0c033 !important;
-            color: var(--hippo-text) !important;
+            background: var(--hippo-control-bg-hover) !important;
+            color: var(--hippo-control-text) !important;
           }
           div[role="option"] {
-            background: var(--hippo-surface) !important;
-            color: var(--hippo-text) !important;
+            background: var(--hippo-control-bg) !important;
+            color: var(--hippo-control-text) !important;
           }
           div[role="option"][aria-selected="true"] {
-            background: #f0b0c033 !important;
-            color: var(--hippo-text) !important;
+            background: var(--hippo-control-bg-hover) !important;
+            color: var(--hippo-control-text) !important;
+          }
+          [data-testid="stSelectbox"] * {
+            color: var(--hippo-control-text) !important;
+          }
+          [data-testid="stSelectbox"] label {
+            color: var(--hippo-control-text-soft) !important;
+          }
+          div[data-baseweb="select"] > div:hover,
+          div[data-baseweb="select"] > div:focus-within {
+            border-color: #8f6c9b !important;
+            box-shadow: 0 0 0 1px #8f6c9b55 !important;
+          }
+          .stButton > button,
+          [data-testid="stButton"] > button,
+          button[data-testid^="baseButton-"] {
+            background: var(--hippo-control-bg) !important;
+            border: 1px solid var(--hippo-control-border) !important;
+            color: var(--hippo-control-text) !important;
+            -webkit-text-fill-color: var(--hippo-control-text) !important;
+          }
+          .stButton > button:hover,
+          [data-testid="stButton"] > button:hover,
+          button[data-testid^="baseButton-"]:hover {
+            background: var(--hippo-control-bg-hover) !important;
+            border-color: #8f6c9b !important;
+            color: var(--hippo-control-text) !important;
+            -webkit-text-fill-color: var(--hippo-control-text) !important;
+          }
+          .stButton > button:focus,
+          [data-testid="stButton"] > button:focus,
+          button[data-testid^="baseButton-"]:focus {
+            color: var(--hippo-control-text) !important;
+            -webkit-text-fill-color: var(--hippo-control-text) !important;
+            box-shadow: 0 0 0 1px #8f6c9b66 !important;
+          }
+          .stButton > button:disabled,
+          .stButton > button[disabled],
+          [data-testid="stButton"] > button:disabled,
+          [data-testid="stButton"] > button[disabled],
+          button[data-testid^="baseButton-"]:disabled,
+          button[data-testid^="baseButton-"][disabled] {
+            background: #3a3440 !important;
+            border-color: #5f5567 !important;
+            color: #e8dfe6 !important;
+            -webkit-text-fill-color: #e8dfe6 !important;
+            opacity: 0.95 !important;
           }
           [data-baseweb="input"] > div,
           [data-baseweb="textarea"] > div {
@@ -227,8 +269,7 @@ def inject_css() -> None:
             background: var(--hippo-surface) !important;
           }
           [data-testid="stNumberInput"] label,
-          [data-testid="stTextInput"] label,
-          [data-testid="stSelectbox"] label {
+          [data-testid="stTextInput"] label {
             color: var(--hippo-text-soft) !important;
           }
           .stTabs [role="tab"] {
@@ -333,29 +374,44 @@ def get_members_map(payload: Any) -> dict[str, dict[str, Any]]:
     return {}
 
 
-def flatten_releases(members_map: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
-    flattened: list[dict[str, Any]] = []
-    for bioguide_id, member_data in members_map.items():
-        releases = member_data.get("pressReleases")
-        if not isinstance(releases, list):
+@st.cache_data(show_spinner=False)
+def build_release_index(data_path: str, mtime_ns: int) -> dict[str, Any]:
+    del mtime_ns
+    payload = load_json(Path(data_path))
+    members_map = get_members_map(payload)
+    selectable_members = [
+        (bg, md)
+        for bg, md in members_map.items()
+        if str(md.get("status") or "").strip().lower() != "error"
+    ]
+
+    releases: list[dict[str, Any]] = []
+    search_texts: list[str] = []
+    for bioguide_id, member_data in selectable_members:
+        member_releases = member_data.get("pressReleases")
+        if not isinstance(member_releases, list):
             continue
-        for release in releases:
-            if isinstance(release, dict):
-                flattened.append(
-                    {
-                        **release,
-                        "_bioguideId": bioguide_id,
-                        "_memberName": member_data.get("name"),
-                        "_memberStatus": member_data.get("status"),
-                    }
-                )
-    return flattened
+        for release in member_releases:
+            if not isinstance(release, dict):
+                continue
+            enriched = {
+                **release,
+                "_bioguideId": bioguide_id,
+                "_memberName": member_data.get("name"),
+                "_memberStatus": member_data.get("status"),
+            }
+            search_text = release_search_text(enriched)
+            enriched["_search_text"] = search_text
+            releases.append(enriched)
+            search_texts.append(search_text)
 
-
-def preview_row(entry: dict[str, Any], idx: int) -> str:
-    title = entry.get("title") or entry.get("url") or f"Entry {idx + 1}"
-    date = entry.get("date") or entry.get("publishedTime") or ""
-    return f"{idx + 1}. {title}" + (f" ({date})" if date else "")
+    return {
+        "payload": payload,
+        "members_map": members_map,
+        "selectable_members": selectable_members,
+        "releases": releases,
+        "search_texts": search_texts,
+    }
 
 
 def member_label(bioguide_id: str, member_data: dict[str, Any]) -> str:
@@ -378,57 +434,33 @@ def release_search_text(release: dict[str, Any]) -> str:
     bioguide_id = str(release.get("_bioguideId") or "")
     date = str(release.get("date") or release.get("publishedTime") or "")
     url = str(release.get("url") or "")
-    body_text = str(release.get("bodyText") or "")[:2500]
-    body_html = strip_html(str(release.get("bodyHtml") or ""))[:2500]
+    body_text = str(release.get("bodyText") or "")[:800]
+    body_html = strip_html(str(release.get("bodyHtml") or ""))[:800]
     return normalize_text(" ".join([title, member_name, bioguide_id, date, url, body_text, body_html]))
 
 
-def fuzzy_score(query: str, candidate: str) -> float:
-    normalized_query = normalize_text(query)
-    normalized_candidate = normalize_text(candidate)
-    if not normalized_query or not normalized_candidate:
-        return 0.0
-    if normalized_query in normalized_candidate:
-        return 1.0
-
-    query_tokens = set(normalized_query.split())
-    candidate_tokens = set(normalized_candidate.split())
-    token_overlap = 0.0
-    if query_tokens and candidate_tokens:
-        token_overlap = len(query_tokens & candidate_tokens) / len(query_tokens)
-
-    ratio = SequenceMatcher(None, normalized_query, normalized_candidate).ratio()
-    return max(token_overlap, ratio)
-
-
-def fuzzy_filter_releases(releases: list[dict[str, Any]], query: str, threshold: float = 0.42) -> list[dict[str, Any]]:
+def fuzzy_filter_indices(
+    search_base_indices: list[int],
+    search_texts: list[str],
+    query: str,
+    threshold: float = 0.42,
+) -> list[int]:
     if not query.strip():
-        return releases
+        return search_base_indices
 
-    def score_release(release: dict[str, Any]) -> tuple[float, dict[str, Any]] | None:
-        score = fuzzy_score(query, release_search_text(release))
-        if score >= threshold:
-            return (score, release)
-        return None
+    normalized_query = normalize_text(query)
+    if not normalized_query:
+        return search_base_indices
 
-    scored: list[tuple[float, dict[str, Any]]] = []
-    release_count = len(releases)
-
-    # True multithreading for large corpora; serial is faster for small lists.
-    if release_count >= 250:
-        max_workers = max(4, min(32, (os.cpu_count() or 4) * 4))
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            for result in executor.map(score_release, releases, chunksize=64):
-                if result is not None:
-                    scored.append(result)
-    else:
-        for release in releases:
-            result = score_release(release)
-            if result is not None:
-                scored.append(result)
-
-    scored.sort(key=lambda row: row[0], reverse=True)
-    return [release for _, release in scored]
+    choices = [search_texts[idx] for idx in search_base_indices]
+    matches = process.extract(
+        normalized_query,
+        choices,
+        scorer=fuzz.token_set_ratio,
+        score_cutoff=int(threshold * 100),
+        limit=None,
+    )
+    return [search_base_indices[match_idx] for _, _, match_idx in matches]
 
 
 def render_member_card(member: dict[str, Any], bioguide_id: str) -> None:
@@ -443,6 +475,31 @@ def render_member_card(member: dict[str, Any], bioguide_id: str) -> None:
     st.markdown(f"<div class='field'><b>source:</b> {member.get('source', '-')}</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='field'><b>pagesScraped:</b> {member.get('pagesScraped', '-')}</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='field'><b>releaseCount:</b> {member.get('releaseCount', '-')}</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+def render_selection_context_card(
+    *,
+    selected_file: str,
+    selected_party: str,
+    selected_state: str,
+    selected_member_id: str,
+    filtered_member_count: int,
+    total_selectable_members: int,
+    search_scope: str,
+) -> None:
+    selected_member = "All members" if selected_member_id == "ALL" else selected_member_id
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.markdown("<h4>Selection Context</h4>", unsafe_allow_html=True)
+    st.markdown(f"<div class='field'><b>data file:</b> {selected_file}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='field'><b>party filter:</b> {selected_party}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='field'><b>state filter:</b> {selected_state}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='field'><b>member selection:</b> {selected_member}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='field'><b>search scope:</b> {search_scope}</div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div class='field'><b>members in context:</b> {filtered_member_count} / {total_selectable_members}</div>",
+        unsafe_allow_html=True,
+    )
     st.markdown("</div>", unsafe_allow_html=True)
 
 
@@ -463,85 +520,126 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    files = list_json_files()
-    if not files:
-        st.error(f"No JSON files found in {DATA_DIR}")
+    if not PRESS_RELEASES_FILE.exists():
+        st.error(f"Required file not found: {PRESS_RELEASES_FILE}")
         return
 
-    with st.sidebar:
-        st.header("Data Source")
-        selected_file = st.selectbox("JSON file", [p.name for p in files], index=0)
-
-    selected_path = next(p for p in files if p.name == selected_file)
-    payload = load_json(selected_path)
-    members_map = get_members_map(payload)
+    dataset_mtime_ns = PRESS_RELEASES_FILE.stat().st_mtime_ns
+    index_data = build_release_index(str(PRESS_RELEASES_FILE), dataset_mtime_ns)
+    payload = index_data["payload"]
+    members_map = index_data["members_map"]
+    selectable_members = index_data["selectable_members"]
+    all_releases = index_data["releases"]
+    search_texts = index_data["search_texts"]
 
     if not members_map:
-        st.warning("This file is not in `membersByBioguideId` format.")
-        st.json(payload)
+        st.warning("`press_releases_by_bioguide.json` is not in `membersByBioguideId` format.")
         return
-
-    selectable_members = [
-        (bg, md)
-        for bg, md in members_map.items()
-        if str(md.get("status") or "").strip().lower() != "error"
-    ]
-    selectable_members_map = {bg: md for bg, md in selectable_members}
-    sorted_members = sorted(selectable_members, key=lambda kv: str(kv[1].get("name") or ""))
-    labels = ["All members"] + [member_label(bg, md) for bg, md in sorted_members]
-    label_to_id = {"All members": "ALL"}
-    for bg, md in sorted_members:
-        label_to_id[member_label(bg, md)] = bg
+    all_parties = sorted({str(md.get("partyName") or "-") for _, md in selectable_members})
+    all_states = sorted({str(md.get("state") or "-") for _, md in selectable_members})
 
     st.subheader("Navigator")
-    nav1, nav2, nav3, nav4 = st.columns([2.2, 1.6, 1.2, 1.0])
-    with nav1:
-        if len(labels) == 1:
-            st.warning("No selectable members found (all are in error status).")
-            selected_member_label = "All members"
-        else:
-            selected_member_label = st.selectbox(
-                "Search/select member",
-                labels,
-                index=0,
-                help="Type in this box to autocomplete by member name or bioguideId.",
-            )
+    nav1, nav2, nav3, nav4, nav5, nav6 = st.columns([2.1, 1.2, 1.0, 1.5, 1.2, 0.9])
     with nav2:
+        selected_party = st.selectbox("Party", ["All parties"] + all_parties, index=0)
+    with nav3:
+        selected_state = st.selectbox("State", ["All states"] + all_states, index=0)
+    with nav4:
         search_scope = st.selectbox(
             "Search scope",
             ["Current selection", "All members"],
             index=0,
-            help="Use 'All members' to search all available press releases regardless of selected member.",
+            help="Use 'All members' to search all members in the current Party/State context.",
         )
-    with nav3:
+    with nav5:
         query = st.text_input("Fuzzy search", "", placeholder="Try: border security")
-    with nav4:
+    with nav6:
         page_size = st.number_input("Releases/page", min_value=1, max_value=500, value=25, step=5)
 
+    filtered_members = []
+    for bg, md in selectable_members:
+        party_name = str(md.get("partyName") or "-")
+        state_name = str(md.get("state") or "-")
+        party_ok = selected_party == "All parties" or party_name == selected_party
+        state_ok = selected_state == "All states" or state_name == selected_state
+        if party_ok and state_ok:
+            filtered_members.append((bg, md))
+
+    filtered_members_map = {bg: md for bg, md in filtered_members}
+    sorted_members = sorted(filtered_members, key=lambda kv: str(kv[1].get("name") or ""))
+    labels = ["All members"] + [member_label(bg, md) for bg, md in sorted_members]
+    label_to_id = {"All members": "ALL"}
+    id_to_label = {"ALL": "All members"}
+    for bg, md in sorted_members:
+        label = member_label(bg, md)
+        label_to_id[label] = bg
+        id_to_label[bg] = label
+
+    random_member_key = "random_default_member_id"
+    random_member_signature_key = "random_default_member_signature"
+    selected_member_state_key = "selected_member_id"
+    dataset_signature = f"{PRESS_RELEASES_FILE}:{dataset_mtime_ns}"
+    if st.session_state.get(random_member_signature_key) != dataset_signature:
+        st.session_state[random_member_signature_key] = dataset_signature
+        st.session_state[random_member_key] = random.choice([bg for bg, _ in selectable_members]) if selectable_members else "ALL"
+        st.session_state[selected_member_state_key] = st.session_state[random_member_key]
+
+    if filtered_members and st.session_state.get(selected_member_state_key) not in filtered_members_map:
+        st.session_state[selected_member_state_key] = random.choice([bg for bg, _ in filtered_members])
+    if not filtered_members:
+        st.session_state[selected_member_state_key] = "ALL"
+
+    with nav1:
+        if len(labels) == 1:
+            st.warning("No members match Party/State filters.")
+            selected_member_label = "All members"
+        else:
+            default_member_id = st.session_state.get(selected_member_state_key, "ALL")
+            default_label = id_to_label.get(default_member_id, "All members")
+            selected_member_label = st.selectbox(
+                "Search/select member",
+                labels,
+                index=labels.index(default_label),
+                help="Type in this box to autocomplete by member name or bioguideId.",
+            )
+
     selected_member_id = label_to_id[selected_member_label]
+    st.session_state[selected_member_state_key] = selected_member_id
 
-    all_releases = flatten_releases(selectable_members_map)
-    selected_member_releases = all_releases
+    filtered_member_ids = set(filtered_members_map.keys())
+    context_release_indices = [
+        idx for idx, release in enumerate(all_releases) if str(release.get("_bioguideId")) in filtered_member_ids
+    ]
+    selected_member_release_indices = context_release_indices
     if selected_member_id != "ALL":
-        selected_member_releases = [r for r in selected_member_releases if r.get("_bioguideId") == selected_member_id]
+        selected_member_release_indices = [
+            idx for idx in context_release_indices if str(all_releases[idx].get("_bioguideId")) == selected_member_id
+        ]
 
-    search_base_releases = selected_member_releases
+    search_base_indices = selected_member_release_indices
     if search_scope == "All members":
-        search_base_releases = all_releases
-    filtered_releases = fuzzy_filter_releases(search_base_releases, query)
+        search_base_indices = context_release_indices
 
-    filter_signature = (
-        selected_file,
+    search_signature = (
+        dataset_signature,
         selected_member_id,
+        selected_party,
+        selected_state,
         search_scope,
         normalize_text(query),
-        int(page_size),
     )
-    if st.session_state.get("release_filter_signature") != filter_signature:
+    if st.session_state.get("release_search_signature") != search_signature:
+        st.session_state["filtered_release_indices"] = fuzzy_filter_indices(
+            search_base_indices,
+            search_texts,
+            query,
+            0.42,
+        )
+        st.session_state["release_search_signature"] = search_signature
         st.session_state["release_page"] = 1
-    st.session_state["release_filter_signature"] = filter_signature
+    filtered_release_indices = st.session_state.get("filtered_release_indices", search_base_indices)
 
-    total_results = len(filtered_releases)
+    total_results = len(filtered_release_indices)
     total_pages = max(1, math.ceil(total_results / int(page_size)))
     current_page = int(st.session_state.get("release_page", 1))
     current_page = max(1, min(current_page, total_pages))
@@ -570,14 +668,15 @@ def main() -> None:
 
     start_idx = (current_page - 1) * int(page_size)
     end_idx = start_idx + int(page_size)
-    paged_releases = filtered_releases[start_idx:end_idx]
+    paged_release_indices = filtered_release_indices[start_idx:end_idx]
+    paged_releases = [all_releases[idx] for idx in paged_release_indices]
 
     counts = payload.get("statusCounts", {}) if isinstance(payload, dict) else {}
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Members", len(members_map))
-    c2.metric("Releases Matched", total_results)
-    c3.metric("OK Members", str(counts.get("ok", "-")))
-    c4.metric("Error Members", str(counts.get("error", "-")))
+    c2.metric("Members In Context", len(filtered_members))
+    c3.metric("Releases Matched", total_results)
+    c4.metric("OK Members", str(counts.get("ok", "-")))
 
     if not paged_releases:
         st.info("No releases match current filters.")
@@ -586,7 +685,7 @@ def main() -> None:
     if search_scope == "All members":
         st.caption(
             f"Showing releases {start_idx + 1}-{min(end_idx, total_results)} of {total_results} "
-            "from all members (fuzzy search enabled)."
+            "from all members in the current Party/State context (fuzzy search enabled)."
         )
     elif selected_member_id == "ALL":
         st.caption(
@@ -603,6 +702,15 @@ def main() -> None:
     left, right = st.columns([1.15, 2.85])
 
     with left:
+        render_selection_context_card(
+            selected_file=PRESS_RELEASES_FILE.name,
+            selected_party=selected_party,
+            selected_state=selected_state,
+            selected_member_id=selected_member_id,
+            filtered_member_count=len(filtered_members),
+            total_selectable_members=len(selectable_members),
+            search_scope=search_scope,
+        )
         if selected_member_id != "ALL":
             render_member_card(members_map[selected_member_id], selected_member_id)
         else:
@@ -617,30 +725,31 @@ def main() -> None:
 
     with right:
         st.subheader("Releases")
-        for idx, release in enumerate(paged_releases, start=start_idx):
+        for local_idx, release in enumerate(paged_releases, start=0):
+            global_idx = start_idx + local_idx
+            release_idx = paged_release_indices[local_idx]
             title = release.get("title") or "Untitled release"
             date = release.get("date") or release.get("publishedTime") or "-"
             bg = release.get("_bioguideId", "-")
             member_name = release.get("_memberName", "-")
-            header = f"{idx + 1}. {title} ({date})"
-            with st.expander(header, expanded=(idx == 0)):
+            header = f"{global_idx + 1}. {title} ({date})"
+            with st.expander(header, expanded=(local_idx == 0)):
                 st.markdown("<div class='card'>", unsafe_allow_html=True)
                 st.markdown(f"<div class='field'><b>Member:</b> {member_name} ({bg})</div>", unsafe_allow_html=True)
                 st.markdown(f"<div class='field'><b>URL:</b> {release.get('url', '-')}</div>", unsafe_allow_html=True)
                 st.markdown("</div>", unsafe_allow_html=True)
-
-                tab_text, tab_raw = st.tabs(["Text", "Raw JSON"])
-                with tab_text:
-                    body_html = release.get("bodyHtml")
-                    body_text = release.get("bodyText")
-                    if body_html:
-                        st.markdown(f"<div class='formatted-body'>{body_html}</div>", unsafe_allow_html=True)
-                    elif body_text:
-                        st.text_area(f"bodyText_{idx}", body_text, height=420)
-                    else:
-                        st.write("No body content available.")
-                with tab_raw:
-                    st.json(release)
+                body_html = release.get("bodyHtml")
+                body_text = release.get("bodyText")
+                preview_source = body_text or strip_html(str(body_html or ""))
+                preview_text = " ".join(str(preview_source).split())[:280]
+                if preview_text:
+                    st.caption(preview_text + ("..." if len(str(preview_source)) > 280 else ""))
+                if body_html:
+                    st.markdown(f"<div class='formatted-body'>{body_html}</div>", unsafe_allow_html=True)
+                elif body_text:
+                    st.markdown(f"<div class='formatted-body'>{body_text}</div>", unsafe_allow_html=True)
+                else:
+                    st.write("No body content available.")
 
 
 if __name__ == "__main__":
