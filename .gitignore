@@ -215,6 +215,7 @@ __marimo__/
 data/votes/*.json
 data/profiles/*.json
 data/bills_cache/*.json
+data/PR/*.json
 
 # Old structure (deprecated - kept for reference)
 # data/votes_*.json
