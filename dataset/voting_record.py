@@ -201,7 +201,15 @@ def fetch_member_votes(
     # Determine congress if not specified
     if not congress:
         # Get the latest term to determine current congress
-        terms = member_info.get("terms", {}).get("item", [])
+        terms_data = member_info.get("terms", {})
+        # Handle both dict with "item" key and direct list
+        if isinstance(terms_data, dict):
+            terms = terms_data.get("item", [])
+        elif isinstance(terms_data, list):
+            terms = terms_data
+        else:
+            terms = []
+
         if terms:
             congress = terms[-1].get("congress")
 
