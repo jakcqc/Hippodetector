@@ -14,12 +14,12 @@ from urllib.request import Request, urlopen
 
 BASE_URL = "https://api.congress.gov/v3/bill"
 DEFAULT_LIMIT = 250
-YEARS_BACK = 1
+YEARS_BACK = 10
 MAX_WORKERS = 8  # Safe parallelism for Congress API
 FETCH_SUBJECTS = False  # Toggle if you really need subjects
 
 DEFAULT_OUTPUT_PATH_TEMPLATE = "data/congress_bill_summaries_last_{years}_years.json"
-CHECKPOINT_EVERY = 25
+CHECKPOINT_EVERY = 20
 CHECKPOINT_SECONDS = 30
 PROGRESS_EVERY = 50
 

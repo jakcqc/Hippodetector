@@ -1,28 +1,35 @@
 from pydantic import BaseModel
 
 
+class IssueSummary(BaseModel):
+    # Short stance writeup for an issue.
+    summary: str = ""
+    # Number of evidence items supporting the summary.
+    evidence: int = 0
+
+
 class CandidateIssueProfile(BaseModel):
-    abortion: str = ""
-    budget_economy: str = ""
-    civil_rights: str = ""
-    corporations: str = ""
-    crime: str = ""
-    drugs: str = ""
-    education: str = ""
-    energy_oil: str = ""
-    environment: str = ""
-    families_children: str = ""
-    foreign_policy: str = ""
-    free_trade: str = ""
-    government_reform: str = ""
-    gun_control: str = ""
-    health_care: str = ""
-    homeland_security: str = ""
-    immigration: str = ""
-    jobs: str = ""
-    principles_values: str = ""
-    social_security: str = ""
-    tax_reform: str = ""
-    technology: str = ""
-    war_peace: str = ""
-    welfare_poverty: str = ""
+    abortion: IssueSummary = IssueSummary()
+    budget_economy: IssueSummary = IssueSummary()
+    civil_rights: IssueSummary = IssueSummary()
+    corporations: IssueSummary = IssueSummary()
+    crime: IssueSummary = IssueSummary()
+    drugs: IssueSummary = IssueSummary()
+    education: IssueSummary = IssueSummary()
+    energy_oil: IssueSummary = IssueSummary()
+    environment: IssueSummary = IssueSummary()
+    families_children: IssueSummary = IssueSummary()
+    foreign_policy: IssueSummary = IssueSummary()
+    free_trade: IssueSummary = IssueSummary()
+    government_reform: IssueSummary = IssueSummary()
+    gun_control: IssueSummary = IssueSummary()
+    health_care: IssueSummary = IssueSummary()
+    homeland_security: IssueSummary = IssueSummary()
+    immigration: IssueSummary = IssueSummary()
+    jobs: IssueSummary = IssueSummary()
+    principles_values: IssueSummary = IssueSummary()
+    social_security: IssueSummary = IssueSummary()
+    tax_reform: IssueSummary = IssueSummary()
+    technology: IssueSummary = IssueSummary()
+    war_peace: IssueSummary = IssueSummary()
+    welfare_poverty: IssueSummary = IssueSummary()

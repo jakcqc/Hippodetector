@@ -20,8 +20,8 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_INPUT = PROJECT_ROOT / "data" / "congress_bill_summaries_last_1_years.json"
-DEFAULT_OUTPUT = PROJECT_ROOT / "data" / "congress_bills_voted_compact_last_1_year.json"
+DEFAULT_INPUT = PROJECT_ROOT / "data" / "congress_bill_summaries_last_10_years.json"
+DEFAULT_OUTPUT = PROJECT_ROOT / "data" / "congress_bills_voted_compact_last_10_years.json"
 
 
 def load_json(path: Path) -> Any:
