@@ -18,6 +18,7 @@ Output:
 import argparse
 import json
 import os
+import random
 import sys
 import time
 import traceback
@@ -50,6 +51,16 @@ ARCHIA_READ_TIMEOUT_SECONDS = float(os.getenv("ARCHIA_READ_TIMEOUT_SECONDS", "33
 ARCHIA_CONNECT_TIMEOUT_SECONDS = float(os.getenv("ARCHIA_CONNECT_TIMEOUT_SECONDS", "30"))
 ARCHIA_WRITE_TIMEOUT_SECONDS = float(os.getenv("ARCHIA_WRITE_TIMEOUT_SECONDS", "30"))
 ARCHIA_POOL_TIMEOUT_SECONDS = float(os.getenv("ARCHIA_POOL_TIMEOUT_SECONDS", "30"))
+ARCHIA_USE_STREAMING = os.getenv("ARCHIA_USE_STREAMING", "1").strip().lower() not in {
+    "0",
+    "false",
+    "no",
+}
+ARCHIA_504_BACKOFF_BASE_SECONDS = float(os.getenv("ARCHIA_504_BACKOFF_BASE_SECONDS", "12"))
+ARCHIA_5XX_BACKOFF_BASE_SECONDS = float(os.getenv("ARCHIA_5XX_BACKOFF_BASE_SECONDS", "4"))
+ARCHIA_TIMEOUT_BACKOFF_BASE_SECONDS = float(os.getenv("ARCHIA_TIMEOUT_BACKOFF_BASE_SECONDS", "6"))
+ARCHIA_RETRY_BACKOFF_CAP_SECONDS = float(os.getenv("ARCHIA_RETRY_BACKOFF_CAP_SECONDS", "90"))
+ARCHIA_RETRY_JITTER_MAX_SECONDS = float(os.getenv("ARCHIA_RETRY_JITTER_MAX_SECONDS", "1.5"))
 
 # Processing limits
 DEFAULT_MAX_PRS = 40
@@ -280,8 +291,194 @@ def save_issue_profile(output_dir: Path, bioguide_id: str, profile: CandidateIss
     return output_file
 
 
+def _retry_backoff_seconds(base_seconds: float, attempt: int) -> float:
+    """Compute exponential backoff with jitter for retry attempt index."""
+    exp = max(0, attempt)
+    raw = base_seconds * (2 ** exp)
+    jitter = random.uniform(0.0, max(0.0, ARCHIA_RETRY_JITTER_MAX_SECONDS))
+    return min(ARCHIA_RETRY_BACKOFF_CAP_SECONDS, raw + jitter)
+
+
+def _extract_content_from_response(result: Dict[str, Any]) -> str:
+    """Extract text from Archia/OpenAI-style responses payload."""
+    collected: List[str] = []
+
+    output_text = result.get("output_text")
+    if isinstance(output_text, str):
+        if output_text.strip():
+            collected.append(output_text)
+    elif isinstance(output_text, list):
+        for chunk in output_text:
+            if isinstance(chunk, str) and chunk.strip():
+                collected.append(chunk)
+            elif isinstance(chunk, dict):
+                text_value = chunk.get("text")
+                if isinstance(text_value, str) and text_value.strip():
+                    collected.append(text_value)
+
+    output = result.get("output")
+    if isinstance(output, list):
+        for item in output:
+            if not isinstance(item, dict):
+                continue
+            content = item.get("content", [])
+            if not isinstance(content, list):
+                continue
+            for part in content:
+                if not isinstance(part, dict):
+                    continue
+                text_value = part.get("text")
+                if isinstance(text_value, str) and text_value.strip():
+                    collected.append(text_value)
+
+    text = "".join(collected).strip()
+    return text
+
+
+def _extract_text_from_stream_event(event: Dict[str, Any]) -> str:
+    """Extract any text delta from a streaming event payload."""
+    collected: List[str] = []
+
+    direct_delta = event.get("delta")
+    if isinstance(direct_delta, str):
+        collected.append(direct_delta)
+
+    direct_text = event.get("text")
+    if isinstance(direct_text, str):
+        collected.append(direct_text)
+
+    output_text = event.get("output_text")
+    if isinstance(output_text, str):
+        collected.append(output_text)
+    elif isinstance(output_text, list):
+        for chunk in output_text:
+            if isinstance(chunk, str):
+                collected.append(chunk)
+            elif isinstance(chunk, dict):
+                text_value = chunk.get("text")
+                if isinstance(text_value, str):
+                    collected.append(text_value)
+
+    choices = event.get("choices")
+    if isinstance(choices, list) and choices:
+        first_choice = choices[0]
+        if isinstance(first_choice, dict):
+            delta = first_choice.get("delta", {})
+            if isinstance(delta, dict):
+                content = delta.get("content")
+                if isinstance(content, str):
+                    collected.append(content)
+                elif isinstance(content, list):
+                    for piece in content:
+                        if isinstance(piece, str):
+                            collected.append(piece)
+                        elif isinstance(piece, dict):
+                            piece_text = piece.get("text")
+                            if isinstance(piece_text, str):
+                                collected.append(piece_text)
+
+    return "".join(collected)
+
+
+def _read_streamed_response(
+    client: httpx.Client,
+    url: str,
+    payload: Dict[str, Any],
+) -> str:
+    """Read SSE response stream and assemble final text."""
+    stream_payload = dict(payload)
+    stream_payload["stream"] = True
+
+    text_chunks: List[str] = []
+    final_result: Dict[str, Any] | None = None
+
+    with client.stream("POST", url, json=stream_payload) as response:
+        response.raise_for_status()
+
+        for raw_line in response.iter_lines():
+            if raw_line is None:
+                continue
+
+            line = raw_line.strip()
+            if not line:
+                continue
+            if line.startswith(":"):
+                continue
+
+            if line.startswith("data:"):
+                payload_text = line[5:].strip()
+            else:
+                payload_text = line
+
+            if not payload_text or payload_text == "[DONE]":
+                continue
+
+            try:
+                event = json.loads(payload_text)
+            except json.JSONDecodeError:
+                continue
+
+            if not isinstance(event, dict):
+                continue
+
+            event_type = event.get("type")
+            if event_type in {"error", "response.error"}:
+                err = event.get("error", {})
+                if isinstance(err, dict):
+                    msg = err.get("message", "Unknown streaming error")
+                else:
+                    msg = str(err)
+                raise RuntimeError(f"Archia streaming error: {msg}")
+
+            # Some providers emit full response object near the end.
+            maybe_response = event.get("response")
+            if isinstance(maybe_response, dict):
+                final_result = maybe_response
+
+            # Or they emit final payload directly.
+            if "output" in event and isinstance(event.get("output"), list):
+                final_result = event
+
+            delta_text = _extract_text_from_stream_event(event)
+            if delta_text:
+                text_chunks.append(delta_text)
+
+    if final_result:
+        text = _extract_content_from_response(final_result)
+        if text:
+            return text
+
+    joined = "".join(text_chunks).strip()
+    if joined:
+        return joined
+
+    raise RuntimeError("No content in Archia streaming response")
+
+
+def _read_non_stream_response(
+    client: httpx.Client,
+    url: str,
+    payload: Dict[str, Any],
+) -> str:
+    """Read standard JSON response and extract text."""
+    response = client.post(url, json=payload)
+    response.raise_for_status()
+
+    result = response.json()
+    if result.get("status") == "failed":
+        error = result.get("error", {})
+        error_msg = error.get("message", "Unknown error")
+        raise RuntimeError(f"Archia API error: {error_msg}")
+
+    content = _extract_content_from_response(result)
+    if content:
+        return content
+
+    raise RuntimeError("No content in Archia response")
+
+
 def call_archia_llm(prompt: str, max_retries: int = 3) -> str:
-    """Call Archia API with prompt and return response text. Retries on timeout."""
+    """Call Archia API with prompt and return response text."""
     if not ARCHIA_API_KEY:
         raise ValueError("ARCHIA API key not found in environment")
 
@@ -293,6 +490,12 @@ def call_archia_llm(prompt: str, max_retries: int = 3) -> str:
     }
 
     last_error = None
+    url = f"{ARCHIA_BASE_URL}/responses"
+    payload = {
+        "model": ARCHIA_MODEL,
+        "input": prompt,
+    }
+
     for attempt in range(max_retries):
         try:
             timeout = httpx.Timeout(
@@ -302,49 +505,44 @@ def call_archia_llm(prompt: str, max_retries: int = 3) -> str:
                 pool=ARCHIA_POOL_TIMEOUT_SECONDS,
             )
             with httpx.Client(http2=True, timeout=timeout, headers=headers) as client:
-                response = client.post(
-                    f"{ARCHIA_BASE_URL}/responses",
-                    json={
-                        "model": ARCHIA_MODEL,
-                        "input": prompt,
-                    },
-                )
-                response.raise_for_status()
-
-                # Parse response
-                result = response.json()
-
-                # Check for API errors
-                if result.get("status") == "failed":
-                    error = result.get("error", {})
-                    error_msg = error.get("message", "Unknown error")
-                    raise RuntimeError(f"Archia API error: {error_msg}")
-
-                # Extract content from Archia response format
-                content = None
-                if "output" in result and isinstance(result["output"], list):
-                    if result["output"] and "content" in result["output"][0]:
-                        content_list = result["output"][0]["content"]
-                        if content_list and isinstance(content_list, list):
-                            content = content_list[0].get("text", "")
-
-                if not content:
-                    raise RuntimeError("No content in Archia response")
-
-                return content
+                if ARCHIA_USE_STREAMING:
+                    try:
+                        return _read_streamed_response(client=client, url=url, payload=payload)
+                    except httpx.HTTPStatusError as e:
+                        status_code = e.response.status_code if e.response is not None else None
+                        # If streaming is unsupported, fall back to non-stream mode.
+                        if status_code in {400, 404, 405, 415, 422}:
+                            return _read_non_stream_response(client=client, url=url, payload=payload)
+                        raise
+                return _read_non_stream_response(client=client, url=url, payload=payload)
 
         except httpx.HTTPStatusError as e:
             status_code = e.response.status_code if e.response is not None else None
             if status_code is not None and status_code >= 500 and attempt < max_retries - 1:
+                if status_code == 504:
+                    sleep_seconds = _retry_backoff_seconds(
+                        ARCHIA_504_BACKOFF_BASE_SECONDS, attempt
+                    )
+                else:
+                    sleep_seconds = _retry_backoff_seconds(
+                        ARCHIA_5XX_BACKOFF_BASE_SECONDS, attempt
+                    )
                 print(
-                    f"    Server error {status_code} on attempt {attempt + 1}/{max_retries}, retrying..."
+                    f"    Server error {status_code} on attempt {attempt + 1}/{max_retries}, "
+                    f"backing off {sleep_seconds:.1f}s before retry..."
                 )
+                time.sleep(sleep_seconds)
                 continue
             raise
         except (httpx.TimeoutException, httpx.ReadTimeout) as e:
             last_error = e
             if attempt < max_retries - 1:
-                print(f"    Timeout on attempt {attempt + 1}/{max_retries}, retrying...")
+                sleep_seconds = _retry_backoff_seconds(ARCHIA_TIMEOUT_BACKOFF_BASE_SECONDS, attempt)
+                print(
+                    f"    Timeout on attempt {attempt + 1}/{max_retries}, "
+                    f"backing off {sleep_seconds:.1f}s before retry..."
+                )
+                time.sleep(sleep_seconds)
                 continue
             raise RuntimeError(
                 f"API timeout after {max_retries} attempts "
