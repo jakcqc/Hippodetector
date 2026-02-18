@@ -217,6 +217,7 @@ data/profiles/*.json
 data/bills_cache/*.json
 data/press_releases_by_bioguide.json
 data/stances/*.json
+data/voting_profiles/*.json
 
 # Old structure (deprecated - kept for reference)
 # data/votes_*.json
