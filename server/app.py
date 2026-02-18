@@ -1,12 +1,17 @@
 ﻿from __future__ import annotations
 
 import base64
+from concurrent.futures import Future, ThreadPoolExecutor
 from datetime import datetime
 import json
 import math
+import os
 from pathlib import Path
 import random
 import re
+import sys
+import threading
+import types
 from typing import Any
 
 from rapidfuzz import fuzz, process
@@ -15,19 +20,131 @@ import streamlit as st
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 PRESS_RELEASES_FILE = DATA_DIR / "press_releases_by_bioguide.json"
+VOTED_BILLS_FILE = DATA_DIR / "congress_bills_voted_compact_last_10_years.json"
+STANCES_DIR = DATA_DIR / "stances"
+EMBEDDINGS_INDEX_FILE = DATA_DIR / "press_release_embeddings_member_index.json"
+CONGRESS_MEMBERS_FILE = DATA_DIR / "congress_members.json"
+ISSUE_TOPIC_EMBEDDINGS_DIR = DATA_DIR / "issue_profile_topic_embeddings"
 HIPPO_ICON_PATH = Path(__file__).resolve().parent / "HippoD.png"
+LANDING_IMAGE_PATH = Path(__file__).resolve().parent / "group15_CivicHippo.png"
+PAGES_DIR = Path(__file__).resolve().parent / "pages"
+PRESS_RELEASES_PAGE_PATH = PAGES_DIR / "0_Press_Releases.py"
+VOTED_BILLS_PAGE_PATH = PAGES_DIR / "1_Voted_Bills.py"
+STANCES_PAGE_PATH = PAGES_DIR / "2_Stances.py"
+EMBEDDINGS_PAGE_PATH = PAGES_DIR / "3_Embeddings_Map.py"
+BACKEND_PAGE_PATH = PAGES_DIR / "4_Backend.py"
 
-# Dominant colors extracted from a histogram pass on server/HippoD.png:
+_PRELOAD_LOCK = threading.Lock()
+_PRELOAD_STARTED = False
+_PRELOAD_JSON_BY_PATH: dict[str, Any] = {}
+_PRELOAD_FUTURES: dict[str, Future[None]] = {}
+_PRELOAD_ERRORS: dict[str, str] = {}
+_PRELOAD_EXECUTOR: ThreadPoolExecutor | None = None
+
+# Dominant colors extracted from the current brand asset:
 # #e090a0, #f0c0b0, #f0b0c0, #c07080, #b06080
 
 def load_json(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8"))
+    preloaded = get_preloaded_json(path)
+    if preloaded is not None:
+        return preloaded
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    _store_preloaded_json(path, payload)
+    return payload
+
+
+def _preload_key(path: Path) -> str:
+    return str(path.resolve())
+
+
+def _store_preloaded_json(path: Path, payload: Any) -> None:
+    key = _preload_key(path)
+    with _PRELOAD_LOCK:
+        _PRELOAD_JSON_BY_PATH[key] = payload
+
+
+def get_preloaded_json(path: Path) -> Any:
+    key = _preload_key(path)
+    with _PRELOAD_LOCK:
+        return _PRELOAD_JSON_BY_PATH.get(key)
+
+
+def _preload_one_json(path: Path) -> None:
+    key = _preload_key(path)
+    if not path.exists():
+        with _PRELOAD_LOCK:
+            _PRELOAD_ERRORS[key] = f"Missing file: {path}"
+        return
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        with _PRELOAD_LOCK:
+            _PRELOAD_ERRORS[key] = f"{exc}"
+        return
+    with _PRELOAD_LOCK:
+        _PRELOAD_JSON_BY_PATH[key] = payload
+
+
+def _preload_targets() -> list[Path]:
+    targets = [
+        PRESS_RELEASES_FILE,
+        VOTED_BILLS_FILE,
+        EMBEDDINGS_INDEX_FILE,
+        CONGRESS_MEMBERS_FILE,
+    ]
+    if STANCES_DIR.exists():
+        targets.extend(sorted(STANCES_DIR.glob("*.json")))
+    if ISSUE_TOPIC_EMBEDDINGS_DIR.exists():
+        targets.extend(sorted(ISSUE_TOPIC_EMBEDDINGS_DIR.glob("*.json")))
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in targets:
+        key = _preload_key(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
+def start_background_preload() -> None:
+    global _PRELOAD_STARTED, _PRELOAD_EXECUTOR
+    with _PRELOAD_LOCK:
+        if _PRELOAD_STARTED:
+            return
+        _PRELOAD_STARTED = True
+        max_workers = max(2, min(8, (os.cpu_count() or 4)))
+        _PRELOAD_EXECUTOR = ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="hippo-preload")
+
+    targets = _preload_targets()
+    for path in targets:
+        key = _preload_key(path)
+        with _PRELOAD_LOCK:
+            if key in _PRELOAD_FUTURES:
+                continue
+            assert _PRELOAD_EXECUTOR is not None
+            _PRELOAD_FUTURES[key] = _PRELOAD_EXECUTOR.submit(_preload_one_json, path)
+
+
+def preload_status() -> dict[str, int]:
+    with _PRELOAD_LOCK:
+        total = len(_PRELOAD_FUTURES)
+        done = sum(1 for future in _PRELOAD_FUTURES.values() if future.done())
+        errors = len(_PRELOAD_ERRORS)
+    return {"total": total, "done": done, "errors": errors}
 
 
 def get_icon_data_url() -> str:
     if not HIPPO_ICON_PATH.exists():
         return ""
     encoded = base64.b64encode(HIPPO_ICON_PATH.read_bytes()).decode("ascii")
+    return f"data:image/png;base64,{encoded}"
+
+
+def get_landing_image_data_url() -> str:
+    if not LANDING_IMAGE_PATH.exists():
+        return ""
+    encoded = base64.b64encode(LANDING_IMAGE_PATH.read_bytes()).decode("ascii")
     return f"data:image/png;base64,{encoded}"
 
 
@@ -74,7 +191,7 @@ def inject_css() -> None:
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
           }
           [data-testid="stHeader"]::before {
-            content: "Where are the Hippos?";
+            content: "CivicHippo";
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -365,6 +482,93 @@ def inject_css() -> None:
     st.markdown(css.replace("__HIPPO_ICON_URL__", icon_data_url), unsafe_allow_html=True)
 
 
+def inject_landing_css() -> None:
+    st.markdown(
+        """
+        <style>
+          .landing-wrap {
+            position: relative;
+            min-height: 70vh;
+            border: 1px solid #f0b0c088;
+            border-radius: 18px;
+            background: linear-gradient(140deg, #ffffff 0%, #f0c0b01f 100%);
+            box-shadow: 0 12px 34px rgba(176, 96, 128, 0.18);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+          .landing-center {
+            width: min(920px, 92%);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+          }
+          .landing-title {
+            margin: 0 0 0.6rem 0;
+            font-size: clamp(2.2rem, 5.1vw, 4.2rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            color: #2b2028;
+          }
+          .landing-main-image {
+            width: min(980px, 96%);
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid #f0b0c099;
+            box-shadow: 0 14px 36px rgba(176, 96, 128, 0.24);
+            background: #ffffff;
+          }
+          .landing-main-fallback {
+            margin: 0.2rem auto;
+            font-size: clamp(1.2rem, 3.2vw, 2rem);
+            color: #3d2e3b;
+          }
+          .landing-hint {
+            margin-top: 1rem;
+            color: #5d4754;
+            font-size: 0.95rem;
+            font-weight: 600;
+          }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_landing_page() -> None:
+    inject_css()
+    inject_landing_css()
+    start_background_preload()
+    status = preload_status()
+    landing_image_data_url = get_landing_image_data_url()
+    landing_main_markup = ""
+    if landing_image_data_url:
+        landing_main_markup = f"<img class='landing-main-image' src='{landing_image_data_url}' alt='group15 CivicHippo' />"
+    else:
+        landing_main_markup = "<div class='landing-main-fallback'>group15_CivicHippo</div>"
+
+    st.markdown(
+        f"""
+        <div class="landing-wrap" role="button" tabindex="0" onclick="window.location.assign('./stances')" onkeydown="if(event.key==='Enter'||event.key===' '){{window.location.assign('./stances');}}">
+          <div class="landing-center">
+            <h1 class="landing-title">group15_CivicHippo</h1>
+            {landing_main_markup}
+            <div class="landing-hint">Click anywhere to continue.</div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.caption(
+        f"Background loading started for all tabs: {status['done']} / {status['total']} datasets primed."
+    )
+    if status["errors"] > 0:
+        st.caption(f"Preload warnings: {status['errors']} dataset(s) could not be preloaded.")
+
+
 def get_members_map(payload: Any) -> dict[str, dict[str, Any]]:
     if isinstance(payload, dict) and isinstance(payload.get("membersByBioguideId"), dict):
         members_map: dict[str, dict[str, Any]] = {}
@@ -534,12 +738,63 @@ def render_selection_context_card(
     st.markdown("</div>", unsafe_allow_html=True)
 
 
-def main() -> None:
-    page_icon: str | Path = "🦛"
-    if HIPPO_ICON_PATH.exists():
-        page_icon = HIPPO_ICON_PATH
-    st.set_page_config(page_title="Hippodetector Press Releases", page_icon=page_icon, layout="wide")
+def inject_light_dropdown_css() -> None:
+    st.markdown(
+        """
+        <style>
+          /* Closed select controls */
+          [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+            background: #ffffff !important;
+            border: 1px solid #cfd4dc !important;
+          }
+          [data-testid="stSelectbox"] div[data-baseweb="select"] *,
+          [data-testid="stSelectbox"] div[data-baseweb="select"] svg,
+          [data-testid="stSelectbox"] div[data-baseweb="select"] input {
+            color: #111827 !important;
+            fill: #111827 !important;
+            -webkit-text-fill-color: #111827 !important;
+          }
+          [data-testid="stSelectbox"] label {
+            color: #111827 !important;
+          }
+
+          /* Open dropdown menus (portal-rendered) */
+          div[data-baseweb="popover"],
+          div[data-baseweb="menu"],
+          ul[role="listbox"],
+          li[role="option"],
+          div[role="option"] {
+            background: #ffffff !important;
+            color: #111827 !important;
+            border-color: #cfd4dc !important;
+          }
+          div[data-baseweb="popover"] *,
+          div[data-baseweb="menu"] *,
+          [role="listbox"] *,
+          li[role="option"] *,
+          div[role="option"] * {
+            color: #111827 !important;
+            fill: #111827 !important;
+            -webkit-text-fill-color: #111827 !important;
+          }
+          ul[role="listbox"] li[aria-selected="true"],
+          ul[role="listbox"] li:hover,
+          li[role="option"][aria-selected="true"],
+          li[role="option"]:hover,
+          div[role="option"][aria-selected="true"],
+          div[role="option"]:hover {
+            background: #f3f4f6 !important;
+            color: #111827 !important;
+          }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_press_releases_page() -> None:
     inject_css()
+    inject_light_dropdown_css()
 
     st.markdown(
         """
@@ -799,6 +1054,37 @@ def main() -> None:
                     st.markdown(f"<div class='formatted-body'>{body_text}</div>", unsafe_allow_html=True)
                 else:
                     st.write("No body content available.")
+
+
+def register_app_exports() -> None:
+    export_module = types.ModuleType("app")
+    export_module.get_preloaded_json = get_preloaded_json
+    export_module.inject_css = inject_css
+    export_module.normalize_text = normalize_text
+    export_module.strip_html = strip_html
+    export_module.render_press_releases_page = render_press_releases_page
+    sys.modules["app"] = export_module
+
+
+def main() -> None:
+    register_app_exports()
+    page_icon: str | Path = "🦛"
+    if HIPPO_ICON_PATH.exists():
+        page_icon = HIPPO_ICON_PATH
+    st.set_page_config(page_title="CivicHippo", page_icon=page_icon, layout="wide")
+
+    navigation = st.navigation(
+        [
+            st.Page(render_landing_page, title="CivicHippo", icon=":material/home:", default=True, url_path=""),
+            st.Page(PRESS_RELEASES_PAGE_PATH, title="Press Releases", icon=":material/article:", url_path="press-releases"),
+            st.Page(VOTED_BILLS_PAGE_PATH, title="Voted Bills", icon=":material/gavel:", url_path="voted-bills"),
+            st.Page(STANCES_PAGE_PATH, title="Stances", icon=":material/balance:", url_path="stances"),
+            st.Page(EMBEDDINGS_PAGE_PATH, title="Embeddings Map", icon=":material/hub:", url_path="embeddings-map"),
+            st.Page(BACKEND_PAGE_PATH, title="backend", url_path="backend"),
+        ],
+        position="sidebar",
+    )
+    navigation.run()
 
 
 if __name__ == "__main__":

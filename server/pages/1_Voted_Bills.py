@@ -10,10 +10,13 @@ from rapidfuzz import fuzz, process
 import streamlit as st
 
 try:
-    from app import HIPPO_ICON_PATH, inject_css, normalize_text, strip_html
-except ModuleNotFoundError:
-    sys.path.append(str(Path(__file__).resolve().parents[1]))
-    from app import HIPPO_ICON_PATH, inject_css, normalize_text, strip_html
+    from __main__ import get_preloaded_json, inject_css, normalize_text, strip_html
+except ImportError:
+    try:
+        from app import get_preloaded_json, inject_css, normalize_text, strip_html
+    except ModuleNotFoundError:
+        sys.path.append(str(Path(__file__).resolve().parents[1]))
+        from app import get_preloaded_json, inject_css, normalize_text, strip_html
 
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
@@ -21,6 +24,9 @@ VOTED_BILLS_FILE = DATA_DIR / "congress_bills_voted_compact_last_10_years.json"
 
 
 def load_json(path: Path) -> Any:
+    preloaded = get_preloaded_json(path)
+    if preloaded is not None:
+        return preloaded
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -28,6 +34,51 @@ def inject_votes_page_css() -> None:
     st.markdown(
         """
         <style>
+          /* Force light select controls (black text on white) */
+          [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+            background: #ffffff !important;
+            border: 1px solid #cfd4dc !important;
+          }
+          [data-testid="stSelectbox"] div[data-baseweb="select"] *,
+          [data-testid="stSelectbox"] div[data-baseweb="select"] svg,
+          [data-testid="stSelectbox"] div[data-baseweb="select"] input {
+            color: #111827 !important;
+            fill: #111827 !important;
+            -webkit-text-fill-color: #111827 !important;
+          }
+          [data-testid="stSelectbox"] label {
+            color: #111827 !important;
+          }
+
+          /* Open dropdown menus (portal-rendered) */
+          div[data-baseweb="popover"],
+          div[data-baseweb="menu"],
+          ul[role="listbox"],
+          li[role="option"],
+          div[role="option"] {
+            background: #ffffff !important;
+            color: #111827 !important;
+            border-color: #cfd4dc !important;
+          }
+          div[data-baseweb="popover"] *,
+          div[data-baseweb="menu"] *,
+          [role="listbox"] *,
+          li[role="option"] *,
+          div[role="option"] * {
+            color: #111827 !important;
+            fill: #111827 !important;
+            -webkit-text-fill-color: #111827 !important;
+          }
+          ul[role="listbox"] li[aria-selected="true"],
+          ul[role="listbox"] li:hover,
+          li[role="option"][aria-selected="true"],
+          li[role="option"]:hover,
+          div[role="option"][aria-selected="true"],
+          div[role="option"]:hover {
+            background: #f3f4f6 !important;
+            color: #111827 !important;
+          }
+
           /* Keep dataframe controls readable in darker toolbars */
           [data-testid="stDataFrame"] button svg,
           [data-testid="stDataFrame"] svg,
@@ -169,10 +220,6 @@ def build_sorted_indices(
 
 
 def main() -> None:
-    page_icon: str | Path = "🦛"
-    if HIPPO_ICON_PATH.exists():
-        page_icon = HIPPO_ICON_PATH
-    st.set_page_config(page_title="Hippodetector Voted Bills", page_icon=page_icon, layout="wide")
     inject_css()
     inject_votes_page_css()
 

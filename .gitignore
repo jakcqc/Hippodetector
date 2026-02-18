@@ -232,6 +232,7 @@ archive/
 
 # Compressed data archives (including subdirectories)
 data/**/*.zip
+*.zip
 
 # Windows Zone.Identifier files (download markers)
 *:Zone.Identifier

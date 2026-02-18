@@ -21,21 +21,29 @@ sk_neighbors = None
 sk_metrics = None
 
 try:
-    from app import HIPPO_ICON_PATH, inject_css, normalize_text
-except ModuleNotFoundError:
-    sys.path.append(str(Path(__file__).resolve().parents[1]))
-    from app import HIPPO_ICON_PATH, inject_css, normalize_text
+    from __main__ import get_preloaded_json, inject_css, normalize_text
+except ImportError:
+    try:
+        from app import get_preloaded_json, inject_css, normalize_text
+    except ModuleNotFoundError:
+        sys.path.append(str(Path(__file__).resolve().parents[1]))
+        from app import get_preloaded_json, inject_css, normalize_text
 
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 INDEX_FILE = DATA_DIR / "press_release_embeddings_member_index.json"
+ISSUE_TOPIC_EMBEDDINGS_DIR = DATA_DIR / "issue_profile_topic_embeddings"
+CONGRESS_MEMBERS_FILE = DATA_DIR / "congress_members.json"
 
 
 def load_json(path: Path) -> Any:
+    preloaded = get_preloaded_json(path)
+    if preloaded is not None:
+        return preloaded
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def render_hero(show_loader: bool = False) -> None:
+def render_hero(*, show_loader: bool = False, dataset_mode: str = "press_releases") -> None:
     loader_html = ""
     if show_loader:
         loader_html = """
@@ -47,12 +55,17 @@ def render_hero(show_loader: bool = False) -> None:
         </div>
         """
 
+    if dataset_mode == "issue_embeddings":
+        hero_sub = "Project and compare issue-profile summary embeddings across members and topics."
+    else:
+        hero_sub = "Project and compare press release embeddings across multiple members. Ctrl + Click on a point to pull up the original press release."
+
     st.markdown(
         f"""
         <div class="embeddings-hero-wrap">
           <div class="hero">
             <p class="hero-title">Embeddings Map</p>
-            <p class="hero-sub">Project and compare press release embeddings across multiple members. Ctrl + Click on a point to pull up the original press release. </p>
+            <p class="hero-sub">{hero_sub}</p>
           </div>
           {loader_html}
         </div>
@@ -214,10 +227,47 @@ def inject_embeddings_page_css() -> None:
             border-color: #7a7a7a !important;
             box-shadow: 0 0 0 1px #7a7a7a55 !important;
           }
+          .embeddings-mode-heading {
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0.25rem 0 0.35rem 0;
+          }
+          .embeddings-mode-sub {
+            color: #cfcfcf;
+            margin-bottom: 0.25rem;
+          }
         </style>
         """,
         unsafe_allow_html=True,
     )
+
+
+def render_dataset_mode_switch() -> str:
+    options = ["All Press Releases", "Issue Profile Embeddings"]
+    st.markdown('<div class="embeddings-mode-heading">Embedding Dataset</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="embeddings-mode-sub">Choose which embedding corpus to cluster and visualize.</div>',
+        unsafe_allow_html=True,
+    )
+    if hasattr(st, "segmented_control"):
+        selection = st.segmented_control(
+            "Embedding dataset",
+            options,
+            default=options[0],
+            selection_mode="single",
+            label_visibility="collapsed",
+        )
+        selected = str(selection or options[0])
+    else:
+        selected = st.radio(
+            "Embedding dataset",
+            options,
+            index=0,
+            horizontal=True,
+            label_visibility="collapsed",
+        )
+    return "issue_embeddings" if selected == "Issue Profile Embeddings" else "press_releases"
 
 
 @st.cache_resource(show_spinner=False)
@@ -287,6 +337,93 @@ def load_embeddings_index(index_path: str, mtime_ns: int) -> dict[str, Any]:
     return {"members": normalized_members, "payload": payload}
 
 
+def issue_topic_files_fingerprint(issue_dir: Path) -> tuple[tuple[str, int], ...]:
+    files = sorted(issue_dir.glob("*.json"))
+    return tuple((p.name, int(p.stat().st_mtime_ns)) for p in files)
+
+
+@st.cache_data(show_spinner=False)
+def load_congress_members_lookup(members_path: str, mtime_ns: int) -> dict[str, dict[str, str]]:
+    del mtime_ns
+    payload = load_json(Path(members_path))
+    if not isinstance(payload, dict):
+        return {}
+    raw_members = payload.get("members")
+    if not isinstance(raw_members, list):
+        raw_members = []
+
+    lookup: dict[str, dict[str, str]] = {}
+    for item in raw_members:
+        if not isinstance(item, dict):
+            continue
+        bioguide_id = str(item.get("bioguideId") or "").strip().upper()
+        if not bioguide_id or bioguide_id in lookup:
+            continue
+        lookup[bioguide_id] = {
+            "name": str(item.get("name") or bioguide_id),
+            "partyName": str(item.get("partyName") or "Unknown"),
+            "state": str(item.get("state") or "Unknown"),
+        }
+    return lookup
+
+
+@st.cache_data(show_spinner=False)
+def load_issue_embeddings_index(
+    issue_dir: str,
+    file_fingerprint: tuple[tuple[str, int], ...],
+    members_path: str,
+    members_mtime_ns: int,
+) -> dict[str, Any]:
+    del file_fingerprint
+    issue_path = Path(issue_dir)
+    member_meta = load_congress_members_lookup(members_path, members_mtime_ns)
+
+    counts_by_member: dict[str, int] = {}
+    topics: list[str] = []
+    dimensions: set[int] = set()
+
+    for topic_file in sorted(issue_path.glob("*.json")):
+        topics.append(topic_file.stem)
+        payload = load_json(topic_file)
+        if not isinstance(payload, list):
+            continue
+        for item in payload:
+            if not isinstance(item, dict):
+                continue
+            emb = item.get("embedding")
+            if not isinstance(emb, list) or not emb:
+                continue
+            dimensions.add(len(emb))
+            bioguide_id = str(item.get("bioguideId") or "").strip().upper()
+            if not bioguide_id:
+                continue
+            counts_by_member[bioguide_id] = counts_by_member.get(bioguide_id, 0) + 1
+
+    members: list[dict[str, Any]] = []
+    for bioguide_id, count in counts_by_member.items():
+        meta = member_meta.get(
+            bioguide_id,
+            {"name": bioguide_id, "partyName": "Unknown", "state": "Unknown"},
+        )
+        members.append(
+            {
+                "bioguideId": bioguide_id,
+                "name": str(meta.get("name") or bioguide_id),
+                "partyName": str(meta.get("partyName") or "Unknown"),
+                "state": str(meta.get("state") or "Unknown"),
+                "totalEmbeddingCount": int(count),
+                "embeddingDimension": int(next(iter(dimensions))) if len(dimensions) == 1 else None,
+            }
+        )
+
+    members = sorted(members, key=lambda m: str(m.get("name") or m.get("bioguideId") or ""))
+    return {
+        "members": members,
+        "topics": sorted(topics),
+        "embeddingDimensions": sorted(dimensions),
+    }
+
+
 @st.cache_data(show_spinner=False)
 def load_member_file(file_path: str, mtime_ns: int) -> dict[str, Any]:
     del mtime_ns
@@ -320,6 +457,49 @@ def load_member_file(file_path: str, mtime_ns: int) -> dict[str, Any]:
                 "bodyCharCount": int(item.get("bodyCharCount") or 0),
             }
         )
+
+    if not vectors:
+        return {"rows": rows, "vectors": np.zeros((0, 2), dtype=float)}
+    return {"rows": rows, "vectors": np.asarray(vectors, dtype=np.float32)}
+
+
+@st.cache_data(show_spinner=False)
+def load_issue_topic_file(file_path: str, mtime_ns: int, topic_name: str) -> dict[str, Any]:
+    del mtime_ns
+    payload = load_json(Path(file_path))
+    if not isinstance(payload, list):
+        payload = []
+
+    rows: list[dict[str, Any]] = []
+    vectors: list[list[float]] = []
+    for idx, item in enumerate(payload):
+        if not isinstance(item, dict):
+            continue
+        emb = item.get("embedding")
+        if not isinstance(emb, list) or not emb:
+            continue
+        try:
+            vec = [float(v) for v in emb]
+        except Exception:
+            continue
+        summary = str(item.get("summary") or "").strip()
+        summary_title = summary if summary else f"No summary available for {topic_name.replace('_', ' ')}."
+        source_issue_file = str(item.get("sourceIssueFile") or "")
+        rows.append(
+            {
+                "idx": idx,
+                "memberId": str(item.get("bioguideId") or "").strip().upper(),
+                "topic": str(topic_name),
+                "title": summary_title,
+                "date": str(item.get("updatedAt") or "-"),
+                "url": "",
+                "textSource": source_issue_file,
+                "bodyCharCount": len(summary),
+                "evidence": int(item.get("evidence") or 0),
+                "summaryHash": str(item.get("summaryHash") or ""),
+            }
+        )
+        vectors.append(vec)
 
     if not vectors:
         return {"rows": rows, "vectors": np.zeros((0, 2), dtype=float)}
@@ -711,6 +891,58 @@ def assign_member_styles(member_ids: list[str], style_seed: int | None) -> dict[
     return styles
 
 
+def assign_cluster_styles(cluster_ids: list[str], style_seed: int | None) -> dict[str, dict[str, Any]]:
+    symbols = [
+        "circle",
+        "square",
+        "diamond",
+        "cross",
+        "x",
+        "triangle-up",
+        "triangle-down",
+        "triangle-left",
+        "triangle-right",
+        "star",
+        "hexagram",
+        "pentagon",
+        "hexagon",
+        "hourglass",
+        "bowtie",
+        "diamond-tall",
+        "diamond-wide",
+        "circle-cross",
+        "circle-x",
+        "square-cross",
+        "square-x",
+        "asterisk",
+    ]
+    rng = random.Random(style_seed) if style_seed is not None else random.Random()
+    shuffled = symbols[:]
+    rng.shuffle(shuffled)
+
+    styles: dict[str, dict[str, Any]] = {}
+    for idx, cluster_id in enumerate(sorted(set(cluster_ids))):
+        symbol = shuffled[idx % len(shuffled)]
+        size = rng.randint(9, 13)
+        styles[cluster_id] = {"symbol": symbol, "size": size}
+    return styles
+
+
+def assign_member_colors(member_labels: list[str], style_seed: int | None) -> dict[str, str]:
+    unique_labels = sorted(set(member_labels))
+    if not unique_labels:
+        return {}
+    offset = 0.0
+    if style_seed is not None:
+        rng = random.Random(style_seed)
+        offset = rng.random() * 360.0
+    color_map: dict[str, str] = {}
+    for idx, label in enumerate(unique_labels):
+        hue = (offset + (idx * 137.508)) % 360.0
+        color_map[label] = f"hsl({hue:.2f}, 68%, 50%)"
+    return color_map
+
+
 def normalize_rows_l2(x: np.ndarray) -> np.ndarray:
     norms = np.linalg.norm(x, axis=1, keepdims=True)
     norms = np.clip(norms, 1e-12, None)
@@ -765,7 +997,13 @@ def compact_hover_url(url: str, max_chars: int = 72) -> str:
     return clean[: max_chars - 3] + "..."
 
 
-def build_embedding_hover_template(*, expanded: bool, show_cluster_stats: bool, show_membership: bool) -> str:
+def build_embedding_hover_template(
+    *,
+    expanded: bool,
+    show_cluster_stats: bool,
+    show_membership: bool,
+    show_url: bool,
+) -> str:
     lines = [
         "<b>%{customdata[0]}</b>",
         "Member: %{customdata[1]}",
@@ -788,12 +1026,13 @@ def build_embedding_hover_template(*, expanded: bool, show_cluster_stats: bool, 
         )
         if show_membership:
             lines.append("Top memberships: %{customdata[8]}")
-        lines.extend(
-            [
-                "URL: %{customdata[10]}",
-                "<i>Ctrl+click this point to open the URL in a new tab.</i>",
-            ]
-        )
+        if show_url:
+            lines.extend(
+                [
+                    "URL: %{customdata[10]}",
+                    "<i>Ctrl+click this point to open the URL in a new tab.</i>",
+                ]
+            )
     return "<br>".join(lines) + "<extra></extra>"
 
 
@@ -862,10 +1101,6 @@ def build_membership_summary(row: pd.Series, k: int) -> str:
 
 
 def main() -> None:
-    page_icon: str | Path = "🦛"
-    if HIPPO_ICON_PATH.exists():
-        page_icon = HIPPO_ICON_PATH
-    st.set_page_config(page_title="Hippodetector Embeddings Map", page_icon=page_icon, layout="wide")
     inject_css()
     inject_embeddings_page_css()
     hero_slot = st.empty()
@@ -896,23 +1131,66 @@ def main() -> None:
         st.error("`plotly` is required for this page. Install with: `uv pip install plotly`")
         return
 
-    if not INDEX_FILE.exists():
-        with hero_slot.container():
-            render_hero(show_loader=False)
-        st.error(
-            f"Missing embeddings index: {INDEX_FILE}. "
-            "Build it first with `uv run python dataset/build_press_release_embeddings_index.py`."
+    dataset_mode = render_dataset_mode_switch()
+    is_issue_mode = dataset_mode == "issue_embeddings"
+
+    all_issue_topics: list[str] = []
+    members: list[dict[str, Any]] = []
+    if is_issue_mode:
+        if not ISSUE_TOPIC_EMBEDDINGS_DIR.exists():
+            with hero_slot.container():
+                render_hero(show_loader=False, dataset_mode=dataset_mode)
+            st.error(
+                f"Missing issue embeddings directory: {ISSUE_TOPIC_EMBEDDINGS_DIR}. "
+                "Build it first with `uv run python dataset/embed_issue_profile_embeddings.py`."
+            )
+            return
+        if not CONGRESS_MEMBERS_FILE.exists():
+            with hero_slot.container():
+                render_hero(show_loader=False, dataset_mode=dataset_mode)
+            st.error(
+                f"Missing member metadata file: {CONGRESS_MEMBERS_FILE}. "
+                "This file is needed to map issue embeddings to names/party/state."
+            )
+            return
+        issue_fingerprint = issue_topic_files_fingerprint(ISSUE_TOPIC_EMBEDDINGS_DIR)
+        if not issue_fingerprint:
+            with hero_slot.container():
+                render_hero(show_loader=False, dataset_mode=dataset_mode)
+            st.info("No issue-topic embedding files found.")
+            return
+        issue_index_data = load_issue_embeddings_index(
+            str(ISSUE_TOPIC_EMBEDDINGS_DIR),
+            issue_fingerprint,
+            str(CONGRESS_MEMBERS_FILE),
+            CONGRESS_MEMBERS_FILE.stat().st_mtime_ns,
         )
-        return
+        members = issue_index_data["members"]
+        all_issue_topics = issue_index_data["topics"]
+        if not members:
+            with hero_slot.container():
+                render_hero(show_loader=False, dataset_mode=dataset_mode)
+            st.info("No issue-profile embeddings available.")
+            return
+    else:
+        if not INDEX_FILE.exists():
+            with hero_slot.container():
+                render_hero(show_loader=False, dataset_mode=dataset_mode)
+            st.error(
+                f"Missing embeddings index: {INDEX_FILE}. "
+                "Build it first with `uv run python dataset/build_press_release_embeddings_index.py`."
+            )
+            return
+        index_data = load_embeddings_index(str(INDEX_FILE), INDEX_FILE.stat().st_mtime_ns)
+        members = index_data["members"]
+        if not members:
+            with hero_slot.container():
+                render_hero(show_loader=False, dataset_mode=dataset_mode)
+            st.info("No members with embeddings in index.")
+            return
 
-    index_data = load_embeddings_index(str(INDEX_FILE), INDEX_FILE.stat().st_mtime_ns)
     with hero_slot.container():
-        render_hero(show_loader=False)
-
-    members = index_data["members"]
-    if not members:
-        st.info("No members with embeddings in index.")
-        return
+        render_hero(show_loader=False, dataset_mode=dataset_mode)
 
     members_by_id = {str(m.get("bioguideId") or "").upper(): m for m in members}
     all_parties = sorted({str(m.get("partyName") or "Unknown") for m in members})
@@ -926,12 +1204,28 @@ def main() -> None:
         selected_party = st.selectbox("Party", ["All parties"] + all_parties, index=0)
     with nav3:
         selected_state = st.selectbox("State", ["All states"] + all_states, index=0)
+    source_filter = "Any"
     with nav4:
-        source_filter = st.selectbox("Source folder", ["Any", "press_release_embeddings_1", "press_release_embeddings_2"], index=0)
+        if is_issue_mode:
+            st.caption("Source: issue_profile_topic_embeddings")
+        else:
+            source_filter = st.selectbox("Source folder", ["Any", "press_release_embeddings_1", "press_release_embeddings_2"], index=0)
     with nav5:
         method = st.selectbox("Projection", ["UMAP", "PCA fallback"], index=0)
     with nav6:
         cluster_mode = st.selectbox("Cluster", ["None", "Fuzzy C-Means", "KMeans", "KNN (graph)"], index=1)
+
+    selected_issue_topics: list[str] = []
+    if is_issue_mode:
+        selected_issue_topics = st.multiselect(
+            "Issue topics",
+            all_issue_topics,
+            default=all_issue_topics,
+            placeholder="Select one or more topics",
+        )
+        if not selected_issue_topics:
+            st.info("Select at least one issue topic to visualize embeddings.")
+            return
 
     nav7, nav8, nav9 = st.columns([1.0, 0.9, 1.4])
     with nav7:
@@ -1152,55 +1446,110 @@ def main() -> None:
     source_folders_used: list[str] = []
     selected_id_list = sorted(selected_ids)
     total_selected = max(1, len(selected_id_list))
-
-    for idx, member_id in enumerate(selected_id_list, start=1):
-        pct = int(5 + (idx / total_selected) * 45)
-        process_bar.progress(min(50, pct), text=f"Loading embeddings for {member_id} ({idx}/{total_selected})...")
-        member = members_by_id[member_id]
-        file_info = choose_file_for_member(member, source_filter)
-        if file_info is None:
-            skipped_members.append(member_id)
-            continue
-        rel_path = str(file_info.get("path") or "")
-        source_folder = str(file_info.get("sourceFolder") or "")
-        file_path = DATA_DIR / rel_path
-        if not file_path.exists():
-            skipped_members.append(member_id)
-            continue
-        loaded = load_member_file(str(file_path), file_path.stat().st_mtime_ns)
-        rows = loaded["rows"]
-        vectors = loaded["vectors"]
-        if vectors.shape[0] == 0:
-            skipped_members.append(member_id)
-            continue
-        source_files_used.append(rel_path)
-        if source_folder:
-            source_folders_used.append(source_folder)
-        for row in rows:
-            row["memberId"] = member_id
-            row["memberName"] = str(member.get("name") or member_id)
-            row["partyName"] = str(member.get("partyName") or "Unknown")
-            row["state"] = str(member.get("state") or "Unknown")
-            row["memberLabel"] = f"{row['memberName']} ({member_id})"
-        all_rows.extend(rows)
-        vectors_list.append(vectors)
+    if is_issue_mode:
+        topic_file_paths = [
+            ISSUE_TOPIC_EMBEDDINGS_DIR / f"{topic}.json"
+            for topic in selected_issue_topics
+            if (ISSUE_TOPIC_EMBEDDINGS_DIR / f"{topic}.json").exists()
+        ]
+        total_topics = max(1, len(topic_file_paths))
+        selected_lookup = set(selected_id_list)
+        matched_members: set[str] = set()
+        for idx, topic_path in enumerate(topic_file_paths, start=1):
+            pct = int(5 + (idx / total_topics) * 45)
+            process_bar.progress(
+                min(50, pct),
+                text=f"Loading topic embeddings: {topic_path.stem} ({idx}/{total_topics})...",
+            )
+            loaded = load_issue_topic_file(str(topic_path), topic_path.stat().st_mtime_ns, topic_path.stem)
+            rows = loaded["rows"]
+            vectors = loaded["vectors"]
+            if vectors.shape[0] == 0:
+                continue
+            matched_indices: list[int] = []
+            matched_rows: list[dict[str, Any]] = []
+            for row_idx, row in enumerate(rows):
+                member_id = str(row.get("memberId") or "").upper()
+                if not member_id or member_id not in selected_lookup:
+                    continue
+                member = members_by_id.get(member_id, {})
+                row_out = dict(row)
+                row_out["memberId"] = member_id
+                row_out["memberName"] = str(member.get("name") or member_id)
+                row_out["partyName"] = str(member.get("partyName") or "Unknown")
+                row_out["state"] = str(member.get("state") or "Unknown")
+                row_out["memberLabel"] = f"{row_out['memberName']} ({member_id})"
+                matched_rows.append(row_out)
+                matched_indices.append(row_idx)
+                matched_members.add(member_id)
+            if not matched_indices:
+                continue
+            source_files_used.append(topic_path.name)
+            all_rows.extend(matched_rows)
+            vectors_list.append(vectors[matched_indices])
+        skipped_members = sorted(set(selected_id_list) - matched_members)
+    else:
+        for idx, member_id in enumerate(selected_id_list, start=1):
+            pct = int(5 + (idx / total_selected) * 45)
+            process_bar.progress(min(50, pct), text=f"Loading embeddings for {member_id} ({idx}/{total_selected})...")
+            member = members_by_id[member_id]
+            file_info = choose_file_for_member(member, source_filter)
+            if file_info is None:
+                skipped_members.append(member_id)
+                continue
+            rel_path = str(file_info.get("path") or "")
+            source_folder = str(file_info.get("sourceFolder") or "")
+            file_path = DATA_DIR / rel_path
+            if not file_path.exists():
+                skipped_members.append(member_id)
+                continue
+            loaded = load_member_file(str(file_path), file_path.stat().st_mtime_ns)
+            rows = loaded["rows"]
+            vectors = loaded["vectors"]
+            if vectors.shape[0] == 0:
+                skipped_members.append(member_id)
+                continue
+            source_files_used.append(rel_path)
+            if source_folder:
+                source_folders_used.append(source_folder)
+            rows_out: list[dict[str, Any]] = []
+            for row in rows:
+                row_out = dict(row)
+                row_out["memberId"] = member_id
+                row_out["memberName"] = str(member.get("name") or member_id)
+                row_out["partyName"] = str(member.get("partyName") or "Unknown")
+                row_out["state"] = str(member.get("state") or "Unknown")
+                row_out["memberLabel"] = f"{row_out['memberName']} ({member_id})"
+                rows_out.append(row_out)
+            all_rows.extend(rows_out)
+            vectors_list.append(vectors)
 
     if not vectors_list:
-        st.info("No embeddings available for selected members with the current source filter.")
+        if is_issue_mode:
+            st.info("No issue embeddings available for selected members/topics.")
+        else:
+            st.info("No embeddings available for selected members with the current source filter.")
         return
 
     unique_dims = sorted({int(v.shape[1]) for v in vectors_list if int(v.ndim) == 2})
     if len(unique_dims) > 1:
-        st.error(
-            "Embedding dimensions differ across selected members/files. "
-            "This typically means mixed embedding models. "
-            f"Detected dimensions: {unique_dims}. "
-            "Select a single `Source folder` so all members use the same embedding run."
-        )
+        if is_issue_mode:
+            st.error(
+                "Embedding dimensions differ across selected issue topic files. "
+                "This usually indicates mixed embedding models. "
+                f"Detected dimensions: {unique_dims}."
+            )
+        else:
+            st.error(
+                "Embedding dimensions differ across selected members/files. "
+                "This typically means mixed embedding models. "
+                f"Detected dimensions: {unique_dims}. "
+                "Select a single `Source folder` so all members use the same embedding run."
+            )
         return
 
     unique_source_folders = sorted({s for s in source_folders_used if s})
-    if source_filter == "Any" and len(unique_source_folders) > 1:
+    if not is_issue_mode and source_filter == "Any" and len(unique_source_folders) > 1:
         st.warning(
             "Mixed `Source folder` values detected across selected members. "
             "Best practice: use a single embedding run/model for meaningful clustering. "
@@ -1235,9 +1584,12 @@ def main() -> None:
     df["x"] = projected[:, 0]
     df["y"] = projected[:, 1]
 
-    style_map = assign_member_styles(df["memberId"].astype(str).tolist(), random_state)
-    df["memberStyleSymbol"] = df["memberId"].astype(str).map(lambda mid: style_map[mid]["symbol"])
-    df["memberStyleSize"] = df["memberId"].astype(str).map(lambda mid: style_map[mid]["size"])
+    member_style_map = assign_member_styles(df["memberId"].astype(str).tolist(), random_state)
+    member_color_map = assign_member_colors(df["memberLabel"].astype(str).tolist(), random_state)
+    df["memberStyleSymbol"] = df["memberId"].astype(str).map(lambda mid: member_style_map[mid]["symbol"])
+    df["memberStyleSize"] = df["memberId"].astype(str).map(lambda mid: member_style_map[mid]["size"])
+    df["pointSymbol"] = df["memberStyleSymbol"]
+    df["pointSize"] = df["memberStyleSize"]
 
     fcm_best_k = None
     fcm_centers: np.ndarray | None = None
@@ -1341,6 +1693,12 @@ def main() -> None:
         df["cluster"] = "unclustered"
         df["membership_top3"] = "-"
 
+    cluster_style_map: dict[str, dict[str, Any]] = {}
+    if cluster_mode != "None":
+        cluster_style_map = assign_cluster_styles(df["cluster"].astype(str).tolist(), random_state)
+        df["pointSymbol"] = df["cluster"].astype(str).map(lambda cid: cluster_style_map[cid]["symbol"])
+        df["pointSize"] = df["cluster"].astype(str).map(lambda cid: cluster_style_map[cid]["size"])
+
     process_bar.progress(95, text="Building charts...")
 
     member_visibility_map = {
@@ -1348,7 +1706,7 @@ def main() -> None:
         for mid, name in sorted(df[["memberId", "memberName"]].drop_duplicates().itertuples(index=False), key=lambda t: str(t[1]))
     }
     member_visibility_options = list(member_visibility_map.keys())
-    visible_members_key = "embedding_visible_members"
+    visible_members_key = f"embedding_visible_members_{dataset_mode}"
     existing_visible_members = st.session_state.get(visible_members_key)
     if not isinstance(existing_visible_members, list):
         st.session_state[visible_members_key] = member_visibility_options.copy()
@@ -1369,7 +1727,7 @@ def main() -> None:
     visible_clusters: list[str] = []
     if cluster_mode != "None":
         cluster_options = sorted(df["cluster"].astype(str).unique().tolist())
-        visible_clusters_key = "embedding_visible_clusters"
+        visible_clusters_key = f"embedding_visible_clusters_{dataset_mode}"
         existing_visible_clusters = st.session_state.get(visible_clusters_key)
         if not isinstance(existing_visible_clusters, list):
             st.session_state[visible_clusters_key] = cluster_options.copy()
@@ -1406,7 +1764,7 @@ def main() -> None:
         c4.metric("KNN clusters", str(knn_results["n_clusters"]) if knn_results else "-")
     else:
         c4.metric("Clusters", "-")
-    c5.metric("Files used", str(len(source_files_used)))
+    c5.metric("Topics used" if is_issue_mode else "Files used", str(len(source_files_used)))
 
     if df_view.empty:
         process_bar.progress(100, text="Embeddings and clustering ready.")
@@ -1414,7 +1772,7 @@ def main() -> None:
         st.info("No points visible with current member/cluster visibility filters.")
         return
 
-    color_field = "cluster" if cluster_mode != "None" else "memberLabel"
+    color_field = "memberLabel"
     df_view = df_view.copy()
     df_view["hover_member_party"] = df_view["memberName"].astype(str) + " (" + df_view["partyName"].astype(str) + ")"
     df_view["hover_title_wrapped"] = df_view["title"].astype(str).map(wrap_hover_title)
@@ -1422,7 +1780,12 @@ def main() -> None:
     df_view["hover_cluster"] = df_view["cluster"].astype(str).replace("", "-")
     df_view["hover_confidence"] = df_view["cluster_confidence"].map(format_hover_float)
     df_view["hover_uncertainty"] = df_view["cluster_uncertainty"].map(format_hover_float)
-    df_view["hover_source"] = df_view["textSource"].astype(str).replace("", "-")
+    if is_issue_mode:
+        source_info = df_view["textSource"].astype(str).replace("", "-")
+        topic_info = df_view["topic"].astype(str).replace("", "-")
+        df_view["hover_source"] = "Topic: " + topic_info + " | Source: " + source_info
+    else:
+        df_view["hover_source"] = df_view["textSource"].astype(str).replace("", "-")
     df_view["hover_chars"] = df_view["bodyCharCount"].map(format_hover_int)
     df_view["hover_membership"] = df_view["membership_top3"].astype(str).replace("", "-")
     df_view["hover_url_display"] = df_view["url"].astype(str).map(compact_hover_url)
@@ -1441,48 +1804,77 @@ def main() -> None:
         "hover_url_display",
         "title",
     ]
+    has_openable_urls = bool((df_view["url"].astype(str).str.strip() != "").any())
     show_cluster_stats = cluster_mode != "None"
     show_membership_hover = bool(include_membership_hover and cluster_mode == "Fuzzy C-Means" and fcm_best_k is not None)
     hover_template = build_embedding_hover_template(
         expanded=bool(expanded_hover),
         show_cluster_stats=show_cluster_stats,
         show_membership=show_membership_hover,
+        show_url=has_openable_urls,
     )
 
-    member_counts = (
-        df_view.groupby(["memberId", "memberName", "memberLabel"], as_index=False)
-        .size()
-        .rename(columns={"size": "points"})
-    )
-    legend_rows: list[dict[str, Any]] = []
-    for row in member_counts.to_dict(orient="records"):
-        member_id = str(row["memberId"])
-        style = style_map.get(member_id, {"symbol": "circle", "size": 8})
-        legend_rows.append(
-            {
-                "last_name": member_last_name(str(row["memberName"])),
-                "shape": str(style["symbol"]),
-                "size": int(style["size"]),
-                "points": int(row["points"]),
-            }
+    if cluster_mode != "None":
+        cluster_counts = (
+            df_view.groupby(["cluster"], as_index=False)
+            .size()
+            .rename(columns={"size": "points"})
         )
-    legend_rows = sorted(legend_rows, key=lambda r: str(r["last_name"]))
-    legend_text = " | ".join(
-        f"{row['last_name']} ({row['shape']}, {row['points']})"
-        for row in legend_rows
-    )
-    st.caption(f"Member shape legend: {legend_text}")
+        cluster_legend_rows: list[dict[str, Any]] = []
+        for row in cluster_counts.to_dict(orient="records"):
+            cluster_id = str(row["cluster"])
+            style = cluster_style_map.get(cluster_id, {"symbol": "circle", "size": 10})
+            cluster_legend_rows.append(
+                {
+                    "cluster": cluster_id,
+                    "shape": str(style["symbol"]),
+                    "points": int(row["points"]),
+                }
+            )
+        cluster_legend_rows = sorted(cluster_legend_rows, key=lambda r: str(r["cluster"]))
+        cluster_legend_text = " | ".join(
+            f"{row['cluster']} ({row['shape']}, {row['points']})"
+            for row in cluster_legend_rows
+        )
+        st.caption(f"Cluster shape legend: {cluster_legend_text}")
+        st.caption("Member identity is encoded by point color.")
+    else:
+        member_counts = (
+            df_view.groupby(["memberId", "memberName", "memberLabel"], as_index=False)
+            .size()
+            .rename(columns={"size": "points"})
+        )
+        legend_rows: list[dict[str, Any]] = []
+        for row in member_counts.to_dict(orient="records"):
+            member_id = str(row["memberId"])
+            style = member_style_map.get(member_id, {"symbol": "circle", "size": 8})
+            legend_rows.append(
+                {
+                    "last_name": member_last_name(str(row["memberName"])),
+                    "shape": str(style["symbol"]),
+                    "size": int(style["size"]),
+                    "points": int(row["points"]),
+                }
+            )
+        legend_rows = sorted(legend_rows, key=lambda r: str(r["last_name"]))
+        legend_text = " | ".join(
+            f"{row['last_name']} ({row['shape']}, {row['points']})"
+            for row in legend_rows
+        )
+        st.caption(f"Member shape legend: {legend_text}")
 
     fig = px.scatter(
         df_view,
         x="x",
         y="y",
         color=color_field,
-        symbol="memberStyleSymbol",
-        size="memberStyleSize",
+        symbol="pointSymbol",
+        symbol_map="identity",
+        size="pointSize",
         size_max=14,
+        color_discrete_map=member_color_map,
         custom_data=hover_customdata_cols,
-        title="Press Release Embeddings Projection",
+        title=("Issue Profile Topic Embeddings Projection" if is_issue_mode else "Press Release Embeddings Projection"),
         template="plotly_white",
     )
     fig.update_traces(
@@ -1491,15 +1883,19 @@ def main() -> None:
     )
     fig.update_layout(
         height=700,
-        legend_title_text=color_field,
+        legend_title_text=("Member" if color_field == "memberLabel" else color_field),
         hoverlabel={
             "bgcolor": "rgba(255, 255, 255, 0.98)",
             "bordercolor": "#1f2937",
             "font": {"color": "#111827", "size": 12},
         },
     )
-    render_ctrl_click_plotly_chart(fig, height=730, key="projection", url_customdata_index=9)
-    st.caption("Ctrl+click (or Cmd+click on macOS) a point to open the press release in a new tab.")
+    if has_openable_urls:
+        render_ctrl_click_plotly_chart(fig, height=730, key=f"projection-{dataset_mode}", url_customdata_index=9)
+        st.caption("Ctrl+click (or Cmd+click on macOS) a point to open the source URL in a new tab.")
+    else:
+        st.plotly_chart(fig, width="stretch")
+        st.caption("Issue-profile embeddings do not include public URLs; use hover and table details for context.")
     process_bar.progress(100, text="Embeddings and clustering ready.")
     process_bar.empty()
 
@@ -1582,8 +1978,8 @@ def main() -> None:
                 "customdata": df_view[hover_customdata_cols].to_numpy(),
                 "hovertemplate": hover_template,
                 "marker": {
-                    "size": df_view["memberStyleSize"],
-                    "symbol": df_view["memberStyleSymbol"],
+                    "size": df_view["pointSize"],
+                    "symbol": df_view["pointSymbol"],
                     "color": df_view["cluster_uncertainty"],
                     "colorscale": [(0.0, "#1a9850"), (0.5, "#fee08b"), (1.0, "#d73027")],
                     "cmin": 0.0,
@@ -1604,7 +2000,10 @@ def main() -> None:
             st.plotly_chart(uncertainty_fig, width="stretch")
 
     if skipped_members:
-        st.caption(f"Skipped members (no file for source filter): {', '.join(skipped_members)}")
+        if is_issue_mode:
+            st.caption(f"Selected members with no rows in selected topics: {', '.join(skipped_members)}")
+        else:
+            st.caption(f"Skipped members (no file for source filter): {', '.join(skipped_members)}")
 
     if fcm_results:
         st.subheader("FCM Cluster Scan")
@@ -1619,16 +2018,28 @@ def main() -> None:
         st.dataframe([knn_results], width="stretch", height=120, hide_index=True)
 
     st.subheader("Points")
-    points_table = df_view[["memberLabel", "date", "title", "cluster", "textSource", "bodyCharCount", "url"]].copy()
-    st.dataframe(
-        points_table,
-        width="stretch",
-        height=340,
-        hide_index=True,
-        column_config={
-            "url": st.column_config.LinkColumn("Press release URL", display_text="Open release"),
-        },
-    )
+    if is_issue_mode:
+        points_table = df_view[["memberLabel", "topic", "evidence", "date", "title", "cluster", "textSource", "bodyCharCount"]].copy()
+        points_table = points_table.rename(
+            columns={
+                "date": "updatedAt",
+                "title": "summary",
+                "textSource": "sourceIssueFile",
+                "bodyCharCount": "summaryChars",
+            }
+        )
+        st.dataframe(points_table, width="stretch", height=340, hide_index=True)
+    else:
+        points_table = df_view[["memberLabel", "date", "title", "cluster", "textSource", "bodyCharCount", "url"]].copy()
+        st.dataframe(
+            points_table,
+            width="stretch",
+            height=340,
+            hide_index=True,
+            column_config={
+                "url": st.column_config.LinkColumn("Press release URL", display_text="Open release"),
+            },
+        )
 
 
 if __name__ == "__main__":
