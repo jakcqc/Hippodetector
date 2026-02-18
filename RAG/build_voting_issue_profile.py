@@ -199,15 +199,15 @@ def call_archia_llm(prompt: str, max_retries: int = 3) -> str:
 
 
 def call_llm_with_fallback(prompt: str) -> str:
-    """Call LLM with Archia first, fallback to Gemini if Archia fails."""
-    # Try Archia first
+    """Call LLM with Archia first, fallback to Gemini immediately on failure."""
+    # Try Archia first (no retries - fail fast)
     try:
         if ARCHIA_API_KEY:
-            return call_archia_llm(prompt)
+            return call_archia_llm(prompt, max_retries=1)
         else:
             print("    Archia API key not found, using Gemini fallback...")
     except Exception as e:
-        print(f"    Archia failed: {e}")
+        print(f"    Archia failed on first attempt: {str(e)[:100]}")
         print("    Falling back to Gemini...")
 
     # Fallback to Gemini
