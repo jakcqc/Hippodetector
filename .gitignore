@@ -219,6 +219,9 @@ data/press_releases_by_bioguide.json
 data/stances/*.json
 data/voting_profiles/*.json
 
+# Archive
+archive/
+
 # Old structure (deprecated - kept for reference)
 # data/votes_*.json
 # data/members/*.json
