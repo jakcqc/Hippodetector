@@ -66,6 +66,9 @@ DEFAULT_MAX_VOTES = 10
 DEFAULT_BATCH_SIZE = 3  # Reduced from 5 to avoid API timeouts
 SUMMARY_TRUNCATE_CHARS = 30000  # ~7,500 tokens (40% of longest bill summary)
 
+# Track Archia availability (module-level state)
+_archia_available = None  # None = not tested yet, True = working, False = failed
+
 
 def load_voting_profile(bioguide_id: str) -> VotingProfile:
     """Load voting profile from JSON file."""
@@ -199,16 +202,29 @@ def call_archia_llm(prompt: str, max_retries: int = 3) -> str:
 
 
 def call_llm_with_fallback(prompt: str) -> str:
-    """Call LLM with Archia first, fallback to Gemini immediately on failure."""
+    """Call LLM with Archia first, fallback to Gemini immediately on failure.
+
+    After first Archia failure, skips Archia for all subsequent calls.
+    """
+    global _archia_available
+
+    # If Archia has already failed, skip directly to Gemini
+    if _archia_available is False:
+        return call_gemini_llm(prompt)
+
     # Try Archia first (no retries - fail fast)
     try:
         if ARCHIA_API_KEY:
-            return call_archia_llm(prompt, max_retries=1)
+            result = call_archia_llm(prompt, max_retries=1)
+            _archia_available = True  # Mark as working
+            return result
         else:
             print("    Archia API key not found, using Gemini fallback...")
+            _archia_available = False
     except Exception as e:
         print(f"    Archia failed on first attempt: {str(e)[:100]}")
-        print("    Falling back to Gemini...")
+        print("    Falling back to Gemini for this and all subsequent batches...")
+        _archia_available = False  # Mark as failed
 
     # Fallback to Gemini
     try:
@@ -281,6 +297,10 @@ def process_voting_records(
     verbose: bool = True
 ) -> CandidateIssueProfile:
     """Process voting records in batches to build issue profile."""
+    global _archia_available
+
+    # Reset Archia availability check for each politician
+    _archia_available = None
 
     # Initialize empty profile
     profile = CandidateIssueProfile()
